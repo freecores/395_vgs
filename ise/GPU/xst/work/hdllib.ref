@@ -1,0 +1,14 @@
+PH sdram NULL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" sub00/vhpl02 1126429018
+PB common common "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/common.vhd" sub00/vhpl01 1126429017
+EN dualport NULL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" sub00/vhpl05 1126429021
+AR gpuchip arch "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" sub00/vhpl11 1126429027
+AR dualport arch "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" sub00/vhpl06 1126429022
+EN xsasdramcntl NULL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" sub00/vhpl08 1126429024
+MO vga NULL ../../hdl/vga.v vlg6A/vga.bin 1126429017
+PH common NULL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/common.vhd" sub00/vhpl00 1126429016
+AR xsasdramcntl arch "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" sub00/vhpl09 1126429025
+AR sdramcntl arch "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" sub00/vhpl04 1126429020
+MO lfsr10 NULL ../../hdl/vga.v vlg50/lfsr10.bin 1126429017
+EN sdramcntl NULL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" sub00/vhpl03 1126429019
+EN gpuchip NULL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" sub00/vhpl10 1126429026
+PH xsasdram NULL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" sub00/vhpl07 1126429023

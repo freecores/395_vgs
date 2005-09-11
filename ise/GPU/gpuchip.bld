@@ -1,0 +1,24 @@
+Release 7.1.04i ngdbuild H.42
+Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
+
+Command Line: ngdbuild -intstyle ise -dd "c:\documents and settings\zuofu
+cheng\desktop\ece 395\ise\gpu/_ngo" -nt timestamp -uc ../../hdl/gpuchip.ucf -p
+xc2s100-tq144-5 gpuchip.ngc gpuchip.ngd 
+
+Reading NGO file 'c:/documents and settings/zuofu cheng/desktop/ece
+395/ise/gpu/gpuchip.ngc' ...
+
+Applying constraints in "../../hdl/gpuchip.ucf" to the design...
+
+Checking timing specifications ...
+Checking expanded design ...
+
+NGDBUILD Design Results Summary:
+  Number of errors:     0
+  Number of warnings:   0
+
+Total memory usage is 62588 kilobytes
+
+Writing NGD file "gpuchip.ngd" ...
+
+Writing NGDBUILD log file "gpuchip.bld"...

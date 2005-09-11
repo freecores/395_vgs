@@ -1,0 +1,767 @@
+Release 7.1.04i - xst H.42
+Copyright (c) 1995-2005 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to __projnav
+CPU : 0.00 / 0.36 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Parameter xsthdpdir set to ./xst
+CPU : 0.00 / 0.36 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Reading design: gpuchip.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) HDL Analysis
+  4) HDL Synthesis
+  5) Advanced HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Final Report
+     7.1) Device utilization summary
+     7.2) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "gpuchip.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "gpuchip"
+Output Format                      : NGC
+Target Device                      : xc2s100-5-tq144
+
+---- Source Options
+Top Module Name                    : gpuchip
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+Resource Sharing                   : YES
+Multiplier Style                   : lut
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100
+Add Generic Clock Buffer(BUFG)     : 4
+Register Duplication               : YES
+Equivalent register Removal        : YES
+Slice Packing                      : YES
+Pack IO Registers into IOBs        : auto
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : NO
+Global Optimization                : AllClockNets
+RTL Output                         : Yes
+Write Timing Constraints           : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+lso                                : gpuchip.lso
+Read Cores                         : YES
+cross_clock_analysis               : NO
+verilog2001                        : YES
+safe_implementation                : No
+Optimize Instantiated Primitives   : NO
+tristate2logic                     : Yes
+use_clock_enable                   : Yes
+use_sync_set                       : Yes
+use_sync_reset                     : Yes
+enable_auto_floorplanning          : No
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/common.vhd" in Library work.
+Architecture common of Entity common is up to date.
+Compiling vhdl file "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" in Library work.
+Architecture arch of Entity sdramcntl is up to date.
+Architecture arch of Entity dualport is up to date.
+Compiling vhdl file "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" in Library work.
+Architecture arch of Entity xsasdramcntl is up to date.
+Compiling vhdl file "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" in Library work.
+Entity <gpuchip> compiled.
+Entity <gpuchip> (Architecture <arch>) compiled.
+Compiling verilog file "../../hdl/vga.v"
+Module <vga> compiled
+Module <lfsr10> compiled
+No errors in compilation
+Analysis of file <"gpuchip.prj"> succeeded.
+ 
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <gpuchip> (Architecture <arch>).
+WARNING:Xst:753 - "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" line 167: Unconnected output port 'status0' of component 'dualport'.
+WARNING:Xst:753 - "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" line 167: Unconnected output port 'status1' of component 'dualport'.
+WARNING:Xst:819 - "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" line 344: The following signals are missing in the process sensitivity list:
+   hAddr_r.
+INFO:Xst:1304 - Contents of register <wr0> in unit <gpuchip> never changes during circuit operation. The register is replaced by logic.
+Entity <gpuchip> analyzed. Unit <gpuchip> generated.
+
+Analyzing generic Entity <dualport> (Architecture <arch>).
+	PIPE_EN = <u>1
+	PORT_TIME_SLOTS = <u>0000000000000000
+	DATA_WIDTH = 16
+	HADDR_WIDTH = 23
+Entity <dualport> analyzed. Unit <dualport> generated.
+
+Analyzing generic Entity <XSASDRAMCntl> (Architecture <arch>).
+	FREQ = 50000
+	CLK_DIV = 1.000000
+	PIPE_EN = <u>1
+	MAX_NOP = 10000
+	MULTIPLE_ACTIVE_ROWS = <u>1
+	DATA_WIDTH = 16
+	NROWS = 4096
+	NCOLS = 512
+	HADDR_WIDTH = 23
+	SADDR_WIDTH = 12
+Entity <XSASDRAMCntl> analyzed. Unit <XSASDRAMCntl> generated.
+
+Analyzing generic Entity <sdramCntl> (Architecture <arch>).
+	FREQ = 50000
+	IN_PHASE = <u>1
+	PIPE_EN = <u>1
+	MAX_NOP = 10000
+	MULTIPLE_ACTIVE_ROWS = <u>1
+	DATA_WIDTH = 16
+	NROWS = 4096
+	NCOLS = 512
+	HADDR_WIDTH = 23
+	SADDR_WIDTH = 12
+WARNING:Xst:819 - "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" line 333: The following signals are missing in the process sensitivity list:
+   activeBank_r, ba_r.
+Entity <sdramCntl> analyzed. Unit <sdramCntl> generated.
+
+Analyzing module <vga>.
+Module <vga> is correct for synthesis.
+ 
+Analyzing module <lfsr10>.
+Module <lfsr10> is correct for synthesis.
+ 
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <lfsr10>.
+    Related source file is "../../hdl/vga.v".
+    Found 10-bit register for signal <q>.
+    Found 1-bit xor3 for signal <$n0001> created at line 137.
+    Summary:
+	inferred  10 D-type flip-flop(s).
+	inferred   1 Xor(s).
+Unit <lfsr10> synthesized.
+
+
+Synthesizing Unit <sdramCntl>.
+    Related source file is "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd".
+WARNING:Xst:646 - Signal <col<11>> is assigned but never used.
+WARNING:Xst:646 - Signal <hDOutOppPhase_r> is assigned but never used.
+    Found finite state machine <FSM_0> for signal <state_r>.
+    -----------------------------------------------------------------------
+    | States             | 8                                              |
+    | Transitions        | 32                                             |
+    | Inputs             | 11                                             |
+    | Outputs            | 8                                              |
+    | Clock              | clk (rising_edge)                              |
+    | Clock enable       | $n0127 (negative)                              |
+    | Reset              | rst (positive)                                 |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | initwait                                       |
+    | Power Up State     | initwait                                       |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit 4-to-1 multiplexer for signal <$n0001> created at line 422.
+    Found 12-bit 4-to-1 multiplexer for signal <$n0121> created at line 422.
+    Found 2-bit comparator equal for signal <$n0130> created at line 603.
+    Found 2-bit subtractor for signal <$n0141> created at line 455.
+    Found 13-bit adder for signal <$n0142> created at line 484.
+    Found 13-bit subtractor for signal <$n0144>.
+    Found 10-bit subtractor for signal <$n0145> created at line 479.
+    Found 14-bit adder for signal <$n0146> created at line 439.
+    Found 14-bit subtractor for signal <$n0147> created at line 490.
+    Found 12-bit comparator not equal for signal <$n0163> created at line 422.
+    Found 1-bit register for signal <activeBank_r>.
+    Found 4-bit register for signal <activeFlag_r>.
+    Found 48-bit register for signal <activeRow_r>.
+    Found 2-bit register for signal <ba_r>.
+    Found 1-bit register for signal <cke_r>.
+    Found 6-bit register for signal <cmd_r>.
+    Found 1-bit 4-to-1 multiplexer for signal <doSelfRfsh>.
+    Found 16-bit register for signal <hDOut_r>.
+    Found 14-bit register for signal <nopCntr_r>.
+    Found 14-bit 4-to-1 multiplexer for signal <nopCntr_x>.
+    Found 1-bit register for signal <opBegun_r>.
+    Found 2-bit register for signal <rasTimer_r>.
+    Found 5-bit register for signal <rdPipeline_r>.
+    Found 10-bit register for signal <refTimer_r>.
+    Found 13-bit register for signal <rfshCntr_r>.
+    Found 12-bit register for signal <sAddr_r>.
+    Found 16-bit register for signal <sData_r>.
+    Found 1-bit register for signal <sDataDir_r>.
+    Found 14-bit register for signal <timer_r>.
+    Found 1-bit register for signal <wrPipeline_r<0>>.
+    Found 1-bit register for signal <wrTimer_r<0>>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred 152 D-type flip-flop(s).
+	inferred   6 Adder/Subtractor(s).
+	inferred   2 Comparator(s).
+	inferred  28 Multiplexer(s).
+Unit <sdramCntl> synthesized.
+
+
+Synthesizing Unit <vga>.
+    Related source file is "../../hdl/vga.v".
+    Found 1-bit register for signal <hsync_n>.
+    Found 1-bit register for signal <vsync_n>.
+    Found 1-bit register for signal <hen>.
+    Found 1-bit register for signal <henn>.
+    Found 3-bit up counter for signal <paircnt>.
+    Found 16-bit register for signal <pending>.
+    Found 1-bit 4-to-1 multiplexer for signal <pixel>.
+    Found 16-bit register for signal <sr>.
+    Found 1-bit register for signal <ven>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  37 D-type flip-flop(s).
+	inferred   1 Multiplexer(s).
+Unit <vga> synthesized.
+
+
+Synthesizing Unit <XSASDRAMCntl>.
+    Related source file is "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd".
+WARNING:Xst:646 - Signal <dllext_rst_n> is assigned but never used.
+WARNING:Xst:646 - Signal <int_clkdv_b> is assigned but never used.
+    Found 16-bit tristate buffer for signal <sData>.
+    Summary:
+	inferred  16 Tristate(s).
+Unit <XSASDRAMCntl> synthesized.
+
+
+Synthesizing Unit <dualport>.
+    Related source file is "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd".
+WARNING:Xst:647 - Input <opBegun> is never used.
+INFO:Xst:741 - HDL ADVISOR - A 16-bit shift register was found for signal <slot_r<0>> and currently occupies 16 logic cells (8 slices). Removing the set/reset logic would take advantage of SRL16 (and derived) primitives and reduce this to 1 logic cells (1 slices). Evaluate if the set/reset can be removed for this simple shift register. The majority of simple pipeline structures do not need to be set/reset operationally.
+    Found 1-bit register for signal <opBegun0>.
+    Found 1-bit register for signal <opBegun1>.
+    Found 1-bit register for signal <door_r<0>>.
+    Found 1-bit 4-to-1 multiplexer for signal <door_x<0>>.
+    Found 1-bit register for signal <port_r<0>>.
+    Found 1-bit 4-to-1 multiplexer for signal <port_x<0>>.
+    Found 1-bit 4-to-1 multiplexer for signal <rd_i>.
+    Found 16-bit register for signal <slot_r>.
+    Found 1-bit 4-to-1 multiplexer for signal <switch>.
+    Found 1-bit 4-to-1 multiplexer for signal <wr_i>.
+    Summary:
+	inferred  20 D-type flip-flop(s).
+	inferred   5 Multiplexer(s).
+Unit <dualport> synthesized.
+
+
+Synthesizing Unit <gpuchip>.
+    Related source file is "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd".
+WARNING:Xst:646 - Signal <rdDone0> is assigned but never used.
+WARNING:Xst:646 - Signal <rdDone1> is assigned but never used.
+WARNING:Xst:1780 - Signal <int_clk_by4> is never used or assigned.
+WARNING:Xst:646 - Signal <earlyOpBegun0> is assigned but never used.
+WARNING:Xst:646 - Signal <earlyOpBegun1> is assigned but never used.
+WARNING:Xst:646 - Signal <done1> is assigned but never used.
+WARNING:Xst:653 - Signal <hAddr1> is used but never assigned. Tied to value 00000000000000000000000.
+WARNING:Xst:646 - Signal <hDOut1> is assigned but never used.
+WARNING:Xst:653 - Signal <rd1> is used but never assigned. Tied to value 0.
+WARNING:Xst:646 - Signal <sdram_clk2x> is assigned but never used.
+WARNING:Xst:653 - Signal <wr1> is used but never assigned. Tied to value 0.
+WARNING:Xst:646 - Signal <opBegun0> is assigned but never used.
+WARNING:Xst:646 - Signal <opBegun1> is assigned but never used.
+WARNING:Xst:646 - Signal <rdPending0> is assigned but never used.
+WARNING:Xst:646 - Signal <rdPending1> is assigned but never used.
+WARNING:Xst:653 - Signal <hDIn0> is used but never assigned. Tied to value 0000000000000000.
+WARNING:Xst:653 - Signal <hDIn1> is used but never assigned. Tied to value 0000000000000000.
+    Found finite state machine <FSM_1> for signal <VGAState_r>.
+    -----------------------------------------------------------------------
+    | States             | 5                                              |
+    | Transitions        | 7                                              |
+    | Inputs             | 2                                              |
+    | Outputs            | 6                                              |
+    | Clock              | sysClk (rising_edge)                           |
+    | Reset              | sysReset (positive)                            |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | vga_idle                                       |
+    | Power Up State     | vga_idle                                       |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 23-bit adder for signal <$n0018> created at line 394.
+    Found 23-bit register for signal <hAddr_r>.
+    Found 1-bit register for signal <int_clk_by2>.
+    Found 1-bit register for signal <sysReset>.
+    Found 1-bit register for signal <vga_clk>.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred  26 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+Unit <gpuchip> synthesized.
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Advanced RAM inference ...
+Advanced multiplier inference ...
+Advanced Registered AddSub inference ...
+Analyzing FSM <FSM_1> for best encoding.
+Optimizing FSM <FSM_1> on signal <VGAState_r[1:5]> with speed1 encoding.
+-----------------------
+ State     | Encoding
+-----------------------
+ vga_idle  | 10000
+ vga_read0 | 01000
+ vga_read1 | 00100
+ vga_read2 | 00010
+ vga_read3 | 00001
+-----------------------
+Analyzing FSM <FSM_0> for best encoding.
+Optimizing FSM <FSM_0> on signal <state_r[1:8]> with one-hot encoding.
+-------------------------
+ State       | Encoding
+-------------------------
+ initwait    | 00000001
+ initpchg    | 00000010
+ initsetmode | 00001000
+ initrfsh    | 00000100
+ rw          | 00010000
+ activate    | 01000000
+ refreshrow  | 00100000
+ selfrefresh | 10000000
+-------------------------
+Dynamic shift register inference ...
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# FSMs                             : 2
+# Adders/Subtractors               : 7
+ 10-bit subtractor                 : 1
+ 13-bit adder                      : 1
+ 13-bit subtractor                 : 1
+ 14-bit adder                      : 1
+ 14-bit subtractor                 : 1
+ 2-bit subtractor                  : 1
+ 23-bit adder                      : 1
+# Counters                         : 1
+ 3-bit up counter                  : 1
+# Registers                        : 86
+ 1-bit register                    : 67
+ 10-bit register                   : 1
+ 12-bit register                   : 5
+ 13-bit register                   : 1
+ 14-bit register                   : 2
+ 16-bit register                   : 4
+ 2-bit register                    : 2
+ 23-bit register                   : 1
+ 4-bit register                    : 1
+ 5-bit register                    : 1
+ 6-bit register                    : 1
+# Comparators                      : 2
+ 12-bit comparator not equal       : 1
+ 2-bit comparator equal            : 1
+# Multiplexers                     : 10
+ 1-bit 4-to-1 multiplexer          : 8
+ 12-bit 4-to-1 multiplexer         : 1
+ 14-bit 4-to-1 multiplexer         : 1
+# Tristates                        : 1
+ 16-bit tristate buffer            : 1
+# Xors                             : 2
+ 1-bit xor3                        : 2
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1426 - The value init of the FF/Latch activeBank_r hinder the constant cleaning in the block sdramCntl.
+   You should achieve better results by setting this init to 1.
+Register <sDataDir_r> equivalent to <wrPipeline_r_0> has been removed
+Register <wrPipeline_r_0> equivalent to <wrTimer_r_0> has been removed
+WARNING:Xst:1291 - FF/Latch <opBegun1> is unconnected in block <u1>.
+WARNING:Xst:1291 - FF/Latch <opBegun0> is unconnected in block <u1>.
+WARNING:Xst:1291 - FF/Latch <opBegun_r> is unconnected in block <u1>.
+WARNING:Xst:1710 - FF/Latch  <cmd_r_5> (without init value) has a constant value of 0 in block <sdramCntl>.
+Register <cmd_r_1> equivalent to <cmd_r_0> has been removed
+WARNING:Xst:1710 - FF/Latch  <slot_r_15> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_14> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_13> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_12> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_11> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_10> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_9> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_8> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_7> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_6> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_5> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_4> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_3> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_2> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_1> (without init value) has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <slot_r_0> (without init value) has a constant value of 0 in block <dualport>.
+
+Optimizing unit <gpuchip> ...
+
+Optimizing unit <sdramCntl> ...
+
+Optimizing unit <dualport> ...
+WARNING:Xst:1293 - FF/Latch  <port_r_0> has a constant value of 0 in block <dualport>.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch  <opBegun1> (without init value) has a constant value of 0 in block <dualport>.
+
+Optimizing unit <vga> ...
+Loading device for application Rf_Device from file 'v100.nph' in environment C:/Xilinx.
+
+Mapping all equations...
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_10> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_9> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_8> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_7> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_6> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_5> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_4> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_3> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_2> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_1> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_0> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_15> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_14> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_13> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_12> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1710 - FF/Latch  <u2/u1/sData_r_11> (without init value) has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1293 - FF/Latch  <u2/u1/wrTimer_r_0> has a constant value of 0 in block <gpuchip>.
+WARNING:Xst:1291 - FF/Latch <u2/u1/opBegun_r> is unconnected in block <gpuchip>.
+WARNING:Xst:1291 - FF/Latch <u1/opBegun0> is unconnected in block <gpuchip>.
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block gpuchip, actual ratio is 20.
+FlipFlop hAddr_r_21 has been replicated 1 time(s)
+FlipFlop hAddr_r_22 has been replicated 3 time(s)
+FlipFlop sysReset has been replicated 6 time(s)
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : gpuchip.ngr
+Top Level Output File Name         : gpuchip
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : NO
+
+Design Statistics
+# IOs                              : 50
+
+Macro Statistics :
+# Registers                        : 92
+#      1-bit register              : 74
+#      12-bit register             : 5
+#      13-bit register             : 1
+#      14-bit register             : 2
+#      16-bit register             : 4
+#      2-bit register              : 2
+#      23-bit register             : 1
+#      3-bit register              : 1
+#      4-bit register              : 1
+#      5-bit register              : 1
+# Multiplexers                     : 10
+#      1-bit 4-to-1 multiplexer    : 8
+#      12-bit 4-to-1 multiplexer   : 1
+#      14-bit 4-to-1 multiplexer   : 1
+# Tristates                        : 1
+#      16-bit tristate buffer      : 1
+# Adders/Subtractors               : 6
+#      10-bit subtractor           : 1
+#      13-bit adder                : 1
+#      13-bit subtractor           : 1
+#      14-bit adder                : 1
+#      14-bit subtractor           : 1
+#      23-bit adder                : 1
+# Comparators                      : 1
+#      12-bit comparator not equal : 1
+# Xors                             : 2
+#      1-bit xor3                  : 2
+
+Cell Usage :
+# BELS                             : 631
+#      GND                         : 1
+#      INV                         : 38
+#      LUT1                        : 50
+#      LUT2                        : 26
+#      LUT2_D                      : 2
+#      LUT2_L                      : 24
+#      LUT3                        : 48
+#      LUT3_D                      : 4
+#      LUT3_L                      : 53
+#      LUT4                        : 90
+#      LUT4_D                      : 20
+#      LUT4_L                      : 84
+#      MUXCY                       : 87
+#      MUXF5                       : 19
+#      VCC                         : 1
+#      XORCY                       : 84
+# FlipFlops/Latches                : 256
+#      FDC                         : 121
+#      FDCE                        : 64
+#      FDE                         : 49
+#      FDP                         : 10
+#      FDPE                        : 3
+#      FDR                         : 2
+#      FDS                         : 7
+# Shifters                         : 1
+#      SRL16                       : 1
+# Clock Buffers                    : 4
+#      BUFG                        : 4
+# IO Buffers                       : 50
+#      IBUF                        : 1
+#      IBUFG                       : 2
+#      IOBUF                       : 16
+#      OBUF                        : 31
+# DLLs                             : 2
+#      CLKDLL                      : 2
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 2s100tq144-5 
+
+ Number of Slices:                     262  out of   1200    21%  
+ Number of Slice Flip Flops:           256  out of   2400    10%  
+ Number of 4 input LUTs:               402  out of   2400    16%  
+ Number of bonded IOBs:                 50  out of     96    52%  
+ Number of GCLKs:                        4  out of      4   100%  
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+int_clk_by2:Q                      | NONE                   | 1     |
+pin_clkin                          | IBUFG                  | 196   |
+vga_clk:Q                          | BUFG                   | 60    |
+-----------------------------------+------------------------+-------+
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+
+Timing Summary:
+---------------
+Speed Grade: -5
+
+   Minimum period: 15.231ns (Maximum Frequency: 65.656MHz)
+   Minimum input arrival time before clock: 5.430ns
+   Maximum output required time after clock: 16.575ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'int_clk_by2:Q'
+  Clock period: 9.298ns (frequency: 107.550MHz)
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Delay:               9.298ns (Levels of Logic = 1)
+  Source:            vga_clk (FF)
+  Destination:       vga_clk (FF)
+  Source Clock:      int_clk_by2:Q rising
+  Destination Clock: int_clk_by2:Q rising
+
+  Data Path: vga_clk to vga_clk
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDR:C->Q              1   1.292   1.150  vga_clk (vga_clk1)
+     BUFG:I->O            62   0.773   5.300  vga_clk_BUFG (vga_clk)
+     FDR:R                     0.783          vga_clk
+    ----------------------------------------
+    Total                      9.298ns (2.848ns logic, 6.450ns route)
+                                       (30.6% logic, 69.4% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'pin_clkin'
+  Clock period: 15.231ns (frequency: 65.656MHz)
+  Total number of paths / destination ports: 6823 / 244
+-------------------------------------------------------------------------
+Delay:               15.231ns (Levels of Logic = 6)
+  Source:            u2/u1/rfshCntr_r_10 (FF)
+  Destination:       u2/u1/activeFlag_r_0 (FF)
+  Source Clock:      pin_clkin rising
+  Destination Clock: pin_clkin rising
+
+  Data Path: u2/u1/rfshCntr_r_10 to u2/u1/activeFlag_r_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              4   1.292   1.600  u2/u1/rfshCntr_r_10 (u2/u1/rfshCntr_r_10)
+     LUT4:I0->O            2   0.653   1.340  u2/u1/Ker5625 (CHOICE650)
+     LUT4:I1->O           15   0.653   2.700  u2/u1/_n01641 (u2/u1/_n0164)
+     LUT4_L:I1->LO         1   0.653   0.100  u2/u1/Ker158_SW0 (N1112)
+     LUT4:I1->O            8   0.653   2.050  u2/u1/Ker158 (u2/u1/N1)
+     MUXF5:S->O            1   0.981   1.150  u2/u1/_n024024_SW11 (N1146)
+     LUT4_L:I0->LO         1   0.653   0.000  u2/u1/_n024044 (u2/u1/activeFlag_x<2>)
+     FDC:D                     0.753          u2/u1/activeFlag_r_2
+    ----------------------------------------
+    Total                     15.231ns (6.291ns logic, 8.940ns route)
+                                       (41.3% logic, 58.7% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'vga_clk:Q'
+  Clock period: 11.493ns (frequency: 87.009MHz)
+  Total number of paths / destination ports: 407 / 61
+-------------------------------------------------------------------------
+Delay:               11.493ns (Levels of Logic = 5)
+  Source:            u3/vctr/q_4 (FF)
+  Destination:       u3/paircnt_1 (FF)
+  Source Clock:      vga_clk:Q rising
+  Destination Clock: vga_clk:Q rising
+
+  Data Path: u3/vctr/q_4 to u3/paircnt_1
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             3   1.292   1.480  u3/vctr/q_4 (u3/vctr/q_4)
+     LUT2:I0->O            1   0.653   1.150  u3/Ker5_SW0 (N151)
+     LUT4_D:I3->LO         1   0.653   0.100  u3/Ker5 (N1286)
+     LUT4:I0->O            5   0.653   1.740  u3/Ker101 (u3/N10)
+     LUT3_D:I0->LO         1   0.653   0.100  u3/vsyncoff1 (N1289)
+     LUT3:I2->O            3   0.653   1.480  u3/_n00221 (u3/_n0022)
+     FDCE:CE                   0.886          u3/paircnt_0
+    ----------------------------------------
+    Total                     11.493ns (5.443ns logic, 6.050ns route)
+                                       (47.4% logic, 52.6% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'pin_clkin'
+  Total number of paths / destination ports: 23 / 23
+-------------------------------------------------------------------------
+Offset:              5.430ns (Levels of Logic = 2)
+  Source:            pin_pushbtn (PAD)
+  Destination:       sysReset (FF)
+  Destination Clock: pin_clkin rising
+
+  Data Path: pin_pushbtn to sysReset
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   0.924   1.150  pin_pushbtn_IBUF (pin_pushbtn_IBUF)
+     INV:I->O              7   0.653   1.950  _n00211_INV_0 (_n0021)
+     FDS:D                     0.753          sysReset
+    ----------------------------------------
+    Total                      5.430ns (2.330ns logic, 3.100ns route)
+                                       (42.9% logic, 57.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'pin_clkin'
+  Total number of paths / destination ports: 20 / 20
+-------------------------------------------------------------------------
+Offset:              8.189ns (Levels of Logic = 1)
+  Source:            u2/u1/cmd_r_0 (FF)
+  Destination:       pin_dqmh (PAD)
+  Source Clock:      pin_clkin rising
+
+  Data Path: u2/u1/cmd_r_0 to pin_dqmh
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              2   1.292   1.340  u2/u1/cmd_r_0 (u2/u1/cmd_r_0)
+     OBUF:I->O                 5.557          pin_dqmh_OBUF (pin_dqmh)
+    ----------------------------------------
+    Total                      8.189ns (6.849ns logic, 1.340ns route)
+                                       (83.6% logic, 16.4% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'vga_clk:Q'
+  Total number of paths / destination ports: 26 / 8
+-------------------------------------------------------------------------
+Offset:              12.495ns (Levels of Logic = 3)
+  Source:            u3/hen (FF)
+  Destination:       pin_green<1> (PAD)
+  Source Clock:      vga_clk:Q rising
+
+  Data Path: u3/hen to pin_green<1>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              2   1.292   1.340  u3/hen (u3/hen)
+     LUT2:I0->O            1   0.653   1.150  u3/r<1>1 (u3/N2)
+     LUT4:I1->O            6   0.653   1.850  u3/r<1>2 (pin_blue_1_OBUF)
+     OBUF:I->O                 5.557          pin_green_0_OBUF (pin_green<0>)
+    ----------------------------------------
+    Total                     12.495ns (8.155ns logic, 4.340ns route)
+                                       (65.3% logic, 34.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'int_clk_by2:Q'
+  Total number of paths / destination ports: 6 / 6
+-------------------------------------------------------------------------
+Offset:              16.575ns (Levels of Logic = 3)
+  Source:            vga_clk (FF)
+  Destination:       pin_green<1> (PAD)
+  Source Clock:      int_clk_by2:Q rising
+
+  Data Path: vga_clk to pin_green<1>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDR:C->Q              1   1.292   1.150  vga_clk (vga_clk1)
+     BUFG:I->O            62   0.773   5.300  vga_clk_BUFG (vga_clk)
+     LUT4:I0->O            6   0.653   1.850  u3/r<1>2 (pin_blue_1_OBUF)
+     OBUF:I->O                 5.557          pin_green_0_OBUF (pin_green<0>)
+    ----------------------------------------
+    Total                     16.575ns (8.275ns logic, 8.300ns route)
+                                       (49.9% logic, 50.1% route)
+
+=========================================================================
+CPU : 22.25 / 22.67 s | Elapsed : 23.00 / 23.00 s
+ 
+--> 
+
+Total memory usage is 92788 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   68 (   0 filtered)
+Number of infos    :    4 (   0 filtered)
+

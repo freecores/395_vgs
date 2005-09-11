@@ -1,0 +1,1 @@
+set allSynthModules {common.MOD dualport.MOD sdramcntl.MOD sdram.MOD xsasdramcntl.MOD lfsr10.MOD vga.MOD xsasdram.MOD gpuchip.MOD}

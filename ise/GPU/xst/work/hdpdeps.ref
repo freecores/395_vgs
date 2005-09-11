@@ -1,0 +1,49 @@
+V2 24
+FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" 2005/09/11.03:31:31 H.42
+PH work/XSASDRAM 1126429023 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" \
+      PB ieee/STD_LOGIC_1164 1106404628 PH ieee/NUMERIC_STD 1106404639 \
+      PH unisim/VCOMPONENTS 1122082370 PB work/COMMON 1126429017 PH work/SDRAM 1126429018
+EN work/XSASDRAMCNTL 1126429024 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" \
+      PB ieee/STD_LOGIC_1164 1106404628 PH ieee/NUMERIC_STD 1106404639 \
+      PH unisim/VCOMPONENTS 1122082370 PB work/COMMON 1126429017 PH work/SDRAM 1126429018
+AR work/XSASDRAMCNTL/ARCH 1126429025 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/xsasdramcntl.vhd" \
+      EN work/XSASDRAMCNTL 1126429024 CP IBUFG CP CLKDLL     CP BUFG           CP SRL16 \
+      CP SDRAMCNTL
+FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" 2005/09/10.20:58:37 H.42
+PH work/SDRAM 1126429018 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" \
+      PB ieee/STD_LOGIC_1164 1106404628
+EN work/SDRAMCNTL 1126429019 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" \
+      PB ieee/STD_LOGIC_1164 1106404628 PB ieee/STD_LOGIC_UNSIGNED 1106404634 \
+      PH ieee/NUMERIC_STD 1106404639 PB work/COMMON 1126429017
+AR work/SDRAMCNTL/ARCH 1126429020 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" \
+      EN work/SDRAMCNTL 1126429019
+EN work/DUALPORT 1126429021 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" \
+      PB ieee/STD_LOGIC_1164 1106404628 PB ieee/STD_LOGIC_UNSIGNED 1106404634 \
+      PH ieee/NUMERIC_STD 1106404639 PB work/COMMON 1126429017
+AR work/DUALPORT/ARCH 1126429022 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/sdramcntl.vhd" \
+      EN work/DUALPORT 1126429021
+FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" 2005/09/11.03:56:50 H.42
+EN work/GPUCHIP 1126429026 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" \
+      PB ieee/STD_LOGIC_1164 1106404628 PB ieee/STD_LOGIC_UNSIGNED 1106404634 \
+      PH ieee/NUMERIC_STD 1106404639 PB work/COMMON 1126429017 PH work/XSASDRAM 1126429023 \
+      PH work/SDRAM 1126429018
+AR work/GPUCHIP/ARCH 1126429027 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/gpuchip.vhd" \
+      EN work/GPUCHIP 1126429026 CP DUALPORT CP XSASDRAMCNTL CP VGA
+FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/common.vhd" 2005/09/10.20:19:27 H.42
+PH work/COMMON 1126429016 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/common.vhd" \
+      PB ieee/STD_LOGIC_1164 1106404628 PH ieee/NUMERIC_STD 1106404639
+PB work/COMMON 1126429017 \
+      FL "c:/documents and settings/zuofu cheng/desktop/ece 395/ise/gpu/../../hdl/common.vhd" \
+      PH work/COMMON 1126429016 PB ieee/STD_LOGIC_1164 1106404628 \
+      PH ieee/NUMERIC_STD 1106404639
