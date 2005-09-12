@@ -1,5 +1,0 @@
-vhdl work "../../hdl/common.vhd"
-vhdl work "../../hdl/sdramcntl.vhd"
-vhdl work "../../hdl/xsasdramcntl.vhd"
-verilog work "../../hdl/vga.v"
-vhdl work "../../hdl/gpuchip.vhd"
