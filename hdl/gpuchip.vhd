@@ -29,6 +29,7 @@ use WORK.common.all;
 use WORK.xsasdram.all;
 use WORK.sdram.all;
 use WORK.vga_pckg.all;
+use WORK.fillunit_pckg.all;
 
 entity gpuChip is
 	
@@ -48,7 +49,7 @@ entity gpuChip is
     	PIXELS_PER_LINE :       natural 								:= 320; -- width of image in pixels
     	LINES_PER_FRAME :       natural 								:= 240;  -- height of image in scanlines
     	FIT_TO_SCREEN   :       boolean 								:= true;  -- adapt video timing to fit image width x 		 
-	   PORT_TIME_SLOTS :       std_logic_vector(15 downto 0) := "0000000000000000"
+	   PORT_TIME_SLOTS :       std_logic_vector(15 downto 0) := "0000111100001111"
    );
 	
 	port(
@@ -246,10 +247,11 @@ begin
       dqml         => pin_dqml              -- SDRAM DQML
       );
 
+------------------------------------------------------------------------------------------------------------
+-- instance of vga
+------------------------------------------------------------------------------------------------------------
+ 
 
-  ------------------------------------------------------------------------
-  -- Instantiate the VGA module
-  ------------------------------------------------------------------------
  	u3 : vga
     generic map (
       FREQ            => FREQ,
@@ -274,6 +276,32 @@ begin
       vsync_n         => pin_vsync_n,   -- vertical sync
       blank           => open
       );
+
+------------------------------------------------------------------------------------------------------------
+-- instance of fill-unit
+------------------------------------------------------------------------------------------------------------
+ 
+  u4: fillunit
+  generic map(
+    FREQ         	=> FREQ, 
+    DATA_WIDTH    => DATA_WIDTH,
+    HADDR_WIDTH   => ADDR_WIDTH
+    )
+  port map(
+    clk           => sdram_clk1x,      -- master clock
+	 reset			=> sysReset,    	 -- reset for this entity
+ 	 rd1           => rd1,				 -- initiate read operation
+    wr1           => wr1,				 -- initiate write operation
+    opBegun		   => opBegun1,		 --operation recieved
+	 done1      	=> done1,				 -- read or write operation is done
+    hAddr1        => hAddr1,	 	    -- address to SDRAM
+    hDIn1         => hDIn1,		    -- data to dualport to SDRAM
+    hDOut1        => hDOut1		    -- data from dualport to SDRAM
+    );
+
+
+
+
 --------------------------------------------------------------------------------------------------------------
 -- End of Submodules
 --------------------------------------------------------------------------------------------------------------
