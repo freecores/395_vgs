@@ -42,11 +42,11 @@ entity gpuChip is
    	SADDR_WIDTH 	 : 		natural								:= 12;
 	  	DATA_WIDTH      :       natural 								:= 16;  -- SDRAM databus width
 		ADDR_WIDTH      :       natural 								:= 22;  -- host-side address width
-	 	VGA_CLK_DIV     :       natural 								:= 1;  -- pixel clock = FREQ / CLK_DIV
+	 	VGA_CLK_DIV     :       natural 								:= 2;  -- pixel clock = FREQ / CLK_DIV
    	PIXEL_WIDTH     :       natural 								:= 8;  -- width of a pixel in memory
     	NUM_RGB_BITS    :       natural 								:= 2;  -- #bits in each R,G,B component of a pixel
-    	PIXELS_PER_LINE :       natural 								:= 800;  -- width of image in pixels
-    	LINES_PER_FRAME :       natural 								:= 600;  -- height of image in scanlines
+    	PIXELS_PER_LINE :       natural 								:= 640;  -- width of image in pixels
+    	LINES_PER_FRAME :       natural 								:= 480;  -- height of image in scanlines
     	FIT_TO_SCREEN   :       boolean 								:= true;  -- adapt video timing to fit image width x 		 
 	   PORT_TIME_SLOTS :       std_logic_vector(15 downto 0) := "0000000000000000"
    );
@@ -90,8 +90,6 @@ architecture arch of gpuChip is
    signal sysClk  										: std_logic;  -- system clock
    signal sysReset 										: std_logic;  -- system reset
 	
-	signal int_clk_by2									: std_logic;  --intermediate clock (divide by 2)
-	signal int_clk_by4									: std_logic;  --intermediate clock (divide by 4)
 
 	 --Application Side Signals for the DualPort Controller
   	signal rst_i											: std_logic; 	--tied reset signal
@@ -270,48 +268,24 @@ begin
       r               => pin_red,       -- RGB components (output)
       g               => pin_green,
       b               => pin_blue,
-      hsync_n         => pin_hsync_n,       -- horizontal sync
-      vsync_n         => pin_vsync_n,       -- vertical sync
+      hsync_n         => pin_hsync_n,   -- horizontal sync
+      vsync_n         => pin_vsync_n,   -- vertical sync
       blank           => open
       );
 --------------------------------------------------------------------------------------------------------------
 -- End of Submodules
 --------------------------------------------------------------------------------------------------------------
 -- Begin Top Level Module
-	
+
+-- connect internal signals	
 	rst_i <= sysReset;
-	pin_ce_n <= '1';				-- disable Flash RAM
-  	rd0 <= not full;           -- negate the full signal for use in controlling the SDRAM read operation
-	hDIn0 <= "0000000000000000000000";
+	pin_ce_n <= '1';							-- disable Flash RAM
+  	rd0 <= not full;          				-- negate the full signal for use in controlling the SDRAM read operation
+	hDIn0 <= "0000000000000000000000"; 	-- don't need to write to port 0 (VGA Port)
 	wr0 <= '0';
 	hAddr0 <= std_logic_vector(vga_address);
 
---											
---	-- cascaded clock dividers
---	process(sysClk)
---	begin
---		if (rising_edge(sysClk)) then
---			if (int_clk_by2 = HI) then
---				int_clk_by2 <= LO;
---			else
---				int_clk_by2 <= HI;
---			end if;
---	end if;
---	end process;
---
---	process(int_clk_by2)
---	begin
---		if (rising_edge(int_clk_by2)) then
---			if (vga_clk = HI) then
---				vga_clk <= LO;
---			else
---				vga_clk <= HI;
---			end if;
---	end if;
---	end process;
-
-	-- connect internal registers to external busses
-	-- Port1 is reserved for VGA	
+	-- Port0 is reserved for VGA	
 
    -- update the SDRAM address counter
    process(sdram_clk1x)
@@ -325,6 +299,7 @@ begin
      end if;
    end process;
 
+	--process reset circuitry
 	process(sdram_bufclk)
 	begin
 		if (rising_edge(sdram_bufclk)) then
