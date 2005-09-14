@@ -89,7 +89,6 @@ architecture arch of gpuChip is
 	--internal signals
    signal sysClk  										: std_logic;  -- system clock
    signal sysReset 										: std_logic;  -- system reset
-	
 
 	 --Application Side Signals for the DualPort Controller
   	signal rst_i											: std_logic; 	--tied reset signal
@@ -127,7 +126,10 @@ architecture arch of gpuChip is
 	signal eof         									: std_logic;      -- end-of-frame signal from VGA controller
    signal full												: std_logic;      -- indicates when the VGA pixel buffer is full
    signal vga_address      							: unsigned(ADDR_WIDTH-1 downto 0);  -- SDRAM address counter 
+	signal pixels											: std_logic_vector(DATA_WIDTH-1 downto 0);
 	signal rst_n											: std_logic;		--VGA reset (active low)
+	signal drawframe										: std_logic;  -- flag to indicate whether we are drawing current frame	
+
 --------------------------------------------------------------------------------------------------------------
 -- Beginning of Submodules
 -- All instances of submodules and signals associated with them
@@ -262,7 +264,7 @@ begin
       rst             => rst_i,
       clk             => sdram_clk1x,   -- use the resync'ed master clock so VGA generator is in sync with SDRAM
       wr              => rdDone0,       -- write to pixel buffer when the data read from SDRAM is available
-      pixel_data_in   => hDOut0, 		 -- pixel data from SDRAM
+      pixel_data_in   => pixels, 		 -- pixel data from SDRAM
       full            => full,          -- indicates when the pixel buffer is full
       eof             => eof,           -- indicates when the VGA generator has finished a video frame
       r               => pin_red,       -- RGB components (output)
@@ -279,23 +281,28 @@ begin
 
 -- connect internal signals	
 	rst_i <= sysReset;
-	pin_ce_n <= '1';							-- disable Flash RAM
-  	rd0 <= not full;          				-- negate the full signal for use in controlling the SDRAM read operation
-	hDIn0 <= "0000000000000000000000"; 	-- don't need to write to port 0 (VGA Port)
+	pin_ce_n <= '1';						  -- disable Flash RAM
+  	rd0 <= ((not full) and drawframe); -- negate the full signal for use in controlling the SDRAM read operation
+	hDIn0 <= "0000000000000000000000"; -- don't need to write to port 0 (VGA Port)
 	wr0 <= '0';
 	hAddr0 <= std_logic_vector(vga_address);
 
-	-- Port0 is reserved for VGA	
+	-- Port0 is reserved for VGA
+
+	pixels <= hDOut0 when drawframe = '1' else "00000000";
 
    -- update the SDRAM address counter
    process(sdram_clk1x)
    begin
      if rising_edge(sdram_clk1x) then
        if eof = YES then
-         vga_address <= "00000000000000000000000";  -- reset the address at the end of a video frame
+         drawframe <= not drawframe; 					 -- draw every other frame
+			vga_address <= "00000000000000000000000";  -- reset the address at the end of a video frame
        elsif earlyOpBegun0 = YES then
          vga_address <= vga_address + 1;         -- go to the next address once the read of the current address has begun
-       end if;
+		 elsif drawframe = '0' then	
+		  vga_address <= vga_address + 1;   		--if we're not drawing a frame, keep incrementing the address      
+		 end if;
      end if;
    end process;
 
