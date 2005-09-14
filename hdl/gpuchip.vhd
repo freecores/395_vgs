@@ -42,11 +42,11 @@ entity gpuChip is
    	SADDR_WIDTH 	 : 		natural								:= 12;
 	  	DATA_WIDTH      :       natural 								:= 16;  -- SDRAM databus width
 		ADDR_WIDTH      :       natural 								:= 23;  -- host-side address width
-	 	VGA_CLK_DIV     :       natural 								:= 2;  -- pixel clock = FREQ / CLK_DIV
+	 	VGA_CLK_DIV     :       natural 								:= 4;  -- pixel clock = FREQ / CLK_DIV
    	PIXEL_WIDTH     :       natural 								:= 8;  -- width of a pixel in memory
     	NUM_RGB_BITS    :       natural 								:= 2;  -- #bits in each R,G,B component of a pixel
-    	PIXELS_PER_LINE :       natural 								:= 640;  -- width of image in pixels
-    	LINES_PER_FRAME :       natural 								:= 480;  -- height of image in scanlines
+    	PIXELS_PER_LINE :       natural 								:= 320; -- width of image in pixels
+    	LINES_PER_FRAME :       natural 								:= 240;  -- height of image in scanlines
     	FIT_TO_SCREEN   :       boolean 								:= true;  -- adapt video timing to fit image width x 		 
 	   PORT_TIME_SLOTS :       std_logic_vector(15 downto 0) := "0000000000000000"
    );
