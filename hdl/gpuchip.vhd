@@ -29,11 +29,7 @@ use WORK.common.all;
 use WORK.xsasdram.all;
 use WORK.sdram.all;
 use WORK.vga_pckg.all;
-<<<<<<< gpuchip.vhd
 use WORK.gpu_core_pckg.all;
-=======
-use WORK.fillunit_pckg.all;
->>>>>>> 1.5
 
 entity gpuChip is
 	
