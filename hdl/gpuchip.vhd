@@ -29,7 +29,11 @@ use WORK.common.all;
 use WORK.xsasdram.all;
 use WORK.sdram.all;
 use WORK.vga_pckg.all;
+<<<<<<< gpuchip.vhd
+use WORK.gpu_core_pckg.all;
+=======
 use WORK.fillunit_pckg.all;
+>>>>>>> 1.5
 
 entity gpuChip is
 	
@@ -63,6 +67,12 @@ entity gpuChip is
 		pin_blue    : out std_logic_vector(1 downto 0);
 		pin_hsync_n : out std_logic;
 		pin_vsync_n : out std_logic;
+
+		-- SRAM Cache connections
+		pin_cData  : inout std_logic_vector(15 downto 0);	-- data bus to Cache
+		pin_cAddr  : out std_logic_vector(14 downto 0);		-- Cache address bus
+		pin_cwrite : out std_logic;
+		pin_cread  : out std_logic;
 
 		-- SDRAM pin connections
 		pin_sclkfb : in std_logic;                   -- feedback SDRAM clock with PCB delays
@@ -277,30 +287,52 @@ begin
       blank           => open
       );
 
+
 ------------------------------------------------------------------------------------------------------------
 -- instance of fill-unit
 ------------------------------------------------------------------------------------------------------------
  
-  u4: fillunit
-  generic map(
+--  u4: fillunit
+--  generic map(
+--    FREQ         	=> FREQ, 
+--    DATA_WIDTH    => DATA_WIDTH,
+--    HADDR_WIDTH   => ADDR_WIDTH
+--    )
+--  port map(
+--    clk           => sdram_clk1x,      -- master clock
+--	 reset			=> sysReset,    	 -- reset for this entity
+-- 	 rd1           => rd1,				 -- initiate read operation
+--    wr1           => wr1,				 -- initiate write operation
+--    opBegun		   => opBegun1,		 --operation recieved
+--	 done1      	=> done1,				 -- read or write operation is done
+--    hAddr1        => hAddr1,	 	    -- address to SDRAM
+--    hDIn1         => hDIn1,		    -- data to dualport to SDRAM
+--    hDOut1        => hDOut1		    -- data from dualport to SDRAM
+--    );
+--
+
+	u5: gpu_core
+	generic map(
     FREQ         	=> FREQ, 
     DATA_WIDTH    => DATA_WIDTH,
     HADDR_WIDTH   => ADDR_WIDTH
     )
-  port map(
-    clk           => sdram_clk1x,      -- master clock
-	 reset			=> sysReset,    	 -- reset for this entity
- 	 rd1           => rd1,				 -- initiate read operation
-    wr1           => wr1,				 -- initiate write operation
-    opBegun		   => opBegun1,		 --operation recieved
-	 done1      	=> done1,				 -- read or write operation is done
-    hAddr1        => hAddr1,	 	    -- address to SDRAM
-    hDIn1         => hDIn1,		    -- data to dualport to SDRAM
-    hDOut1        => hDOut1		    -- data from dualport to SDRAM
-    );
-
-
-
+  port map (
+    clk				=>sdram_clk1x,                 
+	 rst				=>sysReset,		 
+ 	 rd1           =>rd1,      
+    wr1           =>wr1,       
+    opBegun       =>opBegun1,       
+    done1         =>done1,
+	 rddone1			=>rddone1,      
+    hAddr1        =>hAddr1,    
+    hDIn1         =>hDIn1,     
+    hDOut1        =>hDOut1,     
+	 CacheDIn		=>pin_cData,			 
+	 CacheAddr		=>pin_cAddr,		
+	 cread 			=>pin_cread,	
+	 cwrite			=>pin_cwrite
+	 );
 
 --------------------------------------------------------------------------------------------------------------
 -- End of Submodules
@@ -311,7 +343,7 @@ begin
 	rst_i <= sysReset;
 	pin_ce_n <= '1';						  -- disable Flash RAM
   	rd0 <= ((not full) and drawframe); -- negate the full signal for use in controlling the SDRAM read operation
-	hDIn0 <= "0000000000000000000000"; -- don't need to write to port 0 (VGA Port)
+	hDIn0 <= "0000000000000000"; -- don't need to write to port 0 (VGA Port)
 	wr0 <= '0';
 	hAddr0 <= std_logic_vector(vga_address);
 
