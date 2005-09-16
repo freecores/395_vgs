@@ -87,24 +87,35 @@ type cntrl_state is (idle, write_state, wait_state);
 signal pixeldata, output	 : std_logic_vector(15 downto 0); -- broken down to 2 8 bit pixels
 signal currentbuffer, write, start : std_logic;
 signal address 				 : std_logic_vector(22 downto 0); 
-
+signal counter 				 : std_logic_vector(11 downto 0);
 begin
 	hDIn1 <= output;
 	hAddr1 <= address;
 	wr1 <= '1';
 	start <= '1';
+	output <= pixeldata;
 
-	process (clk)
-	begin
+
+	process (clk, reset)
+	begin	 
 	   if rising_edge(clk) then
 	 		if address = "0000001001011000000000" then
 					address <= "00000000000000000000000";
-					output <= "1111111111111111";
+					counter <= counter + 1;
 			elsif done1 = '1' then
 					address <= address + 1;
 			
 			end if;
 		end if;
-end process;
+	end process;
+		
+screendivide: process (counter)
+	begin
+		if (counter = "100000000000") then
+			pixeldata <= pixeldata + "0000010000000100";
+		else
+			pixeldata <= pixeldata;
+		end if;
+	end process;
 
 end arch;
