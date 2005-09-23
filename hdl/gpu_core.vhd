@@ -1,3 +1,25 @@
+--ECE395 GPU:
+--GPU Core Intermediate Block
+--=====================================================
+--Designed by:
+--Zuofu Cheng
+--James Cavanaugh
+--Eric Sands
+--
+--of the University of Illinois at Urbana Champaign
+--under the direction of Dr. Lippold Haken
+--====================================================
+--
+--Heavily based off of HDL examples provided by XESS Corporation
+--www.xess.com
+--
+--Based in part on Doug Hodson's work which in turn
+--was based off of the XSOC from Gray Research LLC.
+--										
+--
+--release under the GNU General Public License
+--and kindly hosted by www.opencores.org
+
 library IEEE, UNISIM;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
@@ -35,28 +57,6 @@ package GPU_core_pckg is
 	end component GPU_core;
 end package GPU_core_pckg;
 
-
-
-
---------------------------------------------------------------------------------
--- Company: 
--- Engineer:
---
--- Create Date:    21:06:27 09/14/05
--- Design Name:    
--- Module Name:    GPU_core - Behavioral
--- Project Name:   
--- Target Device:  
--- Tool versions:  
--- Description:
---
--- Dependencies:
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
---------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
@@ -106,82 +106,6 @@ signal datain_q, dataout_q : std_logic_vector(DATA_WIDTH-1 downto 0);
 signal level_q : std_logic_vector(7 downto 0);
 
 begin
-
---	getstate : process (clk, rst, state)
---	begin
---
---		if rst = '0' then
---			state <= wait4Go;
---		elsif state = wait4Go then
---			if start_read = '1' then
---				state <= getLine;
---			end if;
---		end if;
---
---	end process;
---	getandwritedata : process(clk, rst, start_read, rdPending1, done1, dataout_q, opBegun1, datain_q)
---	begin
---		if rst = '1' then
---			state <= wait4Go;
---			wr_q <= '0';
---			rd_q <= '0';
---			wr1 <= '0';
---			rd1 <= '0';
---			hAddr1 <= (others => '0');
---		else
---
---		case state is
---			when wait4Go =>
---				if start_read = '1' then
---					state <= getLine;
---				end if;
---
---			when writeLine =>
---				address <= target_address;
---				stop_address <= size + target_address;
---				if rising_edge(clk) then
---					-- check to see if the Line is done being written into SDRAM
---					if address = stop_address and
---						opBegun1 = '0' and done1 = '0' then
---						state <= wait4Go;
---					end if;
---
---					rd_q <= '1';				-- read from the queue
---					hDIn1	<= dataout_q;		-- data from the queue to SDRAM
---					wr1 <= '1';					-- write to the SDRAM
---					hAddr1 <= address;		-- 	at target_address
---
---					if done1 = '1' then
---						address <= address + 1;
---					end if;
---
---				end if;
---
---			when getLine => 
---				address <= source_address;
---				stop_address <= size + source_address;
---				if rising_edge(clk) then
---
---					-- check to see if the Line is loaded into the queue
---					if address = stop_address and					-- entire line has been read
---						rdPending1 = '0' and done1 = '0' then	-- read operation is complete
---						state <= writeLine;
---					end if;
---
---					wr_q <= '1';
---					datain_q <= hDOut1;
---					rd1 <= '1';
---					hAddr1 <= address;
---
---					if done1 = '1' then
---						address <= address + 1;
---					end if;
---
---				end if;
---			end case;
---			end if;
---	end process;
-
 
 	statemachineread : process()
 	begin
@@ -274,40 +198,6 @@ begin
 		end if;
 	end process;
 	
---	getLinedata : process( clk, rst, rdPending1, done1, opBegun1, datain_q)
---	begin
---		if rst = '1' then
---			state <= wait4Go;
---			wr_q <= '0';
---			rd_q <= '0';
---			wr1 <= '0';
---			rd1 <= '0';
---			count <= (others <= '0');
---		elsif state <= getLine then 
---			address <= source_address;
---			if rising_edge(clk) then
---
---				-- check to see if the Line is loaded into the queue
---				if count = size and								-- entire line has been read
---					rdPending = '0' and done1 = '0' then	-- read operation is complete
---					state <= writeLine;
---				end if;
---
---				wr_q <= '1';
---				datain_q <= hDOut1;
---				rd1 <= 1;
---				hAddr1 <= address;
---
---				if done1 = '1' then
---						count <= count + 1;
---						address <= address + 1;
---				end if;
---
---			end if;
---		end if;
---	end process;	 	
-
-
 u1 : fifo_cc
 port map(
 		clk=>clk,

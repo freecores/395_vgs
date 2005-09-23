@@ -345,7 +345,7 @@ begin
 
 	-- Port0 is reserved for VGA
 
-	pixels <= hDOut0 when drawframe = '1' else "00000000";
+	pixels <= hDOut0 when drawframe = '1' else "0000000000000000";
 
    -- update the SDRAM address counter
    process(sdram_clk1x)
