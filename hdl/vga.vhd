@@ -31,6 +31,28 @@ package vga_pckg is
 end package vga_pckg;
 
 
+library ieee, unisim;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use unisim.vcomponents.all;
+
+
+package fifo_cc_pckg is
+	component fifo_cc is
+  	port (
+  	  clk      : in  std_logic;
+  	  rst      : in  std_logic;
+  	  rd       : in  std_logic;
+  	  wr       : in  std_logic;
+  	  data_in  : in  std_logic_vector(15 downto 0);
+  	  data_out : out std_logic_vector(15 downto 0);
+  	  full     : out std_logic;
+  	  empty    : out std_logic;
+  	  level    : out std_logic_vector(7 downto 0)
+  	  );
+	end component fifo_cc;
+end package fifo_cc_pckg;
+
 
 library IEEE, unisim;
 use IEEE.std_logic_1164.all;
@@ -42,9 +64,9 @@ entity vga is
   generic (
     FREQ            :     natural := 50_000;  -- master clock frequency (in KHz)
     CLK_DIV         :     natural := 1;  -- FREQ / CLK_DIV = pixel clock
-    PIXEL_WIDTH     :     natural := 4;  -- pixel width: 1, 2, 4, 8, or 16 bits
-    PIXELS_PER_LINE :     natural := 1024;  -- pixels per video scan line
-    LINES_PER_FRAME :     natural := 512;  -- scan lines per video frame
+    PIXEL_WIDTH     :     natural := 8;  -- pixel width: 1, 2, 4, 8, or 16 bits
+    PIXELS_PER_LINE :     natural := 320;  -- pixels per video scan line
+    LINES_PER_FRAME :     natural := 200;  -- scan lines per video frame
     NUM_RGB_BITS    :     natural := 2;  -- width of R, G and B color output buses
     FIT_TO_SCREEN   :     boolean := true  -- fit width x length to monitor screen
     );
