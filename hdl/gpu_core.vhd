@@ -105,7 +105,7 @@ signal current_state,next_state : state_type;
 
 signal address : std_logic_vector(HADDR_WIDTH-1 downto 0);
 signal output : std_logic_vector(15 downto 0);
-signal stop_address : std_logic_vector(HADDR_WIDTH-1 downto 0);
+--signal stop_address : std_logic_vector(HADDR_WIDTH-1 downto 0);
 
 signal wr_q, rd_q, full_q, empty_q : std_logic;
 signal datain_q, dataout_q : std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -148,12 +148,12 @@ port map(
 				wr_q <= '0';
 			end if;
 
-			if rdDone1 = '0' and done1 = '1' then
-				rd_q <= '1';
-				hDIn1 <= dataout_q;
-			else
-				rd_q <= '0';
-			end if;
+--			if rdDone1 = '0' and done1 = '1' then
+--				rd_q <= '1';
+--				hDIn1 <= dataout_q;
+--			else
+--				rd_q <= '0';
+--			end if;
 		end if;
 	end process;
 
@@ -175,6 +175,7 @@ port map(
 
 			rd1 <= '0';
 			address <= source_address;
+			hAddr1 <= "00000000000000000000000";
 
 			if start_read = '1' then
 				next_state <= read0;
@@ -234,9 +235,35 @@ port map(
 			rd_q <= '1';
 			hDIn1 <= dataout_q;
 
-		when write1 =>
-		when write2 =>
+			if opBegun1 = '1' then
+				next_state <= write1;
+			end if;
 
+		when write1 =>
+			wr1 <= '1';
+			hAddr1 <= address;
+			address <= address + 1;
+			rd_q <= '1';
+			hDin1 <= dataout_q;
+
+			if (empty_q = '0' and opBegun1 = '1') then
+				next_state <= write2;
+			elsif (empty_q = '1') then
+				next_state <= halt;
+			end if;
+
+		when write2 =>
+			wr1 <= '1';
+			hAddr1 <= address;
+			address <= address + 1;
+			rd_q <= '1';
+			hDin1 <= dataout_q;
+
+			if (empty_q = '0' and opBegun1 = '1') then
+				next_state <= write1;
+			elsif (empty_q = '1') then
+				next_state <= halt;
+			end if;
 
 	end case;
 	end process;
