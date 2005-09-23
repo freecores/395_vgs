@@ -65,10 +65,10 @@ entity gpuChip is
 		pin_vsync_n : out std_logic;
 
 		-- SRAM Cache connections
-		pin_cData  : inout std_logic_vector(15 downto 0);	-- data bus to Cache
-		pin_cAddr  : out std_logic_vector(14 downto 0);		-- Cache address bus
-		pin_cwrite : out std_logic;
-		pin_cread  : out std_logic;
+		--pin_cData  : inout std_logic_vector(15 downto 0);	-- data bus to Cache
+		--pin_cAddr  : out std_logic_vector(14 downto 0);		-- Cache address bus
+		--pin_cwrite : out std_logic;
+		--pin_cread  : out std_logic;
 
 		-- SDRAM pin connections
 		pin_sclkfb : in std_logic;                   -- feedback SDRAM clock with PCB delays
@@ -97,6 +97,11 @@ architecture arch of gpuChip is
    signal sysClk  										: std_logic;  -- system clock
    signal sysReset 										: std_logic;  -- system reset
 
+	signal start_read										: std_logic;
+	signal source_address								: std_logic_vector(ADDR_WIDTH-1 downto 0);
+	signal target_address								: std_logic_vector(ADDR_WIDTH-1 downto 0);
+	signal end_address									: std_logic_vector(ADDR_WIDTH-1 downto 0);
+		
 	 --Application Side Signals for the DualPort Controller
   	signal rst_i											: std_logic; 	--tied reset signal
    signal opBegun0, opBegun1                	   : std_logic;  -- read/write operation started indicator
@@ -314,20 +319,25 @@ begin
     HADDR_WIDTH   => ADDR_WIDTH
     )
   port map (
-    clk				=>sdram_clk1x,                 
-	 rst				=>sysReset,		 
- 	 rd1           =>rd1,      
-    wr1           =>wr1,       
-    opBegun       =>opBegun1,       
-    done1         =>done1,
-	 rddone1			=>rddone1,      
-    hAddr1        =>hAddr1,    
-    hDIn1         =>hDIn1,     
-    hDOut1        =>hDOut1,     
-	 CacheDIn		=>pin_cData,			 
-	 CacheAddr		=>pin_cAddr,		
-	 cread 			=>pin_cread,	
-	 cwrite			=>pin_cwrite
+    clk				 =>sdram_clk1x,                 
+	 rst				 =>sysReset,		 
+ 	 rd1            =>rd1,      
+    wr1            =>wr1,       
+    opBegun1       =>opBegun1,       
+    done1          =>done1,
+	 rddone1		 	 =>rddone1,      
+    rdPending1		 =>rdPending1,
+	 start_read		 =>start_read,
+	 source_address =>source_address, 
+	 target_address =>target_address,
+	 end_address    =>end_address,
+	 hAddr1         =>hAddr1,    
+    hDIn1          =>hDIn1,     
+    hDOut1         =>hDOut1     
+	 --CacheDIn		=>pin_cData,			 
+	 --CacheAddr		=>pin_cAddr,		
+	 --cread 			=>pin_cread,	
+	 --cwrite			=>pin_cwrite
 	 );
 
 --------------------------------------------------------------------------------------------------------------
