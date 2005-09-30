@@ -29,6 +29,7 @@ use WORK.common.all;
 use WORK.xsasdram.all;
 use WORK.sdram.all;
 use WORK.vga_pckg.all;
+use WORK.blitter_pckg.all;
 
 entity gpuChip is
 	
@@ -41,21 +42,21 @@ entity gpuChip is
       NCOLS           :       natural                       := 256;  -- number of columns in each SDRAM row
    	SADDR_WIDTH 	 : 		natural								:= 12;
 	  	DATA_WIDTH      :       natural 								:= 16;  -- SDRAM databus width
-		ADDR_WIDTH      :       natural 								:= 22;  -- host-side address width
-	 	VGA_CLK_DIV     :       natural 								:= 2;  -- pixel clock = FREQ / CLK_DIV
+		ADDR_WIDTH      :       natural 								:= 23;  -- host-side address width
+	 	VGA_CLK_DIV     :       natural 								:= 4;  -- pixel clock = FREQ / CLK_DIV
    	PIXEL_WIDTH     :       natural 								:= 8;  -- width of a pixel in memory
     	NUM_RGB_BITS    :       natural 								:= 2;  -- #bits in each R,G,B component of a pixel
-    	PIXELS_PER_LINE :       natural 								:= 640;  -- width of image in pixels
-    	LINES_PER_FRAME :       natural 								:= 480;  -- height of image in scanlines
+    	PIXELS_PER_LINE :       natural 								:= 320; -- width of image in pixels
+    	LINES_PER_FRAME :       natural 								:= 240;  -- height of image in scanlines
     	FIT_TO_SCREEN   :       boolean 								:= true;  -- adapt video timing to fit image width x 		 
-	   PORT_TIME_SLOTS :       std_logic_vector(15 downto 0) := "0000000000000000"
+	   PORT_TIME_SLOTS :       std_logic_vector(15 downto 0) := "0000111111111111"
    );
 	
 	port(
 		pin_clkin   : in std_logic;       -- main clock input from external clock source
 		pin_ce_n    : out std_logic;      -- Flash RAM chip-enable
 		pin_pushbtn : in std_logic;
-		
+	
 		-- vga port connections
 		pin_red     : out std_logic_vector(1 downto 0);
 		pin_green   : out std_logic_vector(1 downto 0);
@@ -86,10 +87,43 @@ architecture arch of gpuChip is
 	constant HI:	std_logic := '1';
 	constant LO:	std_logic := '0';
 
-	--internal signals
-   signal sysClk  										: std_logic;  -- system clock
-   signal sysReset 										: std_logic;  -- system reset
+	type gpuState is (
+	 INIT,                           -- init
+    INIT_BKG,
+	 DRAW_BKG,
+	 BLIT_REST,                           
+    INIT_SPRITE,                       
+	 DRAW_SPRITE,								
+	 UPDATE  
+	 );
 	
+	signal state_r, state_x : gpuState;  -- state register and next state
+
+	--registers
+	signal plane0_dest_r, plane0_dest_x 		: std_logic_vector (ADDR_WIDTH - 1 downto 0);  -- sprite dest register
+	signal plane0_ypos_r, plane0_ypos_x			: std_logic_vector (11 downto 0);
+	signal delay_r, delay_x 						: std_logic_vector (19 downto 0); 				  --20 bit counter for delay
+	signal source_address_x, source_address_r : std_logic_vector (ADDR_WIDTH -1 downto 0);
+	signal target_address_x, target_address_r : std_logic_vector (ADDR_WIDTH -1 downto 0);
+	signal line_size_x, line_size_r 				: std_logic_vector (11 downto 0);
+	signal source_lines_x, source_lines_r 		: std_logic_vector (15 downto 0);
+	signal alphaOp_x, alphaOp_r 					: std_logic;
+	signal front_buffer_x, front_buffer_r		: std_logic;
+
+	--internal signals
+   signal sysReset 										: std_logic;  -- system reset
+	signal blit_reset										: std_logic;
+	signal reset_blitter									: std_logic;
+
+	-- Blitter signals
+  	signal blit_begin										: std_logic;
+  	signal source_address				            : std_logic_vector(ADDR_WIDTH-1 downto 0);
+	signal source_lines									: std_logic_vector (15 downto 0);
+	signal line_size										: std_logic_vector (11 downto 0);
+	signal target_address								: std_logic_vector(ADDR_WIDTH-1 downto 0);
+	signal blit_done									 	: std_logic;	
+	signal alphaOp											: std_logic;
+	signal front_buffer									: std_logic;
 
 	 --Application Side Signals for the DualPort Controller
   	signal rst_i											: std_logic; 	--tied reset signal
@@ -127,7 +161,10 @@ architecture arch of gpuChip is
 	signal eof         									: std_logic;      -- end-of-frame signal from VGA controller
    signal full												: std_logic;      -- indicates when the VGA pixel buffer is full
    signal vga_address      							: unsigned(ADDR_WIDTH-1 downto 0);  -- SDRAM address counter 
+	signal pixels											: std_logic_vector(DATA_WIDTH-1 downto 0);
 	signal rst_n											: std_logic;		--VGA reset (active low)
+	signal drawframe										: std_logic;  -- flag to indicate whether we are drawing current frame	
+
 --------------------------------------------------------------------------------------------------------------
 -- Beginning of Submodules
 -- All instances of submodules and signals associated with them
@@ -177,7 +214,8 @@ begin
       hDIn1           => hDIn1,
       hDOut1          => hDOut1,
       status1         => open,
-      -- connections to the SDRAM controller
+      
+		-- connections to the SDRAM controller
       rst             => sdram_rst,
       rd              => sdram_rd,
       wr              => sdram_wr,
@@ -244,10 +282,11 @@ begin
       dqml         => pin_dqml              -- SDRAM DQML
       );
 
+------------------------------------------------------------------------------------------------------------
+-- Instance of VGA driver, this unit generates the video signals from VRAM
+------------------------------------------------------------------------------------------------------------
+ 
 
-  ------------------------------------------------------------------------
-  -- Instantiate the VGA module
-  ------------------------------------------------------------------------
  	u3 : vga
     generic map (
       FREQ            => FREQ,
@@ -262,7 +301,7 @@ begin
       rst             => rst_i,
       clk             => sdram_clk1x,   -- use the resync'ed master clock so VGA generator is in sync with SDRAM
       wr              => rdDone0,       -- write to pixel buffer when the data read from SDRAM is available
-      pixel_data_in   => hDOut0, 		 -- pixel data from SDRAM
+      pixel_data_in   => pixels, 		 -- pixel data from SDRAM
       full            => full,          -- indicates when the pixel buffer is full
       eof             => eof,           -- indicates when the VGA generator has finished a video frame
       r               => pin_red,       -- RGB components (output)
@@ -272,31 +311,184 @@ begin
       vsync_n         => pin_vsync_n,   -- vertical sync
       blank           => open
       );
+
+------------------------------------------------------------------------------------------------------------
+-- instance of main blitter
+------------------------------------------------------------------------------------------------------------
+ 
+	u4: Blitter
+	generic map(
+    FREQ         	=> FREQ, 
+    PIPE_EN       => PIPE_EN,
+  	 DATA_WIDTH    => DATA_WIDTH,
+    ADDR_WIDTH    => ADDR_WIDTH
+    )
+  port map (
+    clk				 =>sdram_clk1x,             
+	 rst				 =>blit_reset,		 
+ 	 rd             =>rd1,      
+    wr             =>wr1,       
+    opBegun        =>opBegun1,       
+    earlyopBegun   =>earlyOpBegun1,       
+    done           =>done1,
+	 rddone		 	 =>rddone1,      
+    rdPending		 =>rdPending1,
+	 Addr           =>hAddr1,    
+    DIn            =>hDIn1,     
+    DOut           =>hDOut1,     
+	 blit_begin		 =>blit_begin,
+	 source_address =>source_address, 
+	 source_lines	 =>source_lines,
+	 target_address =>target_address,
+	 line_size		 =>line_size,
+	 alphaOp			 =>alphaOp,
+	 blit_done		 =>blit_done,
+	 front_buffer	 =>front_buffer
+	 );
+
 --------------------------------------------------------------------------------------------------------------
 -- End of Submodules
 --------------------------------------------------------------------------------------------------------------
 -- Begin Top Level Module
 
--- connect internal signals	
+	-- connect internal signals	
 	rst_i <= sysReset;
-	pin_ce_n <= '1';							-- disable Flash RAM
-  	rd0 <= not full;          				-- negate the full signal for use in controlling the SDRAM read operation
-	hDIn0 <= "0000000000000000000000"; 	-- don't need to write to port 0 (VGA Port)
+	pin_ce_n <= '1';						  -- disable Flash RAM
+  	
+	rd0 <= ((not full) and drawframe); -- negate the full signal for use in controlling the SDRAM read operation
+	hDIn0 <= "0000000000000000"; 		  -- don't need to write to port 0 (VGA Port)
 	wr0 <= '0';
 	hAddr0 <= std_logic_vector(vga_address);
+	
+	blit_reset <= rst_i or reset_blitter;
 
-	-- Port0 is reserved for VGA	
+	-- Port0 is reserved for VGA
+	pixels <= hDOut0 when drawframe = '1' else "0000000000000000";
+
+	source_address	<= source_address_r;
+	line_size		<= line_size_r;
+	target_address	<= target_address_r;
+	source_lines	<= source_lines_r;
+	alphaOp			<= alphaOp_r;
+	front_buffer	<= YES;--front_buffer_r;	
+
+	comb:process(state_r, delay_r, plane0_dest_r)
+	begin
+	  	blit_begin <= NO;						--default operations		
+		reset_blitter <= NO;
+		
+		state_x 				<= state_r;			 		--default register values
+		delay_x  			<= delay_r + 1;
+	   source_address_x	<= source_address_r;
+		line_size_x 		<= line_size_r;
+		target_address_x 	<= target_address_r;
+		source_lines_x		<= source_lines_r;
+		alphaOp_x			<= alphaOp_r;
+		plane0_dest_x 		<= plane0_dest_r;
+		plane0_ypos_x	 	<= plane0_ypos_r;
+		front_buffer_x 	<= front_buffer_r;
+			
+		case state_r is
+			when INIT =>
+				blit_begin <= NO;
+				reset_blitter <= YES;
+				state_x <= INIT_BKG;
+				plane0_dest_x <= x"000060";
+				plane0_ypos_x <= x"000";
+				front_buffer_x <= YES;
+
+			when INIT_BKG	=>
+				--flip buffers	
+				source_address_x	<= x"012C00";
+				line_size_x       <= x"0A0";
+				target_address_x  <= x"000000";
+				source_lines_x		<= x"00EF";
+				alphaOp_x 			<= NO; 				
+				blit_begin <= YES;
+				state_x <= DRAW_BKG;
+		
+			when DRAW_BKG =>
+			   blit_begin <= YES;
+			
+				if (blit_done = YES) then
+					reset_blitter <= YES;
+					state_x <= BLIT_REST;
+				end if;
+
+			when BLIT_REST =>
+				source_address_x	<= x"01EBE5";
+				line_size_x 		<= x"024";
+				target_address_x  <= plane0_dest_r;
+				source_lines_x		<= x"004E";
+				alphaOp_x			<= YES;
+			
+				reset_blitter <= YES;
+				state_x <= INIT_SPRITE;
+
+	   	when INIT_SPRITE =>
+				blit_begin <= YES;
+
+				state_x <= DRAW_SPRITE;
+	                   
+			when DRAW_SPRITE	=>
+				blit_begin <= YES;
+
+				if (blit_done = YES) then
+					reset_blitter <= YES;
+					state_x <= UPDATE;
+				end if;	
+		 						
+			when UPDATE =>	
+			 	reset_blitter <= YES;
+				if (delay_r = x"FFFFF") then 
+					plane0_dest_x <= plane0_dest_r + x"000140";
+					plane0_ypos_x <= plane0_ypos_r + x"001";
+					if (plane0_ypos_r = x"050") then 
+						plane0_dest_x <= x"000060";
+						plane0_ypos_x <= x"000";							
+					end if;
+					state_x <= INIT_BKG;
+				end if;
+			
+		end case;
+	end process;
 
    -- update the SDRAM address counter
    process(sdram_clk1x)
    begin
      if rising_edge(sdram_clk1x) then
-       if eof = YES then
-         vga_address <= "0000000000000000000000";  -- reset the address at the end of a video frame
-       elsif earlyOpBegun0 = YES then
-         vga_address <= vga_address + 1;         -- go to the next address once the read of the current address has begun
-       end if;
-     end if;
+		
+		 --VGA Related Stuff
+		 if eof = YES then
+         drawframe <= not drawframe; 					 -- draw every other frame
+
+			-- reset the address at the end of a video frame depending on which buffer is the front
+			if (front_buffer = YES) then
+				vga_address <= x"000000";
+			else
+				vga_address <= x"009600";
+			end if;
+		 elsif (earlyOpBegun0 = YES) then
+		  	vga_address <= vga_address + 1;            -- go to the next address once the read of the current address has begun
+		 end if;
+   	
+		--reset stuff
+		if (sysReset = YES) then
+		   state_r <= INIT;
+		end if;
+
+ 		state_r 				<= state_x;
+		delay_r  			<= delay_x;
+		source_address_r	<= source_address_x;
+		line_size_r 		<= line_size_x;
+		target_address_r 	<= target_address_x;
+		source_lines_r		<= source_lines_x;
+     	alphaOp_r			<= alphaOp_x;
+	   plane0_dest_r 		<= plane0_dest_x;
+		plane0_ypos_r	 	<= plane0_ypos_x;
+		front_buffer_r		<= front_buffer_x;
+		  
+	  end if;
    end process;
 
 	--process reset circuitry
@@ -311,6 +503,4 @@ begin
 			end if;
 		end if;
 	end process;
-
-	
 end arch;

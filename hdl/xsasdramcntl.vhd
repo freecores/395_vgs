@@ -99,9 +99,9 @@ entity XSASDRAMCntl is
   generic(
     FREQ                 :     natural := 50_000;  -- operating frequency in KHz
     CLK_DIV              :     real    := 1.0;  -- divisor for FREQ (can only be 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 8.0 or 16.0)
-    PIPE_EN              :     boolean := false;  -- if true, enable pipelined read operations
+    PIPE_EN              :     boolean := true;  -- if true, enable pipelined read operations
     MAX_NOP              :     natural := 10000;  -- number of NOPs before entering self-refresh
-    MULTIPLE_ACTIVE_ROWS :     boolean := false;  -- if true, allow an active row in each bank
+    MULTIPLE_ACTIVE_ROWS :     boolean := true;  -- if true, allow an active row in each bank
     DATA_WIDTH           :     natural := 16;  -- host & SDRAM data width
     NROWS                :     natural := 4096;  -- number of rows in SDRAM array
     NCOLS                :     natural := 512;  -- number of columns in SDRAM array

@@ -333,7 +333,8 @@ begin
   combinatorial : process(rd, wr, hAddr, hDIn, hDOut_r, sDIn, state_r, opBegun_x,
                           activeFlag_r, activeRow_r, rdPipeline_r, wrPipeline_r,
                           hDOutOppPhase_r, nopCntr_r, lock, rfshCntr_r, timer_r, rasTimer_r,
-                          wrTimer_r, refTimer_r, cmd_r, cke_r)
+                          wrTimer_r, refTimer_r, cmd_r, cke_r, activeBank_r, ba_r) -- last 3 signals added
+								  																			  -- by Eric
   begin
 
     -----------------------------------------------------------
