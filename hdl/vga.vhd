@@ -10,8 +10,8 @@ package vga_pckg is
       FREQ            :     natural := 50_000;  -- master clock frequency (in KHz)
       CLK_DIV         :     natural := 1;  -- FREQ / CLK_DIV = pixel clock
       PIXEL_WIDTH     :     natural := 8;  -- pixel width: 1, 2, 4, 8, or 16 bits
-      PIXELS_PER_LINE :     natural := 800;  -- pixels per video scan line
-      LINES_PER_FRAME :     natural := 600;  -- scan lines per video frame
+      PIXELS_PER_LINE :     natural := 320;  -- pixels per video scan line
+      LINES_PER_FRAME :     natural := 200;  -- scan lines per video frame
       NUM_RGB_BITS    :     natural := 2;  -- width of R, G and B color output buses (2 or 3 are only valid values)
       FIT_TO_SCREEN   :     boolean := true  -- fit width x length to monitor screen
       );
@@ -109,7 +109,7 @@ architecture vga_arch of vga is
   signal   clk_div_cnt                :     unsigned(7 downto 0);
   signal   cke                        :     std_logic;
   signal   line_cnt, pixel_cnt        :     unsigned(15 downto 0);  -- current video line and pixel within line
-  signal   fifo_rst                   :     std_logic;
+  signal   fifo_rst, fifo_empty       :     std_logic;
   signal   fifo_level                 :     std_logic_vector(7 downto 0);
   signal   eof_i, eof_x, eof_r        :     std_logic;
   signal   v_gate, cke_v_gate         :     std_logic;
@@ -184,7 +184,7 @@ begin
       rst      => fifo_rst,
       data_out => pixel_data_out,
       full     => open,
-      empty    => open,
+      empty    => fifo_empty,
       level    => fifo_level
       );
   full   <= YES when fifo_level(7 downto 3) = "11111" else NO;
@@ -286,7 +286,7 @@ begin
   blank                          <= blank_r(blank_r'high);
 
   -- get the current pixel from the word of pixel data or read more pixel data from the buffer
-  get_pixel : process(visible, pixel_data_out, pixel_data_r, rd_r, pixel_cnt)
+  get_pixel : process(visible, pixel_data_out, pixel_data_r, rd_r, pixel_cnt, fifo_empty)
   begin
     rd_x <= NO;                         -- by default, don't read next word of pixel data from the buffer
 
@@ -322,11 +322,15 @@ begin
     -- store the pixel data from the buffer instead of shifting the pixel data
     -- if a read operation was initiated in the previous cycle.
     if rd_r = YES then
-      pixel_data_x <= pixel_data_out;
+	 	if fifo_empty = '1' then				--ERIC
+			pixel_data_x <= x"0000";			--ERIC
+		else											--ERIC
+     		pixel_data_x <= pixel_data_out;
+	   end if;										--ERIC
     end if;
 
     -- the current pixel is in the lower bits of the pixel data shift register
-    pixel <= pixel_data_r(pixel'range);
+    	pixel <= pixel_data_r(pixel'range);
   end process get_pixel;
 
   -- map the current pixel to RGB values

@@ -36,13 +36,13 @@ entity gpuChip is
 	generic(
       FREQ            :       natural                       := 50_000;  -- frequency of operation in KHz
       PIPE_EN         :       boolean                       := true;  -- enable fast, pipelined SDRAM operation
-      MULTIPLE_ACTIVE_ROWS:   boolean 								:= true;  -- if true, allow an active row in each bank
+      MULTIPLE_ACTIVE_ROWS:   boolean 								:= false;  -- if true, allow an active row in each bank
 		CLK_DIV         :       real								   := 1.0;  -- SDRAM Clock div
 		NROWS           :       natural                       := 4096;  -- number of rows in the SDRAM
       NCOLS           :       natural                       := 256;  -- number of columns in each SDRAM row
    	SADDR_WIDTH 	 : 		natural								:= 12;
 	  	DATA_WIDTH      :       natural 								:= 16;  -- SDRAM databus width
-		ADDR_WIDTH      :       natural 								:= 23;  -- host-side address width
+		ADDR_WIDTH      :       natural 								:= 24;  -- host-side address width
 	 	VGA_CLK_DIV     :       natural 								:= 4;  -- pixel clock = FREQ / CLK_DIV
    	PIXEL_WIDTH     :       natural 								:= 8;  -- width of a pixel in memory
     	NUM_RGB_BITS    :       natural 								:= 2;  -- #bits in each R,G,B component of a pixel
@@ -57,6 +57,15 @@ entity gpuChip is
 		pin_ce_n    : out std_logic;      -- Flash RAM chip-enable
 		pin_pushbtn : in std_logic;
 	
+
+		-- blitter port connections
+		pin_port_in	  : in std_logic_vector (7 downto 0);
+		pin_port_addr : in std_logic_vector	(3 downto 0);
+		pin_load		  : in std_logic;
+		pin_start	  : in std_logic;
+		pin_done		  : out std_logic;
+		pin_flip_buffer: in std_logic;
+
 		-- vga port connections
 		pin_red     : out std_logic_vector(1 downto 0);
 		pin_green   : out std_logic_vector(1 downto 0);
@@ -89,26 +98,22 @@ architecture arch of gpuChip is
 
 	type gpuState is (
 	 INIT,                           -- init
-    INIT_BKG,
-	 DRAW_BKG,
-	 BLIT_REST,                           
-    INIT_SPRITE,                       
-	 DRAW_SPRITE,								
-	 UPDATE  
-	 );
+    LOAD,
+	 DRAW,
+	 REST                           
+    );
 	
 	signal state_r, state_x : gpuState;  -- state register and next state
 
 	--registers
-	signal plane0_dest_r, plane0_dest_x 		: std_logic_vector (ADDR_WIDTH - 1 downto 0);  -- sprite dest register
-	signal plane0_ypos_r, plane0_ypos_x			: std_logic_vector (11 downto 0);
-	signal delay_r, delay_x 						: std_logic_vector (19 downto 0); 				  --20 bit counter for delay
-	signal source_address_x, source_address_r : std_logic_vector (ADDR_WIDTH -1 downto 0);
+	signal source_address_x, source_address_r	: std_logic_vector (ADDR_WIDTH - 1 downto 0);  -- sprite dest register
 	signal target_address_x, target_address_r : std_logic_vector (ADDR_WIDTH -1 downto 0);
-	signal line_size_x, line_size_r 				: std_logic_vector (11 downto 0);
 	signal source_lines_x, source_lines_r 		: std_logic_vector (15 downto 0);
+	signal line_size_x, line_size_r 				: std_logic_vector (11 downto 0);
 	signal alphaOp_x, alphaOp_r 					: std_logic;
 	signal front_buffer_x, front_buffer_r		: std_logic;
+	signal idle_x, idle_r							: std_logic;
+	--signal flip_buf_pend_x, flip_buf_pend_r	: std_logic;
 
 	--internal signals
    signal sysReset 										: std_logic;  -- system reset
@@ -124,6 +129,9 @@ architecture arch of gpuChip is
 	signal blit_done									 	: std_logic;	
 	signal alphaOp											: std_logic;
 	signal front_buffer									: std_logic;
+
+	signal port_in											: std_logic_vector (7 downto 0);
+	signal port_addr										: std_logic_vector (3 downto 0);
 
 	 --Application Side Signals for the DualPort Controller
   	signal rst_i											: std_logic; 	--tied reset signal
@@ -365,91 +373,73 @@ begin
 	-- Port0 is reserved for VGA
 	pixels <= hDOut0 when drawframe = '1' else "0000000000000000";
 
+	port_in   		<= pin_port_in;
+	port_addr 		<= pin_port_addr;
+	pin_done			<= idle_r;
+
 	source_address	<= source_address_r;
 	line_size		<= line_size_r;
 	target_address	<= target_address_r;
 	source_lines	<= source_lines_r;
 	alphaOp			<= alphaOp_r;
+	
 	front_buffer	<= YES;--front_buffer_r;	
 
-	comb:process(state_r, delay_r, plane0_dest_r)
+	comb:process(state_r, port_in, port_addr, pin_start)
 	begin
 	  	blit_begin <= NO;						--default operations		
 		reset_blitter <= NO;
 		
 		state_x 				<= state_r;			 		--default register values
-		delay_x  			<= delay_r + 1;
 	   source_address_x	<= source_address_r;
-		line_size_x 		<= line_size_r;
 		target_address_x 	<= target_address_r;
 		source_lines_x		<= source_lines_r;
+		line_size_x 		<= line_size_r;
 		alphaOp_x			<= alphaOp_r;
-		plane0_dest_x 		<= plane0_dest_r;
-		plane0_ypos_x	 	<= plane0_ypos_r;
 		front_buffer_x 	<= front_buffer_r;
+		idle_x			 	<= idle_r;
 			
 		case state_r is
 			when INIT =>
-				blit_begin <= NO;
+				idle_x <= YES;
 				reset_blitter <= YES;
-				state_x <= INIT_BKG;
-				plane0_dest_x <= x"000060";
-				plane0_ypos_x <= x"000";
-				front_buffer_x <= YES;
-
-			when INIT_BKG	=>
-				--flip buffers	
-				source_address_x	<= x"012C00";
-				line_size_x       <= x"0A0";
-				target_address_x  <= x"000000";
-				source_lines_x		<= x"00EF";
-				alphaOp_x 			<= NO; 				
-				blit_begin <= YES;
-				state_x <= DRAW_BKG;
+				state_x <= LOAD;
+			
+			when LOAD =>
+				if (pin_load = YES) then
+					case port_addr is 
+						when "0000" => source_address_x(23 downto 16) <= port_in;			
+						when "0001" => source_address_x(15 downto 8)  <= port_in; 
+						when "0010" => source_address_x(7 downto  0)  <= port_in;			
+						when "0011" => target_address_x(23 downto 16) <= port_in;				
+						when "0100" => target_address_x(15 downto 8)  <= port_in;			
+						when "0101" => target_address_x(7 downto  0)  <= port_in;				
+						when "0110" => source_lines_x  (15 downto 8)  <= port_in;            
+						when "0111" => source_lines_x  (7 downto 0) 	 <= port_in;  			
+						when "1000" => line_size_x     (11 downto 8)  <= port_in(3 downto 0); 
+						when "1001" => line_size_x     (7 downto 0) 	 <= port_in;    			
+						when "1010" => alphaOp_x							 <= port_in(0);
+						when others =>
+					end case;				
+				end if;
 		
-			when DRAW_BKG =>
+				if (pin_start = YES) then
+					idle_x <= NO;
+					state_x <= DRAW;
+				end if;
+
+			when DRAW =>
 			   blit_begin <= YES;
-			
 				if (blit_done = YES) then
 					reset_blitter <= YES;
-					state_x <= BLIT_REST;
+					idle_x <= YES;
+					state_x <= REST;
 				end if;
 
-			when BLIT_REST =>
-				source_address_x	<= x"01EBE5";
-				line_size_x 		<= x"024";
-				target_address_x  <= plane0_dest_r;
-				source_lines_x		<= x"004E";
-				alphaOp_x			<= YES;
-			
+			when REST =>
 				reset_blitter <= YES;
-				state_x <= INIT_SPRITE;
+				state_x <= LOAD;
 
-	   	when INIT_SPRITE =>
-				blit_begin <= YES;
-
-				state_x <= DRAW_SPRITE;
-	                   
-			when DRAW_SPRITE	=>
-				blit_begin <= YES;
-
-				if (blit_done = YES) then
-					reset_blitter <= YES;
-					state_x <= UPDATE;
-				end if;	
-		 						
-			when UPDATE =>	
-			 	reset_blitter <= YES;
-				if (delay_r = x"FFFFF") then 
-					plane0_dest_x <= plane0_dest_r + x"000140";
-					plane0_ypos_x <= plane0_ypos_r + x"001";
-					if (plane0_ypos_r = x"050") then 
-						plane0_dest_x <= x"000060";
-						plane0_ypos_x <= x"000";							
-					end if;
-					state_x <= INIT_BKG;
-				end if;
-			
 		end case;
 	end process;
 
@@ -462,14 +452,15 @@ begin
 		 if eof = YES then
          drawframe <= not drawframe; 					 -- draw every other frame
 
-			-- reset the address at the end of a video frame depending on which buffer is the front
-			if (front_buffer = YES) then
-				vga_address <= x"000000";
-			else
-				vga_address <= x"009600";
-			end if;
+		 -- reset the address at the end of a video frame depending on which buffer is the front
+		 if (front_buffer = YES) then
+		 	vga_address <= x"000000";
+		 else
+			vga_address <= x"000000"; 						--temporary
+		 end if;
+			
 		 elsif (earlyOpBegun0 = YES) then
-		  	vga_address <= vga_address + 1;            -- go to the next address once the read of the current address has begun
+		  	vga_address <= vga_address + 1;           -- go to the next address once the read of the current address has begun
 		 end if;
    	
 		--reset stuff
@@ -478,16 +469,14 @@ begin
 		end if;
 
  		state_r 				<= state_x;
-		delay_r  			<= delay_x;
 		source_address_r	<= source_address_x;
-		line_size_r 		<= line_size_x;
 		target_address_r 	<= target_address_x;
 		source_lines_r		<= source_lines_x;
+		line_size_r 		<= line_size_x;
      	alphaOp_r			<= alphaOp_x;
-	   plane0_dest_r 		<= plane0_dest_x;
-		plane0_ypos_r	 	<= plane0_ypos_x;
-		front_buffer_r		<= front_buffer_x;
-		  
+	   front_buffer_r		<= front_buffer_x;
+		idle_r		 		<= idle_x;
+	
 	  end if;
    end process;
 
