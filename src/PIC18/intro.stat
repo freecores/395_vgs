@@ -1,6 +1,7 @@
 // SourceBoost Linker Function Resource Usage Dump
 
 #GLOBAL:"global",line = 0,ram = 4.0,rom = 0;
+delay_ms(unsigned char):"NoSourceFile",line = 0,ram = 0.0,rom = 120;
 drawtobackground(struct Bitmap):"C:\dev_zuofu\395_vgs\src\PIC18\gpu_pic.c",line = 96,ram = 4.0,rom = 68;
 drawsprite(struct Sprite):"C:\dev_zuofu\395_vgs\src\PIC18\gpu_pic.c",line = 106,ram = 16.0,rom = 150;
 load_alphaOp(bit):"C:\dev_zuofu\395_vgs\src\PIC18\gpu_pic.c",line = 73,ram = 0.0,rom = 24;
@@ -11,7 +12,6 @@ load_s_addr(unsigned long):"C:\dev_zuofu\395_vgs\src\PIC18\gpu_pic.c",line = 7,r
 draw(void):"C:\dev_zuofu\395_vgs\src\PIC18\gpu_pic.c",line = 85,ram = 0.0,rom = 12;
 main(void):"C:\dev_zuofu\395_vgs\src\PIC18\intro.c",line = 10,ram = 154.0,rom = 5898;
 __mul_32_32(unsigned long,unsigned long):"E:\Prg\picant\compiler\picantc\libc\mul.c",line = 603,ram = 0.0,rom = 126;
-delay_ms(unsigned char):"NoSourceFile",line = 0,ram = 0.0,rom = 120;
 delay_s(unsigned char):"NoSourceFile",line = 0,ram = 1.0,rom = 38;
 _startup(void):"NoSourceFile",line = 0,ram = 0.0,rom = 4;
 #HEAP_BLOCK: 0, 174, 338;
