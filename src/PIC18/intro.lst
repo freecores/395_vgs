@@ -1,0 +1,3315 @@
+;/////////////////////////////////////////////////////////////////////////////////
+;// Code Generator: BoostC Compiler and Linker - http://www.picant.com/c2c/c.html
+;// License Type  : Lite License (Unregistered)
+;// Limitations   : PIC18 max code size:8192 bytes, max RAM banks:2, Non commercial use only
+;/////////////////////////////////////////////////////////////////////////////////
+
+	ORG 0x00000000
+0000  EF09F00D  	GOTO	_startup
+	ORG 0x00000004
+0004            delay_ms_00000
+; { delay_ms ; function begin
+0004  527D      	MOVF delay_ms_00000_arg_del, F
+0006  A4D8      	BTFSS STATUS,Z
+0008  EF07F000  	GOTO	label4026531859
+000C  0012      	RETURN
+000E            label4026531859
+000E  0EFF      	MOVLW 0xFF
+0010            label4026531860
+0010  0000      	NOP
+0012  0000      	NOP
+0014  0000      	NOP
+0016  0000      	NOP
+0018  0000      	NOP
+001A  0000      	NOP
+001C  0000      	NOP
+001E  0000      	NOP
+0020  0000      	NOP
+0022  0000      	NOP
+0024  0000      	NOP
+0026  0000      	NOP
+0028  0000      	NOP
+002A  0000      	NOP
+002C  0000      	NOP
+002E  0000      	NOP
+0030  0000      	NOP
+0032  0000      	NOP
+0034  0000      	NOP
+0036  0000      	NOP
+0038  0000      	NOP
+003A  0000      	NOP
+003C  0000      	NOP
+003E  0000      	NOP
+0040  0000      	NOP
+0042  0000      	NOP
+0044  0000      	NOP
+0046  0000      	NOP
+0048  0000      	NOP
+004A  0000      	NOP
+004C  0000      	NOP
+004E  0000      	NOP
+0050  0000      	NOP
+0052  0000      	NOP
+0054  0000      	NOP
+0056  0000      	NOP
+0058  0000      	NOP
+005A  0000      	NOP
+005C  0000      	NOP
+005E  0000      	NOP
+0060  0000      	NOP
+0062  0000      	NOP
+0064  0000      	NOP
+0066  0000      	NOP
+0068  0000      	NOP
+006A  0FFF      	ADDLW 0xFF
+006C  A4D8      	BTFSS STATUS,Z
+006E  EF08F000  	GOTO	label4026531860
+0072  0000      	NOP
+0074  2E7D      	DECFSZ delay_ms_00000_arg_del, F
+0076  EF07F000  	GOTO	label4026531859
+007A  0012      	RETURN
+; } delay_ms function end
+
+	ORG 0x0000007C
+007C            delay_s_00000
+; { delay_s ; function begin
+007C            label4026531865
+007C  0EFA      	MOVLW 0xFA
+007E  6E7D      	MOVWF delay_ms_00000_arg_del
+0080  EC02F000  	CALL delay_ms_00000
+0084  0EFA      	MOVLW 0xFA
+0086  6E7D      	MOVWF delay_ms_00000_arg_del
+0088  EC02F000  	CALL delay_ms_00000
+008C  0EFA      	MOVLW 0xFA
+008E  6E7D      	MOVWF delay_ms_00000_arg_del
+0090  EC02F000  	CALL delay_ms_00000
+0094  0EFA      	MOVLW 0xFA
+0096  6E7D      	MOVWF delay_ms_00000_arg_del
+0098  EC02F000  	CALL delay_ms_00000
+009C  2E7C      	DECFSZ delay_s_00000_arg_del, F
+009E  D7EE      	BRA	label4026531865
+00A0  0012      	RETURN
+; } delay_s function end
+
+	ORG 0x000000A2
+00A2            __mul_32_3_00006
+; { __mul_32_32 ; function begin
+00A2  6A00      	CLRF CompTempVarRet0
+00A4  6A01      	CLRF CompTempVarRet0+D'1'
+00A6  6A02      	CLRF CompTempVarRet0+D'2'
+00A8  6A03      	CLRF CompTempVarRet0+D'3'
+00AA  6A02      	CLRF CompTempVarRet0+D'2'
+00AC  6A03      	CLRF CompTempVarRet0+D'3'
+00AE  51A2      	MOVF __mul_32_3_00006_arg_a, W, 1
+00B0  03A6      	MULWF __mul_32_3_00006_arg_b, 1
+00B2  50F3      	MOVF gbl_prodl, W
+00B4  6E00      	MOVWF CompTempVarRet0
+00B6  50F4      	MOVF gbl_prodh, W
+00B8  6E01      	MOVWF CompTempVarRet0+D'1'
+00BA  51A3      	MOVF __mul_32_3_00006_arg_a+D'1', W, 1
+00BC  03A6      	MULWF __mul_32_3_00006_arg_b, 1
+00BE  50F3      	MOVF gbl_prodl, W
+00C0  2601      	ADDWF CompTempVarRet0+D'1', F
+00C2  50F4      	MOVF gbl_prodh, W
+00C4  2202      	ADDWFC CompTempVarRet0+D'2', F
+00C6  B0D8      	BTFSC gbl_status,0
+00C8  2A03      	INCF CompTempVarRet0+D'3', F
+00CA  51A4      	MOVF __mul_32_3_00006_arg_a+D'2', W, 1
+00CC  03A6      	MULWF __mul_32_3_00006_arg_b, 1
+00CE  50F3      	MOVF gbl_prodl, W
+00D0  2602      	ADDWF CompTempVarRet0+D'2', F
+00D2  50F4      	MOVF gbl_prodh, W
+00D4  2203      	ADDWFC CompTempVarRet0+D'3', F
+00D6  51A5      	MOVF __mul_32_3_00006_arg_a+D'3', W, 1
+00D8  03A6      	MULWF __mul_32_3_00006_arg_b, 1
+00DA  50F3      	MOVF gbl_prodl, W
+00DC  2603      	ADDWF CompTempVarRet0+D'3', F
+00DE  51A2      	MOVF __mul_32_3_00006_arg_a, W, 1
+00E0  03A7      	MULWF __mul_32_3_00006_arg_b+D'1', 1
+00E2  50F3      	MOVF gbl_prodl, W
+00E4  2601      	ADDWF CompTempVarRet0+D'1', F
+00E6  50F4      	MOVF gbl_prodh, W
+00E8  2202      	ADDWFC CompTempVarRet0+D'2', F
+00EA  B0D8      	BTFSC gbl_status,0
+00EC  2A03      	INCF CompTempVarRet0+D'3', F
+00EE  51A3      	MOVF __mul_32_3_00006_arg_a+D'1', W, 1
+00F0  03A7      	MULWF __mul_32_3_00006_arg_b+D'1', 1
+00F2  50F3      	MOVF gbl_prodl, W
+00F4  2602      	ADDWF CompTempVarRet0+D'2', F
+00F6  50F4      	MOVF gbl_prodh, W
+00F8  2203      	ADDWFC CompTempVarRet0+D'3', F
+00FA  51A4      	MOVF __mul_32_3_00006_arg_a+D'2', W, 1
+00FC  03A7      	MULWF __mul_32_3_00006_arg_b+D'1', 1
+00FE  50F3      	MOVF gbl_prodl, W
+0100  2603      	ADDWF CompTempVarRet0+D'3', F
+0102  51A2      	MOVF __mul_32_3_00006_arg_a, W, 1
+0104  03A8      	MULWF __mul_32_3_00006_arg_b+D'2', 1
+0106  50F3      	MOVF gbl_prodl, W
+0108  2602      	ADDWF CompTempVarRet0+D'2', F
+010A  50F4      	MOVF gbl_prodh, W
+010C  2203      	ADDWFC CompTempVarRet0+D'3', F
+010E  51A3      	MOVF __mul_32_3_00006_arg_a+D'1', W, 1
+0110  03A8      	MULWF __mul_32_3_00006_arg_b+D'2', 1
+0112  50F3      	MOVF gbl_prodl, W
+0114  2603      	ADDWF CompTempVarRet0+D'3', F
+0116  51A2      	MOVF __mul_32_3_00006_arg_a, W, 1
+0118  03A9      	MULWF __mul_32_3_00006_arg_b+D'3', 1
+011A  50F3      	MOVF gbl_prodl, W
+011C  2603      	ADDWF CompTempVarRet0+D'3', F
+011E  0012      	RETURN
+; } __mul_32_32 function end
+
+	ORG 0x00000120
+0120            draw_00000
+; { draw ; function begin
+0120  0E02      	MOVLW 0x02
+0122  6E80      	MOVWF gbl_porta
+0124  6A80      	CLRF gbl_porta
+0126            label268435815
+0126  AE82      	BTFSS gbl_portc,7
+0128  D7FE      	BRA	label268435815
+012A  0012      	RETURN
+; } draw function end
+
+	ORG 0x0000012C
+012C            load_s_add_0000C
+; { load_s_addr ; function begin
+012C  0E02      	MOVLW 0x02
+012E  6E82      	MOVWF gbl_portc
+0130  51AA      	MOVF load_s_add_0000C_arg_address, W, 1
+0132  0BFF      	ANDLW 0xFF
+0134  6E81      	MOVWF gbl_portb
+0136  0E01      	MOVLW 0x01
+0138  6E80      	MOVWF gbl_porta
+013A  6A80      	CLRF gbl_porta
+013C  51AB      	MOVF load_s_add_0000C_arg_address+D'1', W, 1
+013E  6FAA      	MOVWF load_s_add_0000C_arg_address, 1
+0140  51AC      	MOVF load_s_add_0000C_arg_address+D'2', W, 1
+0142  6FAB      	MOVWF load_s_add_0000C_arg_address+D'1', 1
+0144  51AD      	MOVF load_s_add_0000C_arg_address+D'3', W, 1
+0146  6FAC      	MOVWF load_s_add_0000C_arg_address+D'2', 1
+0148  6BAD      	CLRF load_s_add_0000C_arg_address+D'3', 1
+014A  0E01      	MOVLW 0x01
+014C  6E82      	MOVWF gbl_portc
+014E  51AA      	MOVF load_s_add_0000C_arg_address, W, 1
+0150  0BFF      	ANDLW 0xFF
+0152  6E81      	MOVWF gbl_portb
+0154  0E01      	MOVLW 0x01
+0156  6E80      	MOVWF gbl_porta
+0158  6A80      	CLRF gbl_porta
+015A  51AB      	MOVF load_s_add_0000C_arg_address+D'1', W, 1
+015C  6FAA      	MOVWF load_s_add_0000C_arg_address, 1
+015E  51AC      	MOVF load_s_add_0000C_arg_address+D'2', W, 1
+0160  6FAB      	MOVWF load_s_add_0000C_arg_address+D'1', 1
+0162  51AD      	MOVF load_s_add_0000C_arg_address+D'3', W, 1
+0164  6FAC      	MOVWF load_s_add_0000C_arg_address+D'2', 1
+0166  6BAD      	CLRF load_s_add_0000C_arg_address+D'3', 1
+0168  6A82      	CLRF gbl_portc
+016A  51AA      	MOVF load_s_add_0000C_arg_address, W, 1
+016C  0BFF      	ANDLW 0xFF
+016E  6E81      	MOVWF gbl_portb
+0170  0E01      	MOVLW 0x01
+0172  6E80      	MOVWF gbl_porta
+0174  6A80      	CLRF gbl_porta
+0176  0012      	RETURN
+; } load_s_addr function end
+
+	ORG 0x00000178
+0178            load_t_add_0000B
+; { load_t_addr ; function begin
+0178  0E05      	MOVLW 0x05
+017A  6E82      	MOVWF gbl_portc
+017C  51AA      	MOVF load_t_add_0000B_arg_address, W, 1
+017E  0BFF      	ANDLW 0xFF
+0180  6E81      	MOVWF gbl_portb
+0182  0E01      	MOVLW 0x01
+0184  6E80      	MOVWF gbl_porta
+0186  6A80      	CLRF gbl_porta
+0188  51AB      	MOVF load_t_add_0000B_arg_address+D'1', W, 1
+018A  6FAA      	MOVWF load_t_add_0000B_arg_address, 1
+018C  51AC      	MOVF load_t_add_0000B_arg_address+D'2', W, 1
+018E  6FAB      	MOVWF load_t_add_0000B_arg_address+D'1', 1
+0190  51AD      	MOVF load_t_add_0000B_arg_address+D'3', W, 1
+0192  6FAC      	MOVWF load_t_add_0000B_arg_address+D'2', 1
+0194  6BAD      	CLRF load_t_add_0000B_arg_address+D'3', 1
+0196  0E04      	MOVLW 0x04
+0198  6E82      	MOVWF gbl_portc
+019A  51AA      	MOVF load_t_add_0000B_arg_address, W, 1
+019C  0BFF      	ANDLW 0xFF
+019E  6E81      	MOVWF gbl_portb
+01A0  0E01      	MOVLW 0x01
+01A2  6E80      	MOVWF gbl_porta
+01A4  6A80      	CLRF gbl_porta
+01A6  51AB      	MOVF load_t_add_0000B_arg_address+D'1', W, 1
+01A8  6FAA      	MOVWF load_t_add_0000B_arg_address, 1
+01AA  51AC      	MOVF load_t_add_0000B_arg_address+D'2', W, 1
+01AC  6FAB      	MOVWF load_t_add_0000B_arg_address+D'1', 1
+01AE  51AD      	MOVF load_t_add_0000B_arg_address+D'3', W, 1
+01B0  6FAC      	MOVWF load_t_add_0000B_arg_address+D'2', 1
+01B2  6BAD      	CLRF load_t_add_0000B_arg_address+D'3', 1
+01B4  0E03      	MOVLW 0x03
+01B6  6E82      	MOVWF gbl_portc
+01B8  51AA      	MOVF load_t_add_0000B_arg_address, W, 1
+01BA  0BFF      	ANDLW 0xFF
+01BC  6E81      	MOVWF gbl_portb
+01BE  0E01      	MOVLW 0x01
+01C0  6E80      	MOVWF gbl_porta
+01C2  6A80      	CLRF gbl_porta
+01C4  0012      	RETURN
+; } load_t_addr function end
+
+	ORG 0x000001C6
+01C6            load_s_lin_0000A
+; { load_s_lines ; function begin
+01C6  0E07      	MOVLW 0x07
+01C8  6E82      	MOVWF gbl_portc
+01CA  51AA      	MOVF load_s_lin_0000A_arg_lines, W, 1
+01CC  0BFF      	ANDLW 0xFF
+01CE  6E81      	MOVWF gbl_portb
+01D0  0E01      	MOVLW 0x01
+01D2  6E80      	MOVWF gbl_porta
+01D4  6A80      	CLRF gbl_porta
+01D6  51AB      	MOVF load_s_lin_0000A_arg_lines+D'1', W, 1
+01D8  6FAA      	MOVWF load_s_lin_0000A_arg_lines, 1
+01DA  6BAB      	CLRF load_s_lin_0000A_arg_lines+D'1', 1
+01DC  0E06      	MOVLW 0x06
+01DE  6E82      	MOVWF gbl_portc
+01E0  51AA      	MOVF load_s_lin_0000A_arg_lines, W, 1
+01E2  0BFF      	ANDLW 0xFF
+01E4  6E81      	MOVWF gbl_portb
+01E6  0E01      	MOVLW 0x01
+01E8  6E80      	MOVWF gbl_porta
+01EA  6A80      	CLRF gbl_porta
+01EC  0012      	RETURN
+; } load_s_lines function end
+
+	ORG 0x000001EE
+01EE            load_l_siz_00009
+; { load_l_size ; function begin
+01EE  0E09      	MOVLW 0x09
+01F0  6E82      	MOVWF gbl_portc
+01F2  51AA      	MOVF load_l_siz_00009_arg_size, W, 1
+01F4  0BFF      	ANDLW 0xFF
+01F6  6E81      	MOVWF gbl_portb
+01F8  0E01      	MOVLW 0x01
+01FA  6E80      	MOVWF gbl_porta
+01FC  6A80      	CLRF gbl_porta
+01FE  51AB      	MOVF load_l_siz_00009_arg_size+D'1', W, 1
+0200  6FAA      	MOVWF load_l_siz_00009_arg_size, 1
+0202  6BAB      	CLRF load_l_siz_00009_arg_size+D'1', 1
+0204  0E08      	MOVLW 0x08
+0206  6E82      	MOVWF gbl_portc
+0208  51AA      	MOVF load_l_siz_00009_arg_size, W, 1
+020A  0B0F      	ANDLW 0x0F
+020C  6E81      	MOVWF gbl_portb
+020E  0E01      	MOVLW 0x01
+0210  6E80      	MOVWF gbl_porta
+0212  6A80      	CLRF gbl_porta
+0214  0012      	RETURN
+; } load_l_size function end
+
+	ORG 0x00000216
+0216            load_alpha_00008
+; { load_alphaOp ; function begin
+0216  0E0A      	MOVLW 0x0A
+0218  6E82      	MOVWF gbl_portc
+021A  A1AA      	BTFSS load_alpha_00008_arg_alphaOp,0, 1
+021C  D003      	BRA	label268435755
+021E  0E01      	MOVLW 0x01
+0220  6E81      	MOVWF gbl_portb
+0222  D001      	BRA	label268435758
+0224            label268435755
+0224  6A81      	CLRF gbl_portb
+0226            label268435758
+0226  0E01      	MOVLW 0x01
+0228  6E80      	MOVWF gbl_porta
+022A  6A80      	CLRF gbl_porta
+022C  0012      	RETURN
+; } load_alphaOp function end
+
+	ORG 0x0000022E
+022E            drawsprite_00000
+; { drawsprite ; function begin
+022E  519D      	MOVF drawsprite_00000_arg_sprite+D'12', W, 1
+0230  6FA2      	MOVWF __mul_32_3_00006_arg_a, 1
+0232  519E      	MOVF drawsprite_00000_arg_sprite+D'13', W, 1
+0234  6FA3      	MOVWF __mul_32_3_00006_arg_a+D'1', 1
+0236  519F      	MOVF drawsprite_00000_arg_sprite+D'14', W, 1
+0238  6FA4      	MOVWF __mul_32_3_00006_arg_a+D'2', 1
+023A  51A0      	MOVF drawsprite_00000_arg_sprite+D'15', W, 1
+023C  6FA5      	MOVWF __mul_32_3_00006_arg_a+D'3', 1
+023E  0EA0      	MOVLW 0xA0
+0240  6FA6      	MOVWF __mul_32_3_00006_arg_b, 1
+0242  6BA7      	CLRF __mul_32_3_00006_arg_b+D'1', 1
+0244  6BA8      	CLRF __mul_32_3_00006_arg_b+D'2', 1
+0246  6BA9      	CLRF __mul_32_3_00006_arg_b+D'3', 1
+0248  EC51F000  	CALL __mul_32_3_00006
+024C  5000      	MOVF CompTempVarRet0, W
+024E  6E7C      	MOVWF drawsprite_00000_1_destina_0000D
+0250  5001      	MOVF CompTempVarRet0+D'1', W
+0252  6E7D      	MOVWF drawsprite_00000_1_destina_0000D+D'1'
+0254  5002      	MOVF CompTempVarRet0+D'2', W
+0256  6E7E      	MOVWF drawsprite_00000_1_destina_0000D+D'2'
+0258  5003      	MOVF CompTempVarRet0+D'3', W
+025A  6E7F      	MOVWF drawsprite_00000_1_destina_0000D+D'3'
+025C  5199      	MOVF drawsprite_00000_arg_sprite+D'8', W, 1
+025E  267C      	ADDWF drawsprite_00000_1_destina_0000D, F
+0260  519A      	MOVF drawsprite_00000_arg_sprite+D'9', W, 1
+0262  227D      	ADDWFC drawsprite_00000_1_destina_0000D+D'1', F
+0264  519B      	MOVF drawsprite_00000_arg_sprite+D'10', W, 1
+0266  227E      	ADDWFC drawsprite_00000_1_destina_0000D+D'2', F
+0268  519C      	MOVF drawsprite_00000_arg_sprite+D'11', W, 1
+026A  227F      	ADDWFC drawsprite_00000_1_destina_0000D+D'3', F
+026C  507C      	MOVF drawsprite_00000_1_destina_0000D, W
+026E  6FAA      	MOVWF load_t_add_0000B_arg_address, 1
+0270  507D      	MOVF drawsprite_00000_1_destina_0000D+D'1', W
+0272  6FAB      	MOVWF load_t_add_0000B_arg_address+D'1', 1
+0274  507E      	MOVF drawsprite_00000_1_destina_0000D+D'2', W
+0276  6FAC      	MOVWF load_t_add_0000B_arg_address+D'2', 1
+0278  507F      	MOVF drawsprite_00000_1_destina_0000D+D'3', W
+027A  6FAD      	MOVWF load_t_add_0000B_arg_address+D'3', 1
+027C  ECBCF000  	CALL load_t_add_0000B
+0280  5191      	MOVF drawsprite_00000_arg_sprite, W, 1
+0282  6FAA      	MOVWF load_s_add_0000C_arg_address, 1
+0284  5192      	MOVF drawsprite_00000_arg_sprite+D'1', W, 1
+0286  6FAB      	MOVWF load_s_add_0000C_arg_address+D'1', 1
+0288  5193      	MOVF drawsprite_00000_arg_sprite+D'2', W, 1
+028A  6FAC      	MOVWF load_s_add_0000C_arg_address+D'2', 1
+028C  5194      	MOVF drawsprite_00000_arg_sprite+D'3', W, 1
+028E  6FAD      	MOVWF load_s_add_0000C_arg_address+D'3', 1
+0290  EC96F000  	CALL load_s_add_0000C
+0294  5197      	MOVF drawsprite_00000_arg_sprite+D'6', W, 1
+0296  6FAA      	MOVWF load_s_lin_0000A_arg_lines, 1
+0298  5198      	MOVF drawsprite_00000_arg_sprite+D'7', W, 1
+029A  6FAB      	MOVWF load_s_lin_0000A_arg_lines+D'1', 1
+029C  ECE3F000  	CALL load_s_lin_0000A
+02A0  5195      	MOVF drawsprite_00000_arg_sprite+D'4', W, 1
+02A2  6FAA      	MOVWF load_l_siz_00009_arg_size, 1
+02A4  5196      	MOVF drawsprite_00000_arg_sprite+D'5', W, 1
+02A6  6FAB      	MOVWF load_l_siz_00009_arg_size+D'1', 1
+02A8  ECF7F000  	CALL load_l_siz_00009
+02AC  53A1      	MOVF drawsprite_00000_arg_sprite+D'16', F, 1
+02AE  E004      	BZ	label268435740
+02B0  81AA      	BSF load_alpha_00008_arg_alphaOp,0, 1
+02B2  EC0BF001  	CALL load_alpha_00008
+02B6  D003      	BRA	label268435746
+02B8            label268435740
+02B8  91AA      	BCF load_alpha_00008_arg_alphaOp,0, 1
+02BA  EC0BF001  	CALL load_alpha_00008
+02BE            label268435746
+02BE  EC90F000  	CALL draw_00000
+02C2  0012      	RETURN
+; } drawsprite function end
+
+	ORG 0x000002C4
+02C4            drawtoback_00007
+; { drawtobackground ; function begin
+02C4  6BAA      	CLRF load_t_add_0000B_arg_address, 1
+02C6  6BAB      	CLRF load_t_add_0000B_arg_address+D'1', 1
+02C8  6BAC      	CLRF load_t_add_0000B_arg_address+D'2', 1
+02CA  6BAD      	CLRF load_t_add_0000B_arg_address+D'3', 1
+02CC  ECBCF000  	CALL load_t_add_0000B
+02D0  5191      	MOVF drawtoback_00007_arg_source, W, 1
+02D2  6FAA      	MOVWF load_s_add_0000C_arg_address, 1
+02D4  5192      	MOVF drawtoback_00007_arg_source+D'1', W, 1
+02D6  6FAB      	MOVWF load_s_add_0000C_arg_address+D'1', 1
+02D8  5193      	MOVF drawtoback_00007_arg_source+D'2', W, 1
+02DA  6FAC      	MOVWF load_s_add_0000C_arg_address+D'2', 1
+02DC  5194      	MOVF drawtoback_00007_arg_source+D'3', W, 1
+02DE  6FAD      	MOVWF load_s_add_0000C_arg_address+D'3', 1
+02E0  EC96F000  	CALL load_s_add_0000C
+02E4  5197      	MOVF drawtoback_00007_arg_source+D'6', W, 1
+02E6  6FAA      	MOVWF load_s_lin_0000A_arg_lines, 1
+02E8  5198      	MOVF drawtoback_00007_arg_source+D'7', W, 1
+02EA  6FAB      	MOVWF load_s_lin_0000A_arg_lines+D'1', 1
+02EC  ECE3F000  	CALL load_s_lin_0000A
+02F0  5195      	MOVF drawtoback_00007_arg_source+D'4', W, 1
+02F2  6FAA      	MOVWF load_l_siz_00009_arg_size, 1
+02F4  5196      	MOVF drawtoback_00007_arg_source+D'5', W, 1
+02F6  6FAB      	MOVWF load_l_siz_00009_arg_size+D'1', 1
+02F8  ECF7F000  	CALL load_l_siz_00009
+02FC  91AA      	BCF load_alpha_00008_arg_alphaOp,0, 1
+02FE  EC0BF001  	CALL load_alpha_00008
+0302  EC90F000  	CALL draw_00000
+0306  0012      	RETURN
+; } drawtobackground function end
+
+	ORG 0x00000308
+0308            main
+; { main ; function begin
+0308  0E07      	MOVLW 0x07
+030A  6EC1      	MOVWF gbl_adcon1
+030C  6A92      	CLRF gbl_trisa
+030E  6A93      	CLRF gbl_trisb
+0310  0E80      	MOVLW 0x80
+0312  6E94      	MOVWF gbl_trisc
+0314  6A80      	CLRF gbl_porta
+0316  6A81      	CLRF gbl_portb
+0318  6A82      	CLRF gbl_portc
+031A  6A04      	CLRF main_1_i
+031C  6A05      	CLRF main_1_j
+031E  0E03      	MOVLW 0x03
+0320  6E7C      	MOVWF delay_s_00000_arg_del
+0322  EC3EF000  	CALL delay_s_00000
+0326            label268436072
+0326  6A06      	CLRF main_12_neogeo
+0328  0E2C      	MOVLW 0x2C
+032A  6E07      	MOVWF main_12_neogeo+D'1'
+032C  0E01      	MOVLW 0x01
+032E  6E08      	MOVWF main_12_neogeo+D'2'
+0330  6A09      	CLRF main_12_neogeo+D'3'
+0332  0EF0      	MOVLW 0xF0
+0334  6E0C      	MOVWF main_12_neogeo+D'6'
+0336  6A0D      	CLRF main_12_neogeo+D'7'
+0338  6A0A      	CLRF main_12_neogeo+D'4'
+033A  6A0B      	CLRF main_12_neogeo+D'5'
+033C  6A0E      	CLRF main_12_black
+033E  0EC2      	MOVLW 0xC2
+0340  6E0F      	MOVWF main_12_black+D'1'
+0342  0E01      	MOVLW 0x01
+0344  6E10      	MOVWF main_12_black+D'2'
+0346  6A11      	CLRF main_12_black+D'3'
+0348  0EF0      	MOVLW 0xF0
+034A  6E14      	MOVWF main_12_black+D'6'
+034C  6A15      	CLRF main_12_black+D'7'
+034E  0EA0      	MOVLW 0xA0
+0350  6E12      	MOVWF main_12_black+D'4'
+0352  6A13      	CLRF main_12_black+D'5'
+0354  6A16      	CLRF main_12_near_future
+0356  0E58      	MOVLW 0x58
+0358  6E17      	MOVWF main_12_near_future+D'1'
+035A  0E02      	MOVLW 0x02
+035C  6E18      	MOVWF main_12_near_future+D'2'
+035E  6A19      	CLRF main_12_near_future+D'3'
+0360  0E0B      	MOVLW 0x0B
+0362  6E1C      	MOVWF main_12_near_future+D'6'
+0364  6A1D      	CLRF main_12_near_future+D'7'
+0366  0EA0      	MOVLW 0xA0
+0368  6E1A      	MOVWF main_12_near_future+D'4'
+036A  6A1B      	CLRF main_12_near_future+D'5'
+036C  6A1E      	CLRF main_12_near_future+D'8'
+036E  6A1F      	CLRF main_12_near_future+D'9'
+0370  6A20      	CLRF main_12_near_future+D'10'
+0372  6A21      	CLRF main_12_near_future+D'11'
+0374  0E3F      	MOVLW 0x3F
+0376  6E22      	MOVWF main_12_near_future+D'12'
+0378  6A23      	CLRF main_12_near_future+D'13'
+037A  6A24      	CLRF main_12_near_future+D'14'
+037C  6A25      	CLRF main_12_near_future+D'15'
+037E  6A26      	CLRF main_12_near_future+D'16'
+0380  0EA0      	MOVLW 0xA0
+0382  6E27      	MOVWF main_12_eye_anim
+0384  0E6C      	MOVLW 0x6C
+0386  6E28      	MOVWF main_12_eye_anim+D'1'
+0388  0E02      	MOVLW 0x02
+038A  6E29      	MOVWF main_12_eye_anim+D'2'
+038C  6A2A      	CLRF main_12_eye_anim+D'3'
+038E  0E1B      	MOVLW 0x1B
+0390  6E2D      	MOVWF main_12_eye_anim+D'6'
+0392  6A2E      	CLRF main_12_eye_anim+D'7'
+0394  0E1F      	MOVLW 0x1F
+0396  6E2B      	MOVWF main_12_eye_anim+D'4'
+0398  6A2C      	CLRF main_12_eye_anim+D'5'
+039A  0E0E      	MOVLW 0x0E
+039C  6E2F      	MOVWF main_12_eye_anim+D'8'
+039E  6A30      	CLRF main_12_eye_anim+D'9'
+03A0  6A31      	CLRF main_12_eye_anim+D'10'
+03A2  6A32      	CLRF main_12_eye_anim+D'11'
+03A4  0E87      	MOVLW 0x87
+03A6  6E33      	MOVWF main_12_eye_anim+D'12'
+03A8  6A34      	CLRF main_12_eye_anim+D'13'
+03AA  6A35      	CLRF main_12_eye_anim+D'14'
+03AC  6A36      	CLRF main_12_eye_anim+D'15'
+03AE  6A37      	CLRF main_12_eye_anim+D'16'
+03B0  6A38      	CLRF main_12_eye_mask
+03B2  0EC2      	MOVLW 0xC2
+03B4  6E39      	MOVWF main_12_eye_mask+D'1'
+03B6  0E01      	MOVLW 0x01
+03B8  6E3A      	MOVWF main_12_eye_mask+D'2'
+03BA  6A3B      	CLRF main_12_eye_mask+D'3'
+03BC  0E1B      	MOVLW 0x1B
+03BE  6E3E      	MOVWF main_12_eye_mask+D'6'
+03C0  6A3F      	CLRF main_12_eye_mask+D'7'
+03C2  0E1F      	MOVLW 0x1F
+03C4  6E3C      	MOVWF main_12_eye_mask+D'4'
+03C6  6A3D      	CLRF main_12_eye_mask+D'5'
+03C8  0E0E      	MOVLW 0x0E
+03CA  6E40      	MOVWF main_12_eye_mask+D'8'
+03CC  6A41      	CLRF main_12_eye_mask+D'9'
+03CE  6A42      	CLRF main_12_eye_mask+D'10'
+03D0  6A43      	CLRF main_12_eye_mask+D'11'
+03D2  0E87      	MOVLW 0x87
+03D4  6E44      	MOVWF main_12_eye_mask+D'12'
+03D6  6A45      	CLRF main_12_eye_mask+D'13'
+03D8  6A46      	CLRF main_12_eye_mask+D'14'
+03DA  6A47      	CLRF main_12_eye_mask+D'15'
+03DC  6A48      	CLRF main_12_eye_mask+D'16'
+03DE  0E40      	MOVLW 0x40
+03E0  6E49      	MOVWF main_12_compass
+03E2  0E9A      	MOVLW 0x9A
+03E4  6E4A      	MOVWF main_12_compass+D'1'
+03E6  0E02      	MOVLW 0x02
+03E8  6E4B      	MOVWF main_12_compass+D'2'
+03EA  6A4C      	CLRF main_12_compass+D'3'
+03EC  0E06      	MOVLW 0x06
+03EE  6E4F      	MOVWF main_12_compass+D'6'
+03F0  6A50      	CLRF main_12_compass+D'7'
+03F2  0E2D      	MOVLW 0x2D
+03F4  6E4D      	MOVWF main_12_compass+D'4'
+03F6  6A4E      	CLRF main_12_compass+D'5'
+03F8  0E33      	MOVLW 0x33
+03FA  6E51      	MOVWF main_12_compass+D'8'
+03FC  6A52      	CLRF main_12_compass+D'9'
+03FE  6A53      	CLRF main_12_compass+D'10'
+0400  6A54      	CLRF main_12_compass+D'11'
+0402  0E86      	MOVLW 0x86
+0404  6E55      	MOVWF main_12_compass+D'12'
+0406  6A56      	CLRF main_12_compass+D'13'
+0408  6A57      	CLRF main_12_compass+D'14'
+040A  6A58      	CLRF main_12_compass+D'15'
+040C  6A59      	CLRF main_12_compass+D'16'
+040E  6A5A      	CLRF main_12_lines
+0410  0E9E      	MOVLW 0x9E
+0412  6E5B      	MOVWF main_12_lines+D'1'
+0414  0E02      	MOVLW 0x02
+0416  6E5C      	MOVWF main_12_lines+D'2'
+0418  6A5D      	CLRF main_12_lines+D'3'
+041A  0E1A      	MOVLW 0x1A
+041C  6E60      	MOVWF main_12_lines+D'6'
+041E  6A61      	CLRF main_12_lines+D'7'
+0420  0E4F      	MOVLW 0x4F
+0422  6E5E      	MOVWF main_12_lines+D'4'
+0424  6A5F      	CLRF main_12_lines+D'5'
+0426  0E49      	MOVLW 0x49
+0428  6E62      	MOVWF main_12_lines+D'8'
+042A  6A63      	CLRF main_12_lines+D'9'
+042C  6A64      	CLRF main_12_lines+D'10'
+042E  6A65      	CLRF main_12_lines+D'11'
+0430  0E4C      	MOVLW 0x4C
+0432  6E66      	MOVWF main_12_lines+D'12'
+0434  6A67      	CLRF main_12_lines+D'13'
+0436  6A68      	CLRF main_12_lines+D'14'
+0438  6A69      	CLRF main_12_lines+D'15'
+043A  6A6A      	CLRF main_12_lines+D'16'
+043C  0E94      	MOVLW 0x94
+043E  6E6B      	MOVWF main_12_bars
+0440  0EAE      	MOVLW 0xAE
+0442  6E6C      	MOVWF main_12_bars+D'1'
+0444  0E02      	MOVLW 0x02
+0446  6E6D      	MOVWF main_12_bars+D'2'
+0448  6A6E      	CLRF main_12_bars+D'3'
+044A  0E0F      	MOVLW 0x0F
+044C  6E71      	MOVWF main_12_bars+D'6'
+044E  6A72      	CLRF main_12_bars+D'7'
+0450  0E2F      	MOVLW 0x2F
+0452  6E6F      	MOVWF main_12_bars+D'4'
+0454  6A70      	CLRF main_12_bars+D'5'
+0456  0E0A      	MOVLW 0x0A
+0458  6E73      	MOVWF main_12_bars+D'8'
+045A  6A74      	CLRF main_12_bars+D'9'
+045C  6A75      	CLRF main_12_bars+D'10'
+045E  6A76      	CLRF main_12_bars+D'11'
+0460  0E51      	MOVLW 0x51
+0462  6E77      	MOVWF main_12_bars+D'12'
+0464  6A78      	CLRF main_12_bars+D'13'
+0466  6A79      	CLRF main_12_bars+D'14'
+0468  6A7A      	CLRF main_12_bars+D'15'
+046A  6A7B      	CLRF main_12_bars+D'16'
+046C  0E80      	MOVLW 0x80
+046E  0100      	MOVLB 0x00
+0470  6F80      	MOVWF main_12_outline, 1
+0472  0E7D      	MOVLW 0x7D
+0474  6F81      	MOVWF main_12_outline+D'1', 1
+0476  0E02      	MOVLW 0x02
+0478  6F82      	MOVWF main_12_outline+D'2', 1
+047A  6B83      	CLRF main_12_outline+D'3', 1
+047C  0E2E      	MOVLW 0x2E
+047E  6F86      	MOVWF main_12_outline+D'6', 1
+0480  6B87      	CLRF main_12_outline+D'7', 1
+0482  0E2B      	MOVLW 0x2B
+0484  6F84      	MOVWF main_12_outline+D'4', 1
+0486  6B85      	CLRF main_12_outline+D'5', 1
+0488  0E1B      	MOVLW 0x1B
+048A  6F88      	MOVWF main_12_outline+D'8', 1
+048C  6B89      	CLRF main_12_outline+D'9', 1
+048E  6B8A      	CLRF main_12_outline+D'10', 1
+0490  6B8B      	CLRF main_12_outline+D'11', 1
+0492  0E82      	MOVLW 0x82
+0494  6F8C      	MOVWF main_12_outline+D'12', 1
+0496  6B8D      	CLRF main_12_outline+D'13', 1
+0498  6B8E      	CLRF main_12_outline+D'14', 1
+049A  6B8F      	CLRF main_12_outline+D'15', 1
+049C  0E01      	MOVLW 0x01
+049E  6F90      	MOVWF main_12_outline+D'16', 1
+04A0  6A04      	CLRF main_1_i
+04A2            label268436132
+04A2  0EA0      	MOVLW 0xA0
+04A4  6004      	CPFSLT main_1_i
+04A6  D01B      	BRA	label268436133
+04A8  500D      	MOVF main_12_neogeo+D'7', W
+04AA  0100      	MOVLB 0x00
+04AC  6F98      	MOVWF drawtoback_00007_arg_source+D'7', 1
+04AE  500C      	MOVF main_12_neogeo+D'6', W
+04B0  6F97      	MOVWF drawtoback_00007_arg_source+D'6', 1
+04B2  500B      	MOVF main_12_neogeo+D'5', W
+04B4  6F96      	MOVWF drawtoback_00007_arg_source+D'5', 1
+04B6  500A      	MOVF main_12_neogeo+D'4', W
+04B8  6F95      	MOVWF drawtoback_00007_arg_source+D'4', 1
+04BA  5009      	MOVF main_12_neogeo+D'3', W
+04BC  6F94      	MOVWF drawtoback_00007_arg_source+D'3', 1
+04BE  5008      	MOVF main_12_neogeo+D'2', W
+04C0  6F93      	MOVWF drawtoback_00007_arg_source+D'2', 1
+04C2  5007      	MOVF main_12_neogeo+D'1', W
+04C4  6F92      	MOVWF drawtoback_00007_arg_source+D'1', 1
+04C6  5006      	MOVF main_12_neogeo, W
+04C8  6F91      	MOVWF drawtoback_00007_arg_source, 1
+04CA  EC62F001  	CALL drawtoback_00007
+04CE  0E0A      	MOVLW 0x0A
+04D0  6E7D      	MOVWF delay_ms_00000_arg_del
+04D2  EC02F000  	CALL delay_ms_00000
+04D6  4A0A      	INFSNZ main_12_neogeo+D'4', F
+04D8  2A0B      	INCF main_12_neogeo+D'5', F
+04DA  2A04      	INCF main_1_i, F
+04DC  D7E2      	BRA	label268436132
+04DE            label268436133
+04DE  0E03      	MOVLW 0x03
+04E0  6E7C      	MOVWF delay_s_00000_arg_del
+04E2  EC3EF000  	CALL delay_s_00000
+04E6  5015      	MOVF main_12_black+D'7', W
+04E8  0100      	MOVLB 0x00
+04EA  6F98      	MOVWF drawtoback_00007_arg_source+D'7', 1
+04EC  5014      	MOVF main_12_black+D'6', W
+04EE  6F97      	MOVWF drawtoback_00007_arg_source+D'6', 1
+04F0  5013      	MOVF main_12_black+D'5', W
+04F2  6F96      	MOVWF drawtoback_00007_arg_source+D'5', 1
+04F4  5012      	MOVF main_12_black+D'4', W
+04F6  6F95      	MOVWF drawtoback_00007_arg_source+D'4', 1
+04F8  5011      	MOVF main_12_black+D'3', W
+04FA  6F94      	MOVWF drawtoback_00007_arg_source+D'3', 1
+04FC  5010      	MOVF main_12_black+D'2', W
+04FE  6F93      	MOVWF drawtoback_00007_arg_source+D'2', 1
+0500  500F      	MOVF main_12_black+D'1', W
+0502  6F92      	MOVWF drawtoback_00007_arg_source+D'1', 1
+0504  500E      	MOVF main_12_black, W
+0506  6F91      	MOVWF drawtoback_00007_arg_source, 1
+0508  EC62F001  	CALL drawtoback_00007
+050C  0E02      	MOVLW 0x02
+050E  6E7C      	MOVWF delay_s_00000_arg_del
+0510  EC3EF000  	CALL delay_s_00000
+0514  5026      	MOVF main_12_near_future+D'16', W
+0516  0100      	MOVLB 0x00
+0518  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+051A  5025      	MOVF main_12_near_future+D'15', W
+051C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+051E  5024      	MOVF main_12_near_future+D'14', W
+0520  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0522  5023      	MOVF main_12_near_future+D'13', W
+0524  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0526  5022      	MOVF main_12_near_future+D'12', W
+0528  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+052A  5021      	MOVF main_12_near_future+D'11', W
+052C  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+052E  5020      	MOVF main_12_near_future+D'10', W
+0530  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0532  501F      	MOVF main_12_near_future+D'9', W
+0534  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0536  501E      	MOVF main_12_near_future+D'8', W
+0538  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+053A  501D      	MOVF main_12_near_future+D'7', W
+053C  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+053E  501C      	MOVF main_12_near_future+D'6', W
+0540  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0542  501B      	MOVF main_12_near_future+D'5', W
+0544  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0546  501A      	MOVF main_12_near_future+D'4', W
+0548  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+054A  5019      	MOVF main_12_near_future+D'3', W
+054C  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+054E  5018      	MOVF main_12_near_future+D'2', W
+0550  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0552  5017      	MOVF main_12_near_future+D'1', W
+0554  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0556  5016      	MOVF main_12_near_future, W
+0558  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+055A  EC17F001  	CALL drawsprite_00000
+055E  687D      	SETF delay_ms_00000_arg_del
+0560  EC02F000  	CALL delay_ms_00000
+0564  0EE0      	MOVLW 0xE0
+0566  6E16      	MOVWF main_12_near_future
+0568  0E5E      	MOVLW 0x5E
+056A  6E17      	MOVWF main_12_near_future+D'1'
+056C  0E02      	MOVLW 0x02
+056E  6E18      	MOVWF main_12_near_future+D'2'
+0570  6A19      	CLRF main_12_near_future+D'3'
+0572  5015      	MOVF main_12_black+D'7', W
+0574  0100      	MOVLB 0x00
+0576  6F98      	MOVWF drawtoback_00007_arg_source+D'7', 1
+0578  5014      	MOVF main_12_black+D'6', W
+057A  6F97      	MOVWF drawtoback_00007_arg_source+D'6', 1
+057C  5013      	MOVF main_12_black+D'5', W
+057E  6F96      	MOVWF drawtoback_00007_arg_source+D'5', 1
+0580  5012      	MOVF main_12_black+D'4', W
+0582  6F95      	MOVWF drawtoback_00007_arg_source+D'4', 1
+0584  5011      	MOVF main_12_black+D'3', W
+0586  6F94      	MOVWF drawtoback_00007_arg_source+D'3', 1
+0588  5010      	MOVF main_12_black+D'2', W
+058A  6F93      	MOVWF drawtoback_00007_arg_source+D'2', 1
+058C  500F      	MOVF main_12_black+D'1', W
+058E  6F92      	MOVWF drawtoback_00007_arg_source+D'1', 1
+0590  500E      	MOVF main_12_black, W
+0592  6F91      	MOVWF drawtoback_00007_arg_source, 1
+0594  EC62F001  	CALL drawtoback_00007
+0598  5026      	MOVF main_12_near_future+D'16', W
+059A  0100      	MOVLB 0x00
+059C  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+059E  5025      	MOVF main_12_near_future+D'15', W
+05A0  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+05A2  5024      	MOVF main_12_near_future+D'14', W
+05A4  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+05A6  5023      	MOVF main_12_near_future+D'13', W
+05A8  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+05AA  5022      	MOVF main_12_near_future+D'12', W
+05AC  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+05AE  5021      	MOVF main_12_near_future+D'11', W
+05B0  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+05B2  5020      	MOVF main_12_near_future+D'10', W
+05B4  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+05B6  501F      	MOVF main_12_near_future+D'9', W
+05B8  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+05BA  501E      	MOVF main_12_near_future+D'8', W
+05BC  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+05BE  501D      	MOVF main_12_near_future+D'7', W
+05C0  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+05C2  501C      	MOVF main_12_near_future+D'6', W
+05C4  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+05C6  501B      	MOVF main_12_near_future+D'5', W
+05C8  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+05CA  501A      	MOVF main_12_near_future+D'4', W
+05CC  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+05CE  5019      	MOVF main_12_near_future+D'3', W
+05D0  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+05D2  5018      	MOVF main_12_near_future+D'2', W
+05D4  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+05D6  5017      	MOVF main_12_near_future+D'1', W
+05D8  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+05DA  5016      	MOVF main_12_near_future, W
+05DC  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+05DE  EC17F001  	CALL drawsprite_00000
+05E2  687D      	SETF delay_ms_00000_arg_del
+05E4  EC02F000  	CALL delay_ms_00000
+05E8  0EC0      	MOVLW 0xC0
+05EA  6E16      	MOVWF main_12_near_future
+05EC  0E65      	MOVLW 0x65
+05EE  6E17      	MOVWF main_12_near_future+D'1'
+05F0  0E02      	MOVLW 0x02
+05F2  6E18      	MOVWF main_12_near_future+D'2'
+05F4  6A19      	CLRF main_12_near_future+D'3'
+05F6  5015      	MOVF main_12_black+D'7', W
+05F8  0100      	MOVLB 0x00
+05FA  6F98      	MOVWF drawtoback_00007_arg_source+D'7', 1
+05FC  5014      	MOVF main_12_black+D'6', W
+05FE  6F97      	MOVWF drawtoback_00007_arg_source+D'6', 1
+0600  5013      	MOVF main_12_black+D'5', W
+0602  6F96      	MOVWF drawtoback_00007_arg_source+D'5', 1
+0604  5012      	MOVF main_12_black+D'4', W
+0606  6F95      	MOVWF drawtoback_00007_arg_source+D'4', 1
+0608  5011      	MOVF main_12_black+D'3', W
+060A  6F94      	MOVWF drawtoback_00007_arg_source+D'3', 1
+060C  5010      	MOVF main_12_black+D'2', W
+060E  6F93      	MOVWF drawtoback_00007_arg_source+D'2', 1
+0610  500F      	MOVF main_12_black+D'1', W
+0612  6F92      	MOVWF drawtoback_00007_arg_source+D'1', 1
+0614  500E      	MOVF main_12_black, W
+0616  6F91      	MOVWF drawtoback_00007_arg_source, 1
+0618  EC62F001  	CALL drawtoback_00007
+061C  5026      	MOVF main_12_near_future+D'16', W
+061E  0100      	MOVLB 0x00
+0620  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0622  5025      	MOVF main_12_near_future+D'15', W
+0624  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0626  5024      	MOVF main_12_near_future+D'14', W
+0628  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+062A  5023      	MOVF main_12_near_future+D'13', W
+062C  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+062E  5022      	MOVF main_12_near_future+D'12', W
+0630  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0632  5021      	MOVF main_12_near_future+D'11', W
+0634  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0636  5020      	MOVF main_12_near_future+D'10', W
+0638  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+063A  501F      	MOVF main_12_near_future+D'9', W
+063C  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+063E  501E      	MOVF main_12_near_future+D'8', W
+0640  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0642  501D      	MOVF main_12_near_future+D'7', W
+0644  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0646  501C      	MOVF main_12_near_future+D'6', W
+0648  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+064A  501B      	MOVF main_12_near_future+D'5', W
+064C  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+064E  501A      	MOVF main_12_near_future+D'4', W
+0650  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0652  5019      	MOVF main_12_near_future+D'3', W
+0654  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0656  5018      	MOVF main_12_near_future+D'2', W
+0658  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+065A  5017      	MOVF main_12_near_future+D'1', W
+065C  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+065E  5016      	MOVF main_12_near_future, W
+0660  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0662  EC17F001  	CALL drawsprite_00000
+0666  0E02      	MOVLW 0x02
+0668  6E7C      	MOVWF delay_s_00000_arg_del
+066A  EC3EF000  	CALL delay_s_00000
+066E  5015      	MOVF main_12_black+D'7', W
+0670  0100      	MOVLB 0x00
+0672  6F98      	MOVWF drawtoback_00007_arg_source+D'7', 1
+0674  5014      	MOVF main_12_black+D'6', W
+0676  6F97      	MOVWF drawtoback_00007_arg_source+D'6', 1
+0678  5013      	MOVF main_12_black+D'5', W
+067A  6F96      	MOVWF drawtoback_00007_arg_source+D'5', 1
+067C  5012      	MOVF main_12_black+D'4', W
+067E  6F95      	MOVWF drawtoback_00007_arg_source+D'4', 1
+0680  5011      	MOVF main_12_black+D'3', W
+0682  6F94      	MOVWF drawtoback_00007_arg_source+D'3', 1
+0684  5010      	MOVF main_12_black+D'2', W
+0686  6F93      	MOVWF drawtoback_00007_arg_source+D'2', 1
+0688  500F      	MOVF main_12_black+D'1', W
+068A  6F92      	MOVWF drawtoback_00007_arg_source+D'1', 1
+068C  500E      	MOVF main_12_black, W
+068E  6F91      	MOVWF drawtoback_00007_arg_source, 1
+0690  EC62F001  	CALL drawtoback_00007
+0694  0E02      	MOVLW 0x02
+0696  6E7C      	MOVWF delay_s_00000_arg_del
+0698  EC3EF000  	CALL delay_s_00000
+069C  6A04      	CLRF main_1_i
+069E            label268436200
+069E  0E05      	MOVLW 0x05
+06A0  6004      	CPFSLT main_1_i
+06A2  D058      	BRA	label268436201
+06A4  5048      	MOVF main_12_eye_mask+D'16', W
+06A6  0100      	MOVLB 0x00
+06A8  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+06AA  5047      	MOVF main_12_eye_mask+D'15', W
+06AC  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+06AE  5046      	MOVF main_12_eye_mask+D'14', W
+06B0  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+06B2  5045      	MOVF main_12_eye_mask+D'13', W
+06B4  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+06B6  5044      	MOVF main_12_eye_mask+D'12', W
+06B8  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+06BA  5043      	MOVF main_12_eye_mask+D'11', W
+06BC  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+06BE  5042      	MOVF main_12_eye_mask+D'10', W
+06C0  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+06C2  5041      	MOVF main_12_eye_mask+D'9', W
+06C4  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+06C6  5040      	MOVF main_12_eye_mask+D'8', W
+06C8  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+06CA  503F      	MOVF main_12_eye_mask+D'7', W
+06CC  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+06CE  503E      	MOVF main_12_eye_mask+D'6', W
+06D0  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+06D2  503D      	MOVF main_12_eye_mask+D'5', W
+06D4  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+06D6  503C      	MOVF main_12_eye_mask+D'4', W
+06D8  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+06DA  503B      	MOVF main_12_eye_mask+D'3', W
+06DC  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+06DE  503A      	MOVF main_12_eye_mask+D'2', W
+06E0  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+06E2  5039      	MOVF main_12_eye_mask+D'1', W
+06E4  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+06E6  5038      	MOVF main_12_eye_mask, W
+06E8  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+06EA  EC17F001  	CALL drawsprite_00000
+06EE  5037      	MOVF main_12_eye_anim+D'16', W
+06F0  0100      	MOVLB 0x00
+06F2  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+06F4  5036      	MOVF main_12_eye_anim+D'15', W
+06F6  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+06F8  5035      	MOVF main_12_eye_anim+D'14', W
+06FA  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+06FC  5034      	MOVF main_12_eye_anim+D'13', W
+06FE  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0700  5033      	MOVF main_12_eye_anim+D'12', W
+0702  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0704  5032      	MOVF main_12_eye_anim+D'11', W
+0706  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0708  5031      	MOVF main_12_eye_anim+D'10', W
+070A  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+070C  5030      	MOVF main_12_eye_anim+D'9', W
+070E  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0710  502F      	MOVF main_12_eye_anim+D'8', W
+0712  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0714  502E      	MOVF main_12_eye_anim+D'7', W
+0716  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0718  502D      	MOVF main_12_eye_anim+D'6', W
+071A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+071C  502C      	MOVF main_12_eye_anim+D'5', W
+071E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0720  502B      	MOVF main_12_eye_anim+D'4', W
+0722  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0724  502A      	MOVF main_12_eye_anim+D'3', W
+0726  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0728  5029      	MOVF main_12_eye_anim+D'2', W
+072A  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+072C  5028      	MOVF main_12_eye_anim+D'1', W
+072E  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0730  5027      	MOVF main_12_eye_anim, W
+0732  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0734  EC17F001  	CALL drawsprite_00000
+0738  0E20      	MOVLW 0x20
+073A  2627      	ADDWF main_12_eye_anim, F
+073C  0E00      	MOVLW 0x00
+073E  2228      	ADDWFC main_12_eye_anim+D'1', F
+0740  0E00      	MOVLW 0x00
+0742  2229      	ADDWFC main_12_eye_anim+D'2', F
+0744  0E00      	MOVLW 0x00
+0746  222A      	ADDWFC main_12_eye_anim+D'3', F
+0748  0E64      	MOVLW 0x64
+074A  6E7D      	MOVWF delay_ms_00000_arg_del
+074C  EC02F000  	CALL delay_ms_00000
+0750  2A04      	INCF main_1_i, F
+0752  D7A5      	BRA	label268436200
+0754            label268436201
+0754  0E1E      	MOVLW 0x1E
+0756  6E05      	MOVWF main_1_j
+0758  6A04      	CLRF main_1_i
+075A            label268436219
+075A  0E05      	MOVLW 0x05
+075C  6004      	CPFSLT main_1_i
+075E  D097      	BRA	label268436220
+0760  5059      	MOVF main_12_compass+D'16', W
+0762  0100      	MOVLB 0x00
+0764  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0766  5058      	MOVF main_12_compass+D'15', W
+0768  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+076A  5057      	MOVF main_12_compass+D'14', W
+076C  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+076E  5056      	MOVF main_12_compass+D'13', W
+0770  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0772  5055      	MOVF main_12_compass+D'12', W
+0774  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0776  5054      	MOVF main_12_compass+D'11', W
+0778  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+077A  5053      	MOVF main_12_compass+D'10', W
+077C  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+077E  5052      	MOVF main_12_compass+D'9', W
+0780  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0782  5051      	MOVF main_12_compass+D'8', W
+0784  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0786  5050      	MOVF main_12_compass+D'7', W
+0788  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+078A  504F      	MOVF main_12_compass+D'6', W
+078C  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+078E  504E      	MOVF main_12_compass+D'5', W
+0790  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0792  504D      	MOVF main_12_compass+D'4', W
+0794  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0796  504C      	MOVF main_12_compass+D'3', W
+0798  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+079A  504B      	MOVF main_12_compass+D'2', W
+079C  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+079E  504A      	MOVF main_12_compass+D'1', W
+07A0  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+07A2  5049      	MOVF main_12_compass, W
+07A4  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+07A6  EC17F001  	CALL drawsprite_00000
+07AA  0E2E      	MOVLW 0x2E
+07AC  2649      	ADDWF main_12_compass, F
+07AE  0E00      	MOVLW 0x00
+07B0  224A      	ADDWFC main_12_compass+D'1', F
+07B2  0E00      	MOVLW 0x00
+07B4  224B      	ADDWFC main_12_compass+D'2', F
+07B6  0E00      	MOVLW 0x00
+07B8  224C      	ADDWFC main_12_compass+D'3', F
+07BA  5005      	MOVF main_1_j, W
+07BC  6E7D      	MOVWF delay_ms_00000_arg_del
+07BE  EC02F000  	CALL delay_ms_00000
+07C2  5059      	MOVF main_12_compass+D'16', W
+07C4  0100      	MOVLB 0x00
+07C6  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+07C8  5058      	MOVF main_12_compass+D'15', W
+07CA  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+07CC  5057      	MOVF main_12_compass+D'14', W
+07CE  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+07D0  5056      	MOVF main_12_compass+D'13', W
+07D2  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+07D4  5055      	MOVF main_12_compass+D'12', W
+07D6  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+07D8  5054      	MOVF main_12_compass+D'11', W
+07DA  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+07DC  5053      	MOVF main_12_compass+D'10', W
+07DE  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+07E0  5052      	MOVF main_12_compass+D'9', W
+07E2  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+07E4  5051      	MOVF main_12_compass+D'8', W
+07E6  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+07E8  5050      	MOVF main_12_compass+D'7', W
+07EA  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+07EC  504F      	MOVF main_12_compass+D'6', W
+07EE  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+07F0  504E      	MOVF main_12_compass+D'5', W
+07F2  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+07F4  504D      	MOVF main_12_compass+D'4', W
+07F6  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+07F8  504C      	MOVF main_12_compass+D'3', W
+07FA  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+07FC  504B      	MOVF main_12_compass+D'2', W
+07FE  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0800  504A      	MOVF main_12_compass+D'1', W
+0802  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0804  5049      	MOVF main_12_compass, W
+0806  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0808  EC17F001  	CALL drawsprite_00000
+080C  0E2E      	MOVLW 0x2E
+080E  2649      	ADDWF main_12_compass, F
+0810  0E00      	MOVLW 0x00
+0812  224A      	ADDWFC main_12_compass+D'1', F
+0814  0E00      	MOVLW 0x00
+0816  224B      	ADDWFC main_12_compass+D'2', F
+0818  0E00      	MOVLW 0x00
+081A  224C      	ADDWFC main_12_compass+D'3', F
+081C  5005      	MOVF main_1_j, W
+081E  6E7D      	MOVWF delay_ms_00000_arg_del
+0820  EC02F000  	CALL delay_ms_00000
+0824  5059      	MOVF main_12_compass+D'16', W
+0826  0100      	MOVLB 0x00
+0828  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+082A  5058      	MOVF main_12_compass+D'15', W
+082C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+082E  5057      	MOVF main_12_compass+D'14', W
+0830  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0832  5056      	MOVF main_12_compass+D'13', W
+0834  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0836  5055      	MOVF main_12_compass+D'12', W
+0838  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+083A  5054      	MOVF main_12_compass+D'11', W
+083C  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+083E  5053      	MOVF main_12_compass+D'10', W
+0840  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0842  5052      	MOVF main_12_compass+D'9', W
+0844  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0846  5051      	MOVF main_12_compass+D'8', W
+0848  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+084A  5050      	MOVF main_12_compass+D'7', W
+084C  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+084E  504F      	MOVF main_12_compass+D'6', W
+0850  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0852  504E      	MOVF main_12_compass+D'5', W
+0854  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0856  504D      	MOVF main_12_compass+D'4', W
+0858  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+085A  504C      	MOVF main_12_compass+D'3', W
+085C  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+085E  504B      	MOVF main_12_compass+D'2', W
+0860  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0862  504A      	MOVF main_12_compass+D'1', W
+0864  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0866  5049      	MOVF main_12_compass, W
+0868  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+086A  EC17F001  	CALL drawsprite_00000
+086E  0E5C      	MOVLW 0x5C
+0870  5E49      	SUBWF main_12_compass, F
+0872  0E00      	MOVLW 0x00
+0874  5A4A      	SUBWFB main_12_compass+D'1', F
+0876  0E00      	MOVLW 0x00
+0878  5A4B      	SUBWFB main_12_compass+D'2', F
+087A  0E00      	MOVLW 0x00
+087C  5A4C      	SUBWFB main_12_compass+D'3', F
+087E  5005      	MOVF main_1_j, W
+0880  6E7D      	MOVWF delay_ms_00000_arg_del
+0882  EC02F000  	CALL delay_ms_00000
+0886  0E0F      	MOVLW 0x0F
+0888  2605      	ADDWF main_1_j, F
+088A  2A04      	INCF main_1_i, F
+088C  D766      	BRA	label268436219
+088E            label268436220
+088E  0E14      	MOVLW 0x14
+0890  6E05      	MOVWF main_1_j
+0892  6A04      	CLRF main_1_i
+0894            label268436253
+0894  0E05      	MOVLW 0x05
+0896  6004      	CPFSLT main_1_i
+0898  D097      	BRA	label268436254
+089A  0E5C      	MOVLW 0x5C
+089C  2649      	ADDWF main_12_compass, F
+089E  0E00      	MOVLW 0x00
+08A0  224A      	ADDWFC main_12_compass+D'1', F
+08A2  0E00      	MOVLW 0x00
+08A4  224B      	ADDWFC main_12_compass+D'2', F
+08A6  0E00      	MOVLW 0x00
+08A8  224C      	ADDWFC main_12_compass+D'3', F
+08AA  5059      	MOVF main_12_compass+D'16', W
+08AC  0100      	MOVLB 0x00
+08AE  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+08B0  5058      	MOVF main_12_compass+D'15', W
+08B2  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+08B4  5057      	MOVF main_12_compass+D'14', W
+08B6  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+08B8  5056      	MOVF main_12_compass+D'13', W
+08BA  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+08BC  5055      	MOVF main_12_compass+D'12', W
+08BE  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+08C0  5054      	MOVF main_12_compass+D'11', W
+08C2  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+08C4  5053      	MOVF main_12_compass+D'10', W
+08C6  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+08C8  5052      	MOVF main_12_compass+D'9', W
+08CA  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+08CC  5051      	MOVF main_12_compass+D'8', W
+08CE  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+08D0  5050      	MOVF main_12_compass+D'7', W
+08D2  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+08D4  504F      	MOVF main_12_compass+D'6', W
+08D6  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+08D8  504E      	MOVF main_12_compass+D'5', W
+08DA  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+08DC  504D      	MOVF main_12_compass+D'4', W
+08DE  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+08E0  504C      	MOVF main_12_compass+D'3', W
+08E2  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+08E4  504B      	MOVF main_12_compass+D'2', W
+08E6  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+08E8  504A      	MOVF main_12_compass+D'1', W
+08EA  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+08EC  5049      	MOVF main_12_compass, W
+08EE  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+08F0  EC17F001  	CALL drawsprite_00000
+08F4  0E2E      	MOVLW 0x2E
+08F6  5E49      	SUBWF main_12_compass, F
+08F8  0E00      	MOVLW 0x00
+08FA  5A4A      	SUBWFB main_12_compass+D'1', F
+08FC  0E00      	MOVLW 0x00
+08FE  5A4B      	SUBWFB main_12_compass+D'2', F
+0900  0E00      	MOVLW 0x00
+0902  5A4C      	SUBWFB main_12_compass+D'3', F
+0904  5005      	MOVF main_1_j, W
+0906  6E7D      	MOVWF delay_ms_00000_arg_del
+0908  EC02F000  	CALL delay_ms_00000
+090C  5059      	MOVF main_12_compass+D'16', W
+090E  0100      	MOVLB 0x00
+0910  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0912  5058      	MOVF main_12_compass+D'15', W
+0914  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0916  5057      	MOVF main_12_compass+D'14', W
+0918  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+091A  5056      	MOVF main_12_compass+D'13', W
+091C  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+091E  5055      	MOVF main_12_compass+D'12', W
+0920  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0922  5054      	MOVF main_12_compass+D'11', W
+0924  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0926  5053      	MOVF main_12_compass+D'10', W
+0928  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+092A  5052      	MOVF main_12_compass+D'9', W
+092C  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+092E  5051      	MOVF main_12_compass+D'8', W
+0930  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0932  5050      	MOVF main_12_compass+D'7', W
+0934  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0936  504F      	MOVF main_12_compass+D'6', W
+0938  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+093A  504E      	MOVF main_12_compass+D'5', W
+093C  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+093E  504D      	MOVF main_12_compass+D'4', W
+0940  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0942  504C      	MOVF main_12_compass+D'3', W
+0944  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0946  504B      	MOVF main_12_compass+D'2', W
+0948  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+094A  504A      	MOVF main_12_compass+D'1', W
+094C  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+094E  5049      	MOVF main_12_compass, W
+0950  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0952  EC17F001  	CALL drawsprite_00000
+0956  0E2E      	MOVLW 0x2E
+0958  5E49      	SUBWF main_12_compass, F
+095A  0E00      	MOVLW 0x00
+095C  5A4A      	SUBWFB main_12_compass+D'1', F
+095E  0E00      	MOVLW 0x00
+0960  5A4B      	SUBWFB main_12_compass+D'2', F
+0962  0E00      	MOVLW 0x00
+0964  5A4C      	SUBWFB main_12_compass+D'3', F
+0966  5005      	MOVF main_1_j, W
+0968  6E7D      	MOVWF delay_ms_00000_arg_del
+096A  EC02F000  	CALL delay_ms_00000
+096E  5059      	MOVF main_12_compass+D'16', W
+0970  0100      	MOVLB 0x00
+0972  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0974  5058      	MOVF main_12_compass+D'15', W
+0976  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0978  5057      	MOVF main_12_compass+D'14', W
+097A  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+097C  5056      	MOVF main_12_compass+D'13', W
+097E  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0980  5055      	MOVF main_12_compass+D'12', W
+0982  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0984  5054      	MOVF main_12_compass+D'11', W
+0986  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0988  5053      	MOVF main_12_compass+D'10', W
+098A  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+098C  5052      	MOVF main_12_compass+D'9', W
+098E  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0990  5051      	MOVF main_12_compass+D'8', W
+0992  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0994  5050      	MOVF main_12_compass+D'7', W
+0996  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0998  504F      	MOVF main_12_compass+D'6', W
+099A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+099C  504E      	MOVF main_12_compass+D'5', W
+099E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+09A0  504D      	MOVF main_12_compass+D'4', W
+09A2  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+09A4  504C      	MOVF main_12_compass+D'3', W
+09A6  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+09A8  504B      	MOVF main_12_compass+D'2', W
+09AA  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+09AC  504A      	MOVF main_12_compass+D'1', W
+09AE  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+09B0  5049      	MOVF main_12_compass, W
+09B2  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+09B4  EC17F001  	CALL drawsprite_00000
+09B8  5005      	MOVF main_1_j, W
+09BA  6E7D      	MOVWF delay_ms_00000_arg_del
+09BC  EC02F000  	CALL delay_ms_00000
+09C0  0E0F      	MOVLW 0x0F
+09C2  2605      	ADDWF main_1_j, F
+09C4  2A04      	INCF main_1_i, F
+09C6  D766      	BRA	label268436253
+09C8            label268436254
+09C8  0E96      	MOVLW 0x96
+09CA  6E05      	MOVWF main_1_j
+09CC  6A04      	CLRF main_1_i
+09CE            label268436287
+09CE  0E03      	MOVLW 0x03
+09D0  6004      	CPFSLT main_1_i
+09D2  D097      	BRA	label268436288
+09D4  5059      	MOVF main_12_compass+D'16', W
+09D6  0100      	MOVLB 0x00
+09D8  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+09DA  5058      	MOVF main_12_compass+D'15', W
+09DC  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+09DE  5057      	MOVF main_12_compass+D'14', W
+09E0  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+09E2  5056      	MOVF main_12_compass+D'13', W
+09E4  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+09E6  5055      	MOVF main_12_compass+D'12', W
+09E8  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+09EA  5054      	MOVF main_12_compass+D'11', W
+09EC  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+09EE  5053      	MOVF main_12_compass+D'10', W
+09F0  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+09F2  5052      	MOVF main_12_compass+D'9', W
+09F4  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+09F6  5051      	MOVF main_12_compass+D'8', W
+09F8  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+09FA  5050      	MOVF main_12_compass+D'7', W
+09FC  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+09FE  504F      	MOVF main_12_compass+D'6', W
+0A00  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0A02  504E      	MOVF main_12_compass+D'5', W
+0A04  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0A06  504D      	MOVF main_12_compass+D'4', W
+0A08  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0A0A  504C      	MOVF main_12_compass+D'3', W
+0A0C  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0A0E  504B      	MOVF main_12_compass+D'2', W
+0A10  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0A12  504A      	MOVF main_12_compass+D'1', W
+0A14  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0A16  5049      	MOVF main_12_compass, W
+0A18  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0A1A  EC17F001  	CALL drawsprite_00000
+0A1E  0E2E      	MOVLW 0x2E
+0A20  2649      	ADDWF main_12_compass, F
+0A22  0E00      	MOVLW 0x00
+0A24  224A      	ADDWFC main_12_compass+D'1', F
+0A26  0E00      	MOVLW 0x00
+0A28  224B      	ADDWFC main_12_compass+D'2', F
+0A2A  0E00      	MOVLW 0x00
+0A2C  224C      	ADDWFC main_12_compass+D'3', F
+0A2E  5005      	MOVF main_1_j, W
+0A30  6E7D      	MOVWF delay_ms_00000_arg_del
+0A32  EC02F000  	CALL delay_ms_00000
+0A36  5059      	MOVF main_12_compass+D'16', W
+0A38  0100      	MOVLB 0x00
+0A3A  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0A3C  5058      	MOVF main_12_compass+D'15', W
+0A3E  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0A40  5057      	MOVF main_12_compass+D'14', W
+0A42  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0A44  5056      	MOVF main_12_compass+D'13', W
+0A46  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0A48  5055      	MOVF main_12_compass+D'12', W
+0A4A  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0A4C  5054      	MOVF main_12_compass+D'11', W
+0A4E  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0A50  5053      	MOVF main_12_compass+D'10', W
+0A52  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0A54  5052      	MOVF main_12_compass+D'9', W
+0A56  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0A58  5051      	MOVF main_12_compass+D'8', W
+0A5A  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0A5C  5050      	MOVF main_12_compass+D'7', W
+0A5E  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0A60  504F      	MOVF main_12_compass+D'6', W
+0A62  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0A64  504E      	MOVF main_12_compass+D'5', W
+0A66  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0A68  504D      	MOVF main_12_compass+D'4', W
+0A6A  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0A6C  504C      	MOVF main_12_compass+D'3', W
+0A6E  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0A70  504B      	MOVF main_12_compass+D'2', W
+0A72  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0A74  504A      	MOVF main_12_compass+D'1', W
+0A76  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0A78  5049      	MOVF main_12_compass, W
+0A7A  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0A7C  EC17F001  	CALL drawsprite_00000
+0A80  0E2E      	MOVLW 0x2E
+0A82  2649      	ADDWF main_12_compass, F
+0A84  0E00      	MOVLW 0x00
+0A86  224A      	ADDWFC main_12_compass+D'1', F
+0A88  0E00      	MOVLW 0x00
+0A8A  224B      	ADDWFC main_12_compass+D'2', F
+0A8C  0E00      	MOVLW 0x00
+0A8E  224C      	ADDWFC main_12_compass+D'3', F
+0A90  5005      	MOVF main_1_j, W
+0A92  6E7D      	MOVWF delay_ms_00000_arg_del
+0A94  EC02F000  	CALL delay_ms_00000
+0A98  5059      	MOVF main_12_compass+D'16', W
+0A9A  0100      	MOVLB 0x00
+0A9C  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0A9E  5058      	MOVF main_12_compass+D'15', W
+0AA0  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0AA2  5057      	MOVF main_12_compass+D'14', W
+0AA4  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0AA6  5056      	MOVF main_12_compass+D'13', W
+0AA8  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0AAA  5055      	MOVF main_12_compass+D'12', W
+0AAC  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0AAE  5054      	MOVF main_12_compass+D'11', W
+0AB0  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0AB2  5053      	MOVF main_12_compass+D'10', W
+0AB4  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0AB6  5052      	MOVF main_12_compass+D'9', W
+0AB8  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0ABA  5051      	MOVF main_12_compass+D'8', W
+0ABC  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0ABE  5050      	MOVF main_12_compass+D'7', W
+0AC0  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0AC2  504F      	MOVF main_12_compass+D'6', W
+0AC4  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0AC6  504E      	MOVF main_12_compass+D'5', W
+0AC8  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0ACA  504D      	MOVF main_12_compass+D'4', W
+0ACC  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0ACE  504C      	MOVF main_12_compass+D'3', W
+0AD0  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0AD2  504B      	MOVF main_12_compass+D'2', W
+0AD4  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0AD6  504A      	MOVF main_12_compass+D'1', W
+0AD8  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0ADA  5049      	MOVF main_12_compass, W
+0ADC  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0ADE  EC17F001  	CALL drawsprite_00000
+0AE2  0E5C      	MOVLW 0x5C
+0AE4  5E49      	SUBWF main_12_compass, F
+0AE6  0E00      	MOVLW 0x00
+0AE8  5A4A      	SUBWFB main_12_compass+D'1', F
+0AEA  0E00      	MOVLW 0x00
+0AEC  5A4B      	SUBWFB main_12_compass+D'2', F
+0AEE  0E00      	MOVLW 0x00
+0AF0  5A4C      	SUBWFB main_12_compass+D'3', F
+0AF2  5005      	MOVF main_1_j, W
+0AF4  6E7D      	MOVWF delay_ms_00000_arg_del
+0AF6  EC02F000  	CALL delay_ms_00000
+0AFA  0E3C      	MOVLW 0x3C
+0AFC  5E05      	SUBWF main_1_j, F
+0AFE  2A04      	INCF main_1_i, F
+0B00  D766      	BRA	label268436287
+0B02            label268436288
+0B02  506A      	MOVF main_12_lines+D'16', W
+0B04  0100      	MOVLB 0x00
+0B06  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0B08  5069      	MOVF main_12_lines+D'15', W
+0B0A  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0B0C  5068      	MOVF main_12_lines+D'14', W
+0B0E  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0B10  5067      	MOVF main_12_lines+D'13', W
+0B12  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0B14  5066      	MOVF main_12_lines+D'12', W
+0B16  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0B18  5065      	MOVF main_12_lines+D'11', W
+0B1A  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0B1C  5064      	MOVF main_12_lines+D'10', W
+0B1E  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0B20  5063      	MOVF main_12_lines+D'9', W
+0B22  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0B24  5062      	MOVF main_12_lines+D'8', W
+0B26  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0B28  5061      	MOVF main_12_lines+D'7', W
+0B2A  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0B2C  5060      	MOVF main_12_lines+D'6', W
+0B2E  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0B30  505F      	MOVF main_12_lines+D'5', W
+0B32  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0B34  505E      	MOVF main_12_lines+D'4', W
+0B36  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0B38  505D      	MOVF main_12_lines+D'3', W
+0B3A  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0B3C  505C      	MOVF main_12_lines+D'2', W
+0B3E  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0B40  505B      	MOVF main_12_lines+D'1', W
+0B42  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0B44  505A      	MOVF main_12_lines, W
+0B46  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0B48  EC17F001  	CALL drawsprite_00000
+0B4C  507B      	MOVF main_12_bars+D'16', W
+0B4E  0100      	MOVLB 0x00
+0B50  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0B52  507A      	MOVF main_12_bars+D'15', W
+0B54  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0B56  5079      	MOVF main_12_bars+D'14', W
+0B58  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0B5A  5078      	MOVF main_12_bars+D'13', W
+0B5C  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0B5E  5077      	MOVF main_12_bars+D'12', W
+0B60  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0B62  5076      	MOVF main_12_bars+D'11', W
+0B64  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0B66  5075      	MOVF main_12_bars+D'10', W
+0B68  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0B6A  5074      	MOVF main_12_bars+D'9', W
+0B6C  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0B6E  5073      	MOVF main_12_bars+D'8', W
+0B70  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0B72  5072      	MOVF main_12_bars+D'7', W
+0B74  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0B76  5071      	MOVF main_12_bars+D'6', W
+0B78  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0B7A  5070      	MOVF main_12_bars+D'5', W
+0B7C  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0B7E  506F      	MOVF main_12_bars+D'4', W
+0B80  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0B82  506E      	MOVF main_12_bars+D'3', W
+0B84  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0B86  506D      	MOVF main_12_bars+D'2', W
+0B88  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0B8A  506C      	MOVF main_12_bars+D'1', W
+0B8C  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0B8E  506B      	MOVF main_12_bars, W
+0B90  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0B92  EC17F001  	CALL drawsprite_00000
+0B96  0E0A      	MOVLW 0x0A
+0B98  6E05      	MOVWF main_1_j
+0B9A  6A04      	CLRF main_1_i
+0B9C            label268436329
+0B9C  0E02      	MOVLW 0x02
+0B9E  6004      	CPFSLT main_1_i
+0BA0  D097      	BRA	label268436330
+0BA2  5059      	MOVF main_12_compass+D'16', W
+0BA4  0100      	MOVLB 0x00
+0BA6  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0BA8  5058      	MOVF main_12_compass+D'15', W
+0BAA  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0BAC  5057      	MOVF main_12_compass+D'14', W
+0BAE  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0BB0  5056      	MOVF main_12_compass+D'13', W
+0BB2  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0BB4  5055      	MOVF main_12_compass+D'12', W
+0BB6  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0BB8  5054      	MOVF main_12_compass+D'11', W
+0BBA  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0BBC  5053      	MOVF main_12_compass+D'10', W
+0BBE  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0BC0  5052      	MOVF main_12_compass+D'9', W
+0BC2  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0BC4  5051      	MOVF main_12_compass+D'8', W
+0BC6  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0BC8  5050      	MOVF main_12_compass+D'7', W
+0BCA  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0BCC  504F      	MOVF main_12_compass+D'6', W
+0BCE  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0BD0  504E      	MOVF main_12_compass+D'5', W
+0BD2  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0BD4  504D      	MOVF main_12_compass+D'4', W
+0BD6  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0BD8  504C      	MOVF main_12_compass+D'3', W
+0BDA  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0BDC  504B      	MOVF main_12_compass+D'2', W
+0BDE  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0BE0  504A      	MOVF main_12_compass+D'1', W
+0BE2  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0BE4  5049      	MOVF main_12_compass, W
+0BE6  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0BE8  EC17F001  	CALL drawsprite_00000
+0BEC  0E2E      	MOVLW 0x2E
+0BEE  2649      	ADDWF main_12_compass, F
+0BF0  0E00      	MOVLW 0x00
+0BF2  224A      	ADDWFC main_12_compass+D'1', F
+0BF4  0E00      	MOVLW 0x00
+0BF6  224B      	ADDWFC main_12_compass+D'2', F
+0BF8  0E00      	MOVLW 0x00
+0BFA  224C      	ADDWFC main_12_compass+D'3', F
+0BFC  5005      	MOVF main_1_j, W
+0BFE  6E7D      	MOVWF delay_ms_00000_arg_del
+0C00  EC02F000  	CALL delay_ms_00000
+0C04  5059      	MOVF main_12_compass+D'16', W
+0C06  0100      	MOVLB 0x00
+0C08  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0C0A  5058      	MOVF main_12_compass+D'15', W
+0C0C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0C0E  5057      	MOVF main_12_compass+D'14', W
+0C10  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0C12  5056      	MOVF main_12_compass+D'13', W
+0C14  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0C16  5055      	MOVF main_12_compass+D'12', W
+0C18  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0C1A  5054      	MOVF main_12_compass+D'11', W
+0C1C  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0C1E  5053      	MOVF main_12_compass+D'10', W
+0C20  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0C22  5052      	MOVF main_12_compass+D'9', W
+0C24  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0C26  5051      	MOVF main_12_compass+D'8', W
+0C28  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0C2A  5050      	MOVF main_12_compass+D'7', W
+0C2C  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0C2E  504F      	MOVF main_12_compass+D'6', W
+0C30  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0C32  504E      	MOVF main_12_compass+D'5', W
+0C34  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0C36  504D      	MOVF main_12_compass+D'4', W
+0C38  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0C3A  504C      	MOVF main_12_compass+D'3', W
+0C3C  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0C3E  504B      	MOVF main_12_compass+D'2', W
+0C40  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0C42  504A      	MOVF main_12_compass+D'1', W
+0C44  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0C46  5049      	MOVF main_12_compass, W
+0C48  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0C4A  EC17F001  	CALL drawsprite_00000
+0C4E  0E2E      	MOVLW 0x2E
+0C50  2649      	ADDWF main_12_compass, F
+0C52  0E00      	MOVLW 0x00
+0C54  224A      	ADDWFC main_12_compass+D'1', F
+0C56  0E00      	MOVLW 0x00
+0C58  224B      	ADDWFC main_12_compass+D'2', F
+0C5A  0E00      	MOVLW 0x00
+0C5C  224C      	ADDWFC main_12_compass+D'3', F
+0C5E  5005      	MOVF main_1_j, W
+0C60  6E7D      	MOVWF delay_ms_00000_arg_del
+0C62  EC02F000  	CALL delay_ms_00000
+0C66  5059      	MOVF main_12_compass+D'16', W
+0C68  0100      	MOVLB 0x00
+0C6A  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0C6C  5058      	MOVF main_12_compass+D'15', W
+0C6E  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0C70  5057      	MOVF main_12_compass+D'14', W
+0C72  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0C74  5056      	MOVF main_12_compass+D'13', W
+0C76  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0C78  5055      	MOVF main_12_compass+D'12', W
+0C7A  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0C7C  5054      	MOVF main_12_compass+D'11', W
+0C7E  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0C80  5053      	MOVF main_12_compass+D'10', W
+0C82  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0C84  5052      	MOVF main_12_compass+D'9', W
+0C86  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0C88  5051      	MOVF main_12_compass+D'8', W
+0C8A  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0C8C  5050      	MOVF main_12_compass+D'7', W
+0C8E  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0C90  504F      	MOVF main_12_compass+D'6', W
+0C92  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0C94  504E      	MOVF main_12_compass+D'5', W
+0C96  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0C98  504D      	MOVF main_12_compass+D'4', W
+0C9A  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0C9C  504C      	MOVF main_12_compass+D'3', W
+0C9E  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0CA0  504B      	MOVF main_12_compass+D'2', W
+0CA2  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0CA4  504A      	MOVF main_12_compass+D'1', W
+0CA6  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0CA8  5049      	MOVF main_12_compass, W
+0CAA  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0CAC  EC17F001  	CALL drawsprite_00000
+0CB0  0E5C      	MOVLW 0x5C
+0CB2  5E49      	SUBWF main_12_compass, F
+0CB4  0E00      	MOVLW 0x00
+0CB6  5A4A      	SUBWFB main_12_compass+D'1', F
+0CB8  0E00      	MOVLW 0x00
+0CBA  5A4B      	SUBWFB main_12_compass+D'2', F
+0CBC  0E00      	MOVLW 0x00
+0CBE  5A4C      	SUBWFB main_12_compass+D'3', F
+0CC0  5005      	MOVF main_1_j, W
+0CC2  6E7D      	MOVWF delay_ms_00000_arg_del
+0CC4  EC02F000  	CALL delay_ms_00000
+0CC8  0E28      	MOVLW 0x28
+0CCA  2605      	ADDWF main_1_j, F
+0CCC  2A04      	INCF main_1_i, F
+0CCE  D766      	BRA	label268436329
+0CD0            label268436330
+0CD0  0E50      	MOVLW 0x50
+0CD2  6E5A      	MOVWF main_12_lines
+0CD4  0E9E      	MOVLW 0x9E
+0CD6  6E5B      	MOVWF main_12_lines+D'1'
+0CD8  0E02      	MOVLW 0x02
+0CDA  6E5C      	MOVWF main_12_lines+D'2'
+0CDC  6A5D      	CLRF main_12_lines+D'3'
+0CDE  0E4B      	MOVLW 0x4B
+0CE0  6E5E      	MOVWF main_12_lines+D'4'
+0CE2  6A5F      	CLRF main_12_lines+D'5'
+0CE4  0E60      	MOVLW 0x60
+0CE6  266B      	ADDWF main_12_bars, F
+0CE8  0E09      	MOVLW 0x09
+0CEA  226C      	ADDWFC main_12_bars+D'1', F
+0CEC  0E00      	MOVLW 0x00
+0CEE  226D      	ADDWFC main_12_bars+D'2', F
+0CF0  0E00      	MOVLW 0x00
+0CF2  226E      	ADDWFC main_12_bars+D'3', F
+0CF4  0E35      	MOVLW 0x35
+0CF6  6E6F      	MOVWF main_12_bars+D'4'
+0CF8  6A70      	CLRF main_12_bars+D'5'
+0CFA  506A      	MOVF main_12_lines+D'16', W
+0CFC  0100      	MOVLB 0x00
+0CFE  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0D00  5069      	MOVF main_12_lines+D'15', W
+0D02  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0D04  5068      	MOVF main_12_lines+D'14', W
+0D06  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0D08  5067      	MOVF main_12_lines+D'13', W
+0D0A  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0D0C  5066      	MOVF main_12_lines+D'12', W
+0D0E  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0D10  5065      	MOVF main_12_lines+D'11', W
+0D12  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0D14  5064      	MOVF main_12_lines+D'10', W
+0D16  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0D18  5063      	MOVF main_12_lines+D'9', W
+0D1A  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0D1C  5062      	MOVF main_12_lines+D'8', W
+0D1E  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0D20  5061      	MOVF main_12_lines+D'7', W
+0D22  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0D24  5060      	MOVF main_12_lines+D'6', W
+0D26  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0D28  505F      	MOVF main_12_lines+D'5', W
+0D2A  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0D2C  505E      	MOVF main_12_lines+D'4', W
+0D2E  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0D30  505D      	MOVF main_12_lines+D'3', W
+0D32  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0D34  505C      	MOVF main_12_lines+D'2', W
+0D36  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0D38  505B      	MOVF main_12_lines+D'1', W
+0D3A  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0D3C  505A      	MOVF main_12_lines, W
+0D3E  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0D40  EC17F001  	CALL drawsprite_00000
+0D44  507B      	MOVF main_12_bars+D'16', W
+0D46  0100      	MOVLB 0x00
+0D48  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0D4A  507A      	MOVF main_12_bars+D'15', W
+0D4C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0D4E  5079      	MOVF main_12_bars+D'14', W
+0D50  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0D52  5078      	MOVF main_12_bars+D'13', W
+0D54  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0D56  5077      	MOVF main_12_bars+D'12', W
+0D58  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0D5A  5076      	MOVF main_12_bars+D'11', W
+0D5C  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0D5E  5075      	MOVF main_12_bars+D'10', W
+0D60  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0D62  5074      	MOVF main_12_bars+D'9', W
+0D64  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0D66  5073      	MOVF main_12_bars+D'8', W
+0D68  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0D6A  5072      	MOVF main_12_bars+D'7', W
+0D6C  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0D6E  5071      	MOVF main_12_bars+D'6', W
+0D70  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0D72  5070      	MOVF main_12_bars+D'5', W
+0D74  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0D76  506F      	MOVF main_12_bars+D'4', W
+0D78  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0D7A  506E      	MOVF main_12_bars+D'3', W
+0D7C  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0D7E  506D      	MOVF main_12_bars+D'2', W
+0D80  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0D82  506C      	MOVF main_12_bars+D'1', W
+0D84  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0D86  506B      	MOVF main_12_bars, W
+0D88  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0D8A  EC17F001  	CALL drawsprite_00000
+0D8E  5059      	MOVF main_12_compass+D'16', W
+0D90  0100      	MOVLB 0x00
+0D92  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0D94  5058      	MOVF main_12_compass+D'15', W
+0D96  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0D98  5057      	MOVF main_12_compass+D'14', W
+0D9A  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0D9C  5056      	MOVF main_12_compass+D'13', W
+0D9E  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0DA0  5055      	MOVF main_12_compass+D'12', W
+0DA2  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0DA4  5054      	MOVF main_12_compass+D'11', W
+0DA6  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0DA8  5053      	MOVF main_12_compass+D'10', W
+0DAA  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0DAC  5052      	MOVF main_12_compass+D'9', W
+0DAE  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0DB0  5051      	MOVF main_12_compass+D'8', W
+0DB2  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0DB4  5050      	MOVF main_12_compass+D'7', W
+0DB6  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0DB8  504F      	MOVF main_12_compass+D'6', W
+0DBA  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0DBC  504E      	MOVF main_12_compass+D'5', W
+0DBE  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0DC0  504D      	MOVF main_12_compass+D'4', W
+0DC2  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0DC4  504C      	MOVF main_12_compass+D'3', W
+0DC6  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0DC8  504B      	MOVF main_12_compass+D'2', W
+0DCA  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0DCC  504A      	MOVF main_12_compass+D'1', W
+0DCE  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0DD0  5049      	MOVF main_12_compass, W
+0DD2  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0DD4  EC17F001  	CALL drawsprite_00000
+0DD8  0E2E      	MOVLW 0x2E
+0DDA  2649      	ADDWF main_12_compass, F
+0DDC  0E00      	MOVLW 0x00
+0DDE  224A      	ADDWFC main_12_compass+D'1', F
+0DE0  0E00      	MOVLW 0x00
+0DE2  224B      	ADDWFC main_12_compass+D'2', F
+0DE4  0E00      	MOVLW 0x00
+0DE6  224C      	ADDWFC main_12_compass+D'3', F
+0DE8  5005      	MOVF main_1_j, W
+0DEA  6E7D      	MOVWF delay_ms_00000_arg_del
+0DEC  EC02F000  	CALL delay_ms_00000
+0DF0  5059      	MOVF main_12_compass+D'16', W
+0DF2  0100      	MOVLB 0x00
+0DF4  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0DF6  5058      	MOVF main_12_compass+D'15', W
+0DF8  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0DFA  5057      	MOVF main_12_compass+D'14', W
+0DFC  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0DFE  5056      	MOVF main_12_compass+D'13', W
+0E00  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0E02  5055      	MOVF main_12_compass+D'12', W
+0E04  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0E06  5054      	MOVF main_12_compass+D'11', W
+0E08  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0E0A  5053      	MOVF main_12_compass+D'10', W
+0E0C  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0E0E  5052      	MOVF main_12_compass+D'9', W
+0E10  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0E12  5051      	MOVF main_12_compass+D'8', W
+0E14  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0E16  5050      	MOVF main_12_compass+D'7', W
+0E18  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0E1A  504F      	MOVF main_12_compass+D'6', W
+0E1C  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0E1E  504E      	MOVF main_12_compass+D'5', W
+0E20  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0E22  504D      	MOVF main_12_compass+D'4', W
+0E24  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0E26  504C      	MOVF main_12_compass+D'3', W
+0E28  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0E2A  504B      	MOVF main_12_compass+D'2', W
+0E2C  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0E2E  504A      	MOVF main_12_compass+D'1', W
+0E30  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0E32  5049      	MOVF main_12_compass, W
+0E34  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0E36  EC17F001  	CALL drawsprite_00000
+0E3A  0E2E      	MOVLW 0x2E
+0E3C  2649      	ADDWF main_12_compass, F
+0E3E  0E00      	MOVLW 0x00
+0E40  224A      	ADDWFC main_12_compass+D'1', F
+0E42  0E00      	MOVLW 0x00
+0E44  224B      	ADDWFC main_12_compass+D'2', F
+0E46  0E00      	MOVLW 0x00
+0E48  224C      	ADDWFC main_12_compass+D'3', F
+0E4A  5005      	MOVF main_1_j, W
+0E4C  6E7D      	MOVWF delay_ms_00000_arg_del
+0E4E  EC02F000  	CALL delay_ms_00000
+0E52  5059      	MOVF main_12_compass+D'16', W
+0E54  0100      	MOVLB 0x00
+0E56  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0E58  5058      	MOVF main_12_compass+D'15', W
+0E5A  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0E5C  5057      	MOVF main_12_compass+D'14', W
+0E5E  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0E60  5056      	MOVF main_12_compass+D'13', W
+0E62  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0E64  5055      	MOVF main_12_compass+D'12', W
+0E66  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0E68  5054      	MOVF main_12_compass+D'11', W
+0E6A  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0E6C  5053      	MOVF main_12_compass+D'10', W
+0E6E  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0E70  5052      	MOVF main_12_compass+D'9', W
+0E72  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0E74  5051      	MOVF main_12_compass+D'8', W
+0E76  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0E78  5050      	MOVF main_12_compass+D'7', W
+0E7A  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0E7C  504F      	MOVF main_12_compass+D'6', W
+0E7E  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0E80  504E      	MOVF main_12_compass+D'5', W
+0E82  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0E84  504D      	MOVF main_12_compass+D'4', W
+0E86  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0E88  504C      	MOVF main_12_compass+D'3', W
+0E8A  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0E8C  504B      	MOVF main_12_compass+D'2', W
+0E8E  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0E90  504A      	MOVF main_12_compass+D'1', W
+0E92  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0E94  5049      	MOVF main_12_compass, W
+0E96  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0E98  EC17F001  	CALL drawsprite_00000
+0E9C  0E5C      	MOVLW 0x5C
+0E9E  5E49      	SUBWF main_12_compass, F
+0EA0  0E00      	MOVLW 0x00
+0EA2  5A4A      	SUBWFB main_12_compass+D'1', F
+0EA4  0E00      	MOVLW 0x00
+0EA6  5A4B      	SUBWFB main_12_compass+D'2', F
+0EA8  0E00      	MOVLW 0x00
+0EAA  5A4C      	SUBWFB main_12_compass+D'3', F
+0EAC  5005      	MOVF main_1_j, W
+0EAE  6E7D      	MOVWF delay_ms_00000_arg_del
+0EB0  EC02F000  	CALL delay_ms_00000
+0EB4  0E28      	MOVLW 0x28
+0EB6  2605      	ADDWF main_1_j, F
+0EB8  0E40      	MOVLW 0x40
+0EBA  6E5A      	MOVWF main_12_lines
+0EBC  0EAE      	MOVLW 0xAE
+0EBE  6E5B      	MOVWF main_12_lines+D'1'
+0EC0  0E02      	MOVLW 0x02
+0EC2  6E5C      	MOVWF main_12_lines+D'2'
+0EC4  6A5D      	CLRF main_12_lines+D'3'
+0EC6  0E53      	MOVLW 0x53
+0EC8  6E5E      	MOVWF main_12_lines+D'4'
+0ECA  6A5F      	CLRF main_12_lines+D'5'
+0ECC  0E60      	MOVLW 0x60
+0ECE  266B      	ADDWF main_12_bars, F
+0ED0  0E09      	MOVLW 0x09
+0ED2  226C      	ADDWFC main_12_bars+D'1', F
+0ED4  0E00      	MOVLW 0x00
+0ED6  226D      	ADDWFC main_12_bars+D'2', F
+0ED8  0E00      	MOVLW 0x00
+0EDA  226E      	ADDWFC main_12_bars+D'3', F
+0EDC  506A      	MOVF main_12_lines+D'16', W
+0EDE  0100      	MOVLB 0x00
+0EE0  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0EE2  5069      	MOVF main_12_lines+D'15', W
+0EE4  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0EE6  5068      	MOVF main_12_lines+D'14', W
+0EE8  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0EEA  5067      	MOVF main_12_lines+D'13', W
+0EEC  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0EEE  5066      	MOVF main_12_lines+D'12', W
+0EF0  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0EF2  5065      	MOVF main_12_lines+D'11', W
+0EF4  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0EF6  5064      	MOVF main_12_lines+D'10', W
+0EF8  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0EFA  5063      	MOVF main_12_lines+D'9', W
+0EFC  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0EFE  5062      	MOVF main_12_lines+D'8', W
+0F00  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0F02  5061      	MOVF main_12_lines+D'7', W
+0F04  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0F06  5060      	MOVF main_12_lines+D'6', W
+0F08  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0F0A  505F      	MOVF main_12_lines+D'5', W
+0F0C  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0F0E  505E      	MOVF main_12_lines+D'4', W
+0F10  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0F12  505D      	MOVF main_12_lines+D'3', W
+0F14  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0F16  505C      	MOVF main_12_lines+D'2', W
+0F18  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0F1A  505B      	MOVF main_12_lines+D'1', W
+0F1C  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0F1E  505A      	MOVF main_12_lines, W
+0F20  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0F22  EC17F001  	CALL drawsprite_00000
+0F26  507B      	MOVF main_12_bars+D'16', W
+0F28  0100      	MOVLB 0x00
+0F2A  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0F2C  507A      	MOVF main_12_bars+D'15', W
+0F2E  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0F30  5079      	MOVF main_12_bars+D'14', W
+0F32  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0F34  5078      	MOVF main_12_bars+D'13', W
+0F36  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0F38  5077      	MOVF main_12_bars+D'12', W
+0F3A  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0F3C  5076      	MOVF main_12_bars+D'11', W
+0F3E  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0F40  5075      	MOVF main_12_bars+D'10', W
+0F42  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0F44  5074      	MOVF main_12_bars+D'9', W
+0F46  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0F48  5073      	MOVF main_12_bars+D'8', W
+0F4A  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0F4C  5072      	MOVF main_12_bars+D'7', W
+0F4E  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0F50  5071      	MOVF main_12_bars+D'6', W
+0F52  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0F54  5070      	MOVF main_12_bars+D'5', W
+0F56  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0F58  506F      	MOVF main_12_bars+D'4', W
+0F5A  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0F5C  506E      	MOVF main_12_bars+D'3', W
+0F5E  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0F60  506D      	MOVF main_12_bars+D'2', W
+0F62  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0F64  506C      	MOVF main_12_bars+D'1', W
+0F66  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0F68  506B      	MOVF main_12_bars, W
+0F6A  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0F6C  EC17F001  	CALL drawsprite_00000
+0F70  5059      	MOVF main_12_compass+D'16', W
+0F72  0100      	MOVLB 0x00
+0F74  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0F76  5058      	MOVF main_12_compass+D'15', W
+0F78  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0F7A  5057      	MOVF main_12_compass+D'14', W
+0F7C  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0F7E  5056      	MOVF main_12_compass+D'13', W
+0F80  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0F82  5055      	MOVF main_12_compass+D'12', W
+0F84  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0F86  5054      	MOVF main_12_compass+D'11', W
+0F88  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0F8A  5053      	MOVF main_12_compass+D'10', W
+0F8C  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0F8E  5052      	MOVF main_12_compass+D'9', W
+0F90  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0F92  5051      	MOVF main_12_compass+D'8', W
+0F94  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0F96  5050      	MOVF main_12_compass+D'7', W
+0F98  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0F9A  504F      	MOVF main_12_compass+D'6', W
+0F9C  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+0F9E  504E      	MOVF main_12_compass+D'5', W
+0FA0  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+0FA2  504D      	MOVF main_12_compass+D'4', W
+0FA4  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+0FA6  504C      	MOVF main_12_compass+D'3', W
+0FA8  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+0FAA  504B      	MOVF main_12_compass+D'2', W
+0FAC  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+0FAE  504A      	MOVF main_12_compass+D'1', W
+0FB0  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+0FB2  5049      	MOVF main_12_compass, W
+0FB4  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+0FB6  EC17F001  	CALL drawsprite_00000
+0FBA  0E2E      	MOVLW 0x2E
+0FBC  2649      	ADDWF main_12_compass, F
+0FBE  0E00      	MOVLW 0x00
+0FC0  224A      	ADDWFC main_12_compass+D'1', F
+0FC2  0E00      	MOVLW 0x00
+0FC4  224B      	ADDWFC main_12_compass+D'2', F
+0FC6  0E00      	MOVLW 0x00
+0FC8  224C      	ADDWFC main_12_compass+D'3', F
+0FCA  5005      	MOVF main_1_j, W
+0FCC  6E7D      	MOVWF delay_ms_00000_arg_del
+0FCE  EC02F000  	CALL delay_ms_00000
+0FD2  5059      	MOVF main_12_compass+D'16', W
+0FD4  0100      	MOVLB 0x00
+0FD6  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+0FD8  5058      	MOVF main_12_compass+D'15', W
+0FDA  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+0FDC  5057      	MOVF main_12_compass+D'14', W
+0FDE  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+0FE0  5056      	MOVF main_12_compass+D'13', W
+0FE2  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+0FE4  5055      	MOVF main_12_compass+D'12', W
+0FE6  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+0FE8  5054      	MOVF main_12_compass+D'11', W
+0FEA  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+0FEC  5053      	MOVF main_12_compass+D'10', W
+0FEE  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+0FF0  5052      	MOVF main_12_compass+D'9', W
+0FF2  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+0FF4  5051      	MOVF main_12_compass+D'8', W
+0FF6  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+0FF8  5050      	MOVF main_12_compass+D'7', W
+0FFA  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+0FFC  504F      	MOVF main_12_compass+D'6', W
+0FFE  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1000  504E      	MOVF main_12_compass+D'5', W
+1002  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1004  504D      	MOVF main_12_compass+D'4', W
+1006  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1008  504C      	MOVF main_12_compass+D'3', W
+100A  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+100C  504B      	MOVF main_12_compass+D'2', W
+100E  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1010  504A      	MOVF main_12_compass+D'1', W
+1012  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1014  5049      	MOVF main_12_compass, W
+1016  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1018  EC17F001  	CALL drawsprite_00000
+101C  0E2E      	MOVLW 0x2E
+101E  2649      	ADDWF main_12_compass, F
+1020  0E00      	MOVLW 0x00
+1022  224A      	ADDWFC main_12_compass+D'1', F
+1024  0E00      	MOVLW 0x00
+1026  224B      	ADDWFC main_12_compass+D'2', F
+1028  0E00      	MOVLW 0x00
+102A  224C      	ADDWFC main_12_compass+D'3', F
+102C  5005      	MOVF main_1_j, W
+102E  6E7D      	MOVWF delay_ms_00000_arg_del
+1030  EC02F000  	CALL delay_ms_00000
+1034  5059      	MOVF main_12_compass+D'16', W
+1036  0100      	MOVLB 0x00
+1038  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+103A  5058      	MOVF main_12_compass+D'15', W
+103C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+103E  5057      	MOVF main_12_compass+D'14', W
+1040  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1042  5056      	MOVF main_12_compass+D'13', W
+1044  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1046  5055      	MOVF main_12_compass+D'12', W
+1048  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+104A  5054      	MOVF main_12_compass+D'11', W
+104C  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+104E  5053      	MOVF main_12_compass+D'10', W
+1050  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1052  5052      	MOVF main_12_compass+D'9', W
+1054  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1056  5051      	MOVF main_12_compass+D'8', W
+1058  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+105A  5050      	MOVF main_12_compass+D'7', W
+105C  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+105E  504F      	MOVF main_12_compass+D'6', W
+1060  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1062  504E      	MOVF main_12_compass+D'5', W
+1064  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1066  504D      	MOVF main_12_compass+D'4', W
+1068  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+106A  504C      	MOVF main_12_compass+D'3', W
+106C  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+106E  504B      	MOVF main_12_compass+D'2', W
+1070  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1072  504A      	MOVF main_12_compass+D'1', W
+1074  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1076  5049      	MOVF main_12_compass, W
+1078  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+107A  EC17F001  	CALL drawsprite_00000
+107E  0E5C      	MOVLW 0x5C
+1080  5E49      	SUBWF main_12_compass, F
+1082  0E00      	MOVLW 0x00
+1084  5A4A      	SUBWFB main_12_compass+D'1', F
+1086  0E00      	MOVLW 0x00
+1088  5A4B      	SUBWFB main_12_compass+D'2', F
+108A  0E00      	MOVLW 0x00
+108C  5A4C      	SUBWFB main_12_compass+D'3', F
+108E  5005      	MOVF main_1_j, W
+1090  6E7D      	MOVWF delay_ms_00000_arg_del
+1092  EC02F000  	CALL delay_ms_00000
+1096  0E80      	MOVLW 0x80
+1098  6E5A      	MOVWF main_12_lines
+109A  0EBE      	MOVLW 0xBE
+109C  6E5B      	MOVWF main_12_lines+D'1'
+109E  0E02      	MOVLW 0x02
+10A0  6E5C      	MOVWF main_12_lines+D'2'
+10A2  6A5D      	CLRF main_12_lines+D'3'
+10A4  0E61      	MOVLW 0x61
+10A6  266B      	ADDWF main_12_bars, F
+10A8  0E09      	MOVLW 0x09
+10AA  226C      	ADDWFC main_12_bars+D'1', F
+10AC  0E00      	MOVLW 0x00
+10AE  226D      	ADDWFC main_12_bars+D'2', F
+10B0  0E00      	MOVLW 0x00
+10B2  226E      	ADDWFC main_12_bars+D'3', F
+10B4  0E36      	MOVLW 0x36
+10B6  6E6F      	MOVWF main_12_bars+D'4'
+10B8  6A70      	CLRF main_12_bars+D'5'
+10BA  506A      	MOVF main_12_lines+D'16', W
+10BC  0100      	MOVLB 0x00
+10BE  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+10C0  5069      	MOVF main_12_lines+D'15', W
+10C2  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+10C4  5068      	MOVF main_12_lines+D'14', W
+10C6  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+10C8  5067      	MOVF main_12_lines+D'13', W
+10CA  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+10CC  5066      	MOVF main_12_lines+D'12', W
+10CE  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+10D0  5065      	MOVF main_12_lines+D'11', W
+10D2  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+10D4  5064      	MOVF main_12_lines+D'10', W
+10D6  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+10D8  5063      	MOVF main_12_lines+D'9', W
+10DA  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+10DC  5062      	MOVF main_12_lines+D'8', W
+10DE  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+10E0  5061      	MOVF main_12_lines+D'7', W
+10E2  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+10E4  5060      	MOVF main_12_lines+D'6', W
+10E6  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+10E8  505F      	MOVF main_12_lines+D'5', W
+10EA  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+10EC  505E      	MOVF main_12_lines+D'4', W
+10EE  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+10F0  505D      	MOVF main_12_lines+D'3', W
+10F2  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+10F4  505C      	MOVF main_12_lines+D'2', W
+10F6  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+10F8  505B      	MOVF main_12_lines+D'1', W
+10FA  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+10FC  505A      	MOVF main_12_lines, W
+10FE  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1100  EC17F001  	CALL drawsprite_00000
+1104  507B      	MOVF main_12_bars+D'16', W
+1106  0100      	MOVLB 0x00
+1108  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+110A  507A      	MOVF main_12_bars+D'15', W
+110C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+110E  5079      	MOVF main_12_bars+D'14', W
+1110  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1112  5078      	MOVF main_12_bars+D'13', W
+1114  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1116  5077      	MOVF main_12_bars+D'12', W
+1118  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+111A  5076      	MOVF main_12_bars+D'11', W
+111C  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+111E  5075      	MOVF main_12_bars+D'10', W
+1120  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1122  5074      	MOVF main_12_bars+D'9', W
+1124  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1126  5073      	MOVF main_12_bars+D'8', W
+1128  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+112A  5072      	MOVF main_12_bars+D'7', W
+112C  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+112E  5071      	MOVF main_12_bars+D'6', W
+1130  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1132  5070      	MOVF main_12_bars+D'5', W
+1134  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1136  506F      	MOVF main_12_bars+D'4', W
+1138  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+113A  506E      	MOVF main_12_bars+D'3', W
+113C  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+113E  506D      	MOVF main_12_bars+D'2', W
+1140  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1142  506C      	MOVF main_12_bars+D'1', W
+1144  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1146  506B      	MOVF main_12_bars, W
+1148  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+114A  EC17F001  	CALL drawsprite_00000
+114E  0EC8      	MOVLW 0xC8
+1150  6E7D      	MOVWF delay_ms_00000_arg_del
+1152  EC02F000  	CALL delay_ms_00000
+1156  0EC0      	MOVLW 0xC0
+1158  6E5A      	MOVWF main_12_lines
+115A  0ECE      	MOVLW 0xCE
+115C  6E5B      	MOVWF main_12_lines+D'1'
+115E  0E02      	MOVLW 0x02
+1160  6E5C      	MOVWF main_12_lines+D'2'
+1162  6A5D      	CLRF main_12_lines+D'3'
+1164  0E20      	MOVLW 0x20
+1166  6E60      	MOVWF main_12_lines+D'6'
+1168  6A61      	CLRF main_12_lines+D'7'
+116A  0E54      	MOVLW 0x54
+116C  6E5E      	MOVWF main_12_lines+D'4'
+116E  6A5F      	CLRF main_12_lines+D'5'
+1170  0E48      	MOVLW 0x48
+1172  6E62      	MOVWF main_12_lines+D'8'
+1174  6A63      	CLRF main_12_lines+D'9'
+1176  6A64      	CLRF main_12_lines+D'10'
+1178  6A65      	CLRF main_12_lines+D'11'
+117A  0E4B      	MOVLW 0x4B
+117C  6E66      	MOVWF main_12_lines+D'12'
+117E  6A67      	CLRF main_12_lines+D'13'
+1180  6A68      	CLRF main_12_lines+D'14'
+1182  6A69      	CLRF main_12_lines+D'15'
+1184  0E60      	MOVLW 0x60
+1186  266B      	ADDWF main_12_bars, F
+1188  0E09      	MOVLW 0x09
+118A  226C      	ADDWFC main_12_bars+D'1', F
+118C  0E00      	MOVLW 0x00
+118E  226D      	ADDWFC main_12_bars+D'2', F
+1190  0E00      	MOVLW 0x00
+1192  226E      	ADDWFC main_12_bars+D'3', F
+1194  507B      	MOVF main_12_bars+D'16', W
+1196  0100      	MOVLB 0x00
+1198  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+119A  507A      	MOVF main_12_bars+D'15', W
+119C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+119E  5079      	MOVF main_12_bars+D'14', W
+11A0  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+11A2  5078      	MOVF main_12_bars+D'13', W
+11A4  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+11A6  5077      	MOVF main_12_bars+D'12', W
+11A8  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+11AA  5076      	MOVF main_12_bars+D'11', W
+11AC  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+11AE  5075      	MOVF main_12_bars+D'10', W
+11B0  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+11B2  5074      	MOVF main_12_bars+D'9', W
+11B4  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+11B6  5073      	MOVF main_12_bars+D'8', W
+11B8  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+11BA  5072      	MOVF main_12_bars+D'7', W
+11BC  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+11BE  5071      	MOVF main_12_bars+D'6', W
+11C0  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+11C2  5070      	MOVF main_12_bars+D'5', W
+11C4  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+11C6  506F      	MOVF main_12_bars+D'4', W
+11C8  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+11CA  506E      	MOVF main_12_bars+D'3', W
+11CC  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+11CE  506D      	MOVF main_12_bars+D'2', W
+11D0  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+11D2  506C      	MOVF main_12_bars+D'1', W
+11D4  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+11D6  506B      	MOVF main_12_bars, W
+11D8  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+11DA  EC17F001  	CALL drawsprite_00000
+11DE  506A      	MOVF main_12_lines+D'16', W
+11E0  0100      	MOVLB 0x00
+11E2  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+11E4  5069      	MOVF main_12_lines+D'15', W
+11E6  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+11E8  5068      	MOVF main_12_lines+D'14', W
+11EA  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+11EC  5067      	MOVF main_12_lines+D'13', W
+11EE  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+11F0  5066      	MOVF main_12_lines+D'12', W
+11F2  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+11F4  5065      	MOVF main_12_lines+D'11', W
+11F6  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+11F8  5064      	MOVF main_12_lines+D'10', W
+11FA  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+11FC  5063      	MOVF main_12_lines+D'9', W
+11FE  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1200  5062      	MOVF main_12_lines+D'8', W
+1202  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1204  5061      	MOVF main_12_lines+D'7', W
+1206  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1208  5060      	MOVF main_12_lines+D'6', W
+120A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+120C  505F      	MOVF main_12_lines+D'5', W
+120E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1210  505E      	MOVF main_12_lines+D'4', W
+1212  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1214  505D      	MOVF main_12_lines+D'3', W
+1216  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1218  505C      	MOVF main_12_lines+D'2', W
+121A  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+121C  505B      	MOVF main_12_lines+D'1', W
+121E  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1220  505A      	MOVF main_12_lines, W
+1222  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1224  EC17F001  	CALL drawsprite_00000
+1228  0E32      	MOVLW 0x32
+122A  6E7D      	MOVWF delay_ms_00000_arg_del
+122C  EC02F000  	CALL delay_ms_00000
+1230  0EE0      	MOVLW 0xE0
+1232  6E6B      	MOVWF main_12_bars
+1234  0E13      	MOVLW 0x13
+1236  6E6C      	MOVWF main_12_bars+D'1'
+1238  0E07      	MOVLW 0x07
+123A  6E6D      	MOVWF main_12_bars+D'2'
+123C  6A6E      	CLRF main_12_bars+D'3'
+123E  0E15      	MOVLW 0x15
+1240  6E71      	MOVWF main_12_bars+D'6'
+1242  6A72      	CLRF main_12_bars+D'7'
+1244  0E3E      	MOVLW 0x3E
+1246  6E6F      	MOVWF main_12_bars+D'4'
+1248  6A70      	CLRF main_12_bars+D'5'
+124A  0E04      	MOVLW 0x04
+124C  6E73      	MOVWF main_12_bars+D'8'
+124E  6A74      	CLRF main_12_bars+D'9'
+1250  6A75      	CLRF main_12_bars+D'10'
+1252  6A76      	CLRF main_12_bars+D'11'
+1254  0E50      	MOVLW 0x50
+1256  6E77      	MOVWF main_12_bars+D'12'
+1258  6A78      	CLRF main_12_bars+D'13'
+125A  6A79      	CLRF main_12_bars+D'14'
+125C  6A7A      	CLRF main_12_bars+D'15'
+125E  507B      	MOVF main_12_bars+D'16', W
+1260  0100      	MOVLB 0x00
+1262  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1264  507A      	MOVF main_12_bars+D'15', W
+1266  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1268  5079      	MOVF main_12_bars+D'14', W
+126A  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+126C  5078      	MOVF main_12_bars+D'13', W
+126E  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1270  5077      	MOVF main_12_bars+D'12', W
+1272  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1274  5076      	MOVF main_12_bars+D'11', W
+1276  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1278  5075      	MOVF main_12_bars+D'10', W
+127A  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+127C  5074      	MOVF main_12_bars+D'9', W
+127E  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1280  5073      	MOVF main_12_bars+D'8', W
+1282  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1284  5072      	MOVF main_12_bars+D'7', W
+1286  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1288  5071      	MOVF main_12_bars+D'6', W
+128A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+128C  5070      	MOVF main_12_bars+D'5', W
+128E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1290  506F      	MOVF main_12_bars+D'4', W
+1292  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1294  506E      	MOVF main_12_bars+D'3', W
+1296  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1298  506D      	MOVF main_12_bars+D'2', W
+129A  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+129C  506C      	MOVF main_12_bars+D'1', W
+129E  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+12A0  506B      	MOVF main_12_bars, W
+12A2  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+12A4  EC17F001  	CALL drawsprite_00000
+12A8  506A      	MOVF main_12_lines+D'16', W
+12AA  0100      	MOVLB 0x00
+12AC  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+12AE  5069      	MOVF main_12_lines+D'15', W
+12B0  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+12B2  5068      	MOVF main_12_lines+D'14', W
+12B4  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+12B6  5067      	MOVF main_12_lines+D'13', W
+12B8  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+12BA  5066      	MOVF main_12_lines+D'12', W
+12BC  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+12BE  5065      	MOVF main_12_lines+D'11', W
+12C0  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+12C2  5064      	MOVF main_12_lines+D'10', W
+12C4  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+12C6  5063      	MOVF main_12_lines+D'9', W
+12C8  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+12CA  5062      	MOVF main_12_lines+D'8', W
+12CC  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+12CE  5061      	MOVF main_12_lines+D'7', W
+12D0  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+12D2  5060      	MOVF main_12_lines+D'6', W
+12D4  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+12D6  505F      	MOVF main_12_lines+D'5', W
+12D8  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+12DA  505E      	MOVF main_12_lines+D'4', W
+12DC  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+12DE  505D      	MOVF main_12_lines+D'3', W
+12E0  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+12E2  505C      	MOVF main_12_lines+D'2', W
+12E4  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+12E6  505B      	MOVF main_12_lines+D'1', W
+12E8  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+12EA  505A      	MOVF main_12_lines, W
+12EC  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+12EE  EC17F001  	CALL drawsprite_00000
+12F2  6A04      	CLRF main_1_i
+12F4            label268436486
+12F4  0E32      	MOVLW 0x32
+12F6  6004      	CPFSLT main_1_i
+12F8  D0BA      	BRA	label268436487
+12FA  0EE0      	MOVLW 0xE0
+12FC  6E6B      	MOVWF main_12_bars
+12FE  0E13      	MOVLW 0x13
+1300  6E6C      	MOVWF main_12_bars+D'1'
+1302  0E07      	MOVLW 0x07
+1304  6E6D      	MOVWF main_12_bars+D'2'
+1306  6A6E      	CLRF main_12_bars+D'3'
+1308  0EE0      	MOVLW 0xE0
+130A  6E5A      	MOVWF main_12_lines
+130C  0E21      	MOVLW 0x21
+130E  6E5B      	MOVWF main_12_lines+D'1'
+1310  0E08      	MOVLW 0x08
+1312  6E5C      	MOVWF main_12_lines+D'2'
+1314  6A5D      	CLRF main_12_lines+D'3'
+1316  507B      	MOVF main_12_bars+D'16', W
+1318  0100      	MOVLB 0x00
+131A  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+131C  507A      	MOVF main_12_bars+D'15', W
+131E  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1320  5079      	MOVF main_12_bars+D'14', W
+1322  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1324  5078      	MOVF main_12_bars+D'13', W
+1326  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1328  5077      	MOVF main_12_bars+D'12', W
+132A  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+132C  5076      	MOVF main_12_bars+D'11', W
+132E  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1330  5075      	MOVF main_12_bars+D'10', W
+1332  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1334  5074      	MOVF main_12_bars+D'9', W
+1336  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1338  5073      	MOVF main_12_bars+D'8', W
+133A  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+133C  5072      	MOVF main_12_bars+D'7', W
+133E  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1340  5071      	MOVF main_12_bars+D'6', W
+1342  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1344  5070      	MOVF main_12_bars+D'5', W
+1346  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1348  506F      	MOVF main_12_bars+D'4', W
+134A  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+134C  506E      	MOVF main_12_bars+D'3', W
+134E  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1350  506D      	MOVF main_12_bars+D'2', W
+1352  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1354  506C      	MOVF main_12_bars+D'1', W
+1356  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1358  506B      	MOVF main_12_bars, W
+135A  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+135C  EC17F001  	CALL drawsprite_00000
+1360  506A      	MOVF main_12_lines+D'16', W
+1362  0100      	MOVLB 0x00
+1364  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1366  5069      	MOVF main_12_lines+D'15', W
+1368  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+136A  5068      	MOVF main_12_lines+D'14', W
+136C  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+136E  5067      	MOVF main_12_lines+D'13', W
+1370  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1372  5066      	MOVF main_12_lines+D'12', W
+1374  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1376  5065      	MOVF main_12_lines+D'11', W
+1378  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+137A  5064      	MOVF main_12_lines+D'10', W
+137C  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+137E  5063      	MOVF main_12_lines+D'9', W
+1380  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1382  5062      	MOVF main_12_lines+D'8', W
+1384  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1386  5061      	MOVF main_12_lines+D'7', W
+1388  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+138A  5060      	MOVF main_12_lines+D'6', W
+138C  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+138E  505F      	MOVF main_12_lines+D'5', W
+1390  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1392  505E      	MOVF main_12_lines+D'4', W
+1394  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1396  505D      	MOVF main_12_lines+D'3', W
+1398  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+139A  505C      	MOVF main_12_lines+D'2', W
+139C  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+139E  505B      	MOVF main_12_lines+D'1', W
+13A0  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+13A2  505A      	MOVF main_12_lines, W
+13A4  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+13A6  EC17F001  	CALL drawsprite_00000
+13AA  0E05      	MOVLW 0x05
+13AC  6E7D      	MOVWF delay_ms_00000_arg_del
+13AE  EC02F000  	CALL delay_ms_00000
+13B2  0EC0      	MOVLW 0xC0
+13B4  6E6B      	MOVWF main_12_bars
+13B6  0E06      	MOVLW 0x06
+13B8  6E6C      	MOVWF main_12_bars+D'1'
+13BA  0E07      	MOVLW 0x07
+13BC  6E6D      	MOVWF main_12_bars+D'2'
+13BE  6A6E      	CLRF main_12_bars+D'3'
+13C0  0EC0      	MOVLW 0xC0
+13C2  6E5A      	MOVWF main_12_lines
+13C4  0ECE      	MOVLW 0xCE
+13C6  6E5B      	MOVWF main_12_lines+D'1'
+13C8  0E02      	MOVLW 0x02
+13CA  6E5C      	MOVWF main_12_lines+D'2'
+13CC  6A5D      	CLRF main_12_lines+D'3'
+13CE  507B      	MOVF main_12_bars+D'16', W
+13D0  0100      	MOVLB 0x00
+13D2  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+13D4  507A      	MOVF main_12_bars+D'15', W
+13D6  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+13D8  5079      	MOVF main_12_bars+D'14', W
+13DA  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+13DC  5078      	MOVF main_12_bars+D'13', W
+13DE  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+13E0  5077      	MOVF main_12_bars+D'12', W
+13E2  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+13E4  5076      	MOVF main_12_bars+D'11', W
+13E6  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+13E8  5075      	MOVF main_12_bars+D'10', W
+13EA  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+13EC  5074      	MOVF main_12_bars+D'9', W
+13EE  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+13F0  5073      	MOVF main_12_bars+D'8', W
+13F2  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+13F4  5072      	MOVF main_12_bars+D'7', W
+13F6  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+13F8  5071      	MOVF main_12_bars+D'6', W
+13FA  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+13FC  5070      	MOVF main_12_bars+D'5', W
+13FE  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1400  506F      	MOVF main_12_bars+D'4', W
+1402  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1404  506E      	MOVF main_12_bars+D'3', W
+1406  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1408  506D      	MOVF main_12_bars+D'2', W
+140A  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+140C  506C      	MOVF main_12_bars+D'1', W
+140E  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1410  506B      	MOVF main_12_bars, W
+1412  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1414  EC17F001  	CALL drawsprite_00000
+1418  506A      	MOVF main_12_lines+D'16', W
+141A  0100      	MOVLB 0x00
+141C  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+141E  5069      	MOVF main_12_lines+D'15', W
+1420  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1422  5068      	MOVF main_12_lines+D'14', W
+1424  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1426  5067      	MOVF main_12_lines+D'13', W
+1428  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+142A  5066      	MOVF main_12_lines+D'12', W
+142C  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+142E  5065      	MOVF main_12_lines+D'11', W
+1430  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1432  5064      	MOVF main_12_lines+D'10', W
+1434  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1436  5063      	MOVF main_12_lines+D'9', W
+1438  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+143A  5062      	MOVF main_12_lines+D'8', W
+143C  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+143E  5061      	MOVF main_12_lines+D'7', W
+1440  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1442  5060      	MOVF main_12_lines+D'6', W
+1444  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1446  505F      	MOVF main_12_lines+D'5', W
+1448  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+144A  505E      	MOVF main_12_lines+D'4', W
+144C  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+144E  505D      	MOVF main_12_lines+D'3', W
+1450  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1452  505C      	MOVF main_12_lines+D'2', W
+1454  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1456  505B      	MOVF main_12_lines+D'1', W
+1458  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+145A  505A      	MOVF main_12_lines, W
+145C  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+145E  EC17F001  	CALL drawsprite_00000
+1462  0E05      	MOVLW 0x05
+1464  6E7D      	MOVWF delay_ms_00000_arg_del
+1466  EC02F000  	CALL delay_ms_00000
+146A  2A04      	INCF main_1_i, F
+146C  D743      	BRA	label268436486
+146E            label268436487
+146E  0100      	MOVLB 0x00
+1470  5190      	MOVF main_12_outline+D'16', W, 1
+1472  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1474  518F      	MOVF main_12_outline+D'15', W, 1
+1476  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1478  518E      	MOVF main_12_outline+D'14', W, 1
+147A  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+147C  518D      	MOVF main_12_outline+D'13', W, 1
+147E  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1480  518C      	MOVF main_12_outline+D'12', W, 1
+1482  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1484  518B      	MOVF main_12_outline+D'11', W, 1
+1486  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1488  518A      	MOVF main_12_outline+D'10', W, 1
+148A  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+148C  5189      	MOVF main_12_outline+D'9', W, 1
+148E  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1490  5188      	MOVF main_12_outline+D'8', W, 1
+1492  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1494  5187      	MOVF main_12_outline+D'7', W, 1
+1496  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1498  5186      	MOVF main_12_outline+D'6', W, 1
+149A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+149C  5185      	MOVF main_12_outline+D'5', W, 1
+149E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+14A0  5184      	MOVF main_12_outline+D'4', W, 1
+14A2  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+14A4  5183      	MOVF main_12_outline+D'3', W, 1
+14A6  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+14A8  5182      	MOVF main_12_outline+D'2', W, 1
+14AA  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+14AC  5181      	MOVF main_12_outline+D'1', W, 1
+14AE  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+14B0  5180      	MOVF main_12_outline, W, 1
+14B2  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+14B4  EC17F001  	CALL drawsprite_00000
+14B8  6A04      	CLRF main_1_i
+14BA            label268436523
+14BA  0E1E      	MOVLW 0x1E
+14BC  6004      	CPFSLT main_1_i
+14BE  D0BA      	BRA	label268436524
+14C0  0EE0      	MOVLW 0xE0
+14C2  6E6B      	MOVWF main_12_bars
+14C4  0E13      	MOVLW 0x13
+14C6  6E6C      	MOVWF main_12_bars+D'1'
+14C8  0E07      	MOVLW 0x07
+14CA  6E6D      	MOVWF main_12_bars+D'2'
+14CC  6A6E      	CLRF main_12_bars+D'3'
+14CE  0EE0      	MOVLW 0xE0
+14D0  6E5A      	MOVWF main_12_lines
+14D2  0E21      	MOVLW 0x21
+14D4  6E5B      	MOVWF main_12_lines+D'1'
+14D6  0E08      	MOVLW 0x08
+14D8  6E5C      	MOVWF main_12_lines+D'2'
+14DA  6A5D      	CLRF main_12_lines+D'3'
+14DC  507B      	MOVF main_12_bars+D'16', W
+14DE  0100      	MOVLB 0x00
+14E0  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+14E2  507A      	MOVF main_12_bars+D'15', W
+14E4  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+14E6  5079      	MOVF main_12_bars+D'14', W
+14E8  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+14EA  5078      	MOVF main_12_bars+D'13', W
+14EC  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+14EE  5077      	MOVF main_12_bars+D'12', W
+14F0  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+14F2  5076      	MOVF main_12_bars+D'11', W
+14F4  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+14F6  5075      	MOVF main_12_bars+D'10', W
+14F8  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+14FA  5074      	MOVF main_12_bars+D'9', W
+14FC  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+14FE  5073      	MOVF main_12_bars+D'8', W
+1500  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1502  5072      	MOVF main_12_bars+D'7', W
+1504  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1506  5071      	MOVF main_12_bars+D'6', W
+1508  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+150A  5070      	MOVF main_12_bars+D'5', W
+150C  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+150E  506F      	MOVF main_12_bars+D'4', W
+1510  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1512  506E      	MOVF main_12_bars+D'3', W
+1514  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1516  506D      	MOVF main_12_bars+D'2', W
+1518  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+151A  506C      	MOVF main_12_bars+D'1', W
+151C  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+151E  506B      	MOVF main_12_bars, W
+1520  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1522  EC17F001  	CALL drawsprite_00000
+1526  506A      	MOVF main_12_lines+D'16', W
+1528  0100      	MOVLB 0x00
+152A  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+152C  5069      	MOVF main_12_lines+D'15', W
+152E  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1530  5068      	MOVF main_12_lines+D'14', W
+1532  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1534  5067      	MOVF main_12_lines+D'13', W
+1536  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1538  5066      	MOVF main_12_lines+D'12', W
+153A  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+153C  5065      	MOVF main_12_lines+D'11', W
+153E  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1540  5064      	MOVF main_12_lines+D'10', W
+1542  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1544  5063      	MOVF main_12_lines+D'9', W
+1546  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1548  5062      	MOVF main_12_lines+D'8', W
+154A  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+154C  5061      	MOVF main_12_lines+D'7', W
+154E  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1550  5060      	MOVF main_12_lines+D'6', W
+1552  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1554  505F      	MOVF main_12_lines+D'5', W
+1556  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1558  505E      	MOVF main_12_lines+D'4', W
+155A  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+155C  505D      	MOVF main_12_lines+D'3', W
+155E  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1560  505C      	MOVF main_12_lines+D'2', W
+1562  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1564  505B      	MOVF main_12_lines+D'1', W
+1566  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1568  505A      	MOVF main_12_lines, W
+156A  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+156C  EC17F001  	CALL drawsprite_00000
+1570  0E05      	MOVLW 0x05
+1572  6E7D      	MOVWF delay_ms_00000_arg_del
+1574  EC02F000  	CALL delay_ms_00000
+1578  0EC0      	MOVLW 0xC0
+157A  6E6B      	MOVWF main_12_bars
+157C  0E06      	MOVLW 0x06
+157E  6E6C      	MOVWF main_12_bars+D'1'
+1580  0E07      	MOVLW 0x07
+1582  6E6D      	MOVWF main_12_bars+D'2'
+1584  6A6E      	CLRF main_12_bars+D'3'
+1586  0EC0      	MOVLW 0xC0
+1588  6E5A      	MOVWF main_12_lines
+158A  0ECE      	MOVLW 0xCE
+158C  6E5B      	MOVWF main_12_lines+D'1'
+158E  0E02      	MOVLW 0x02
+1590  6E5C      	MOVWF main_12_lines+D'2'
+1592  6A5D      	CLRF main_12_lines+D'3'
+1594  507B      	MOVF main_12_bars+D'16', W
+1596  0100      	MOVLB 0x00
+1598  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+159A  507A      	MOVF main_12_bars+D'15', W
+159C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+159E  5079      	MOVF main_12_bars+D'14', W
+15A0  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+15A2  5078      	MOVF main_12_bars+D'13', W
+15A4  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+15A6  5077      	MOVF main_12_bars+D'12', W
+15A8  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+15AA  5076      	MOVF main_12_bars+D'11', W
+15AC  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+15AE  5075      	MOVF main_12_bars+D'10', W
+15B0  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+15B2  5074      	MOVF main_12_bars+D'9', W
+15B4  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+15B6  5073      	MOVF main_12_bars+D'8', W
+15B8  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+15BA  5072      	MOVF main_12_bars+D'7', W
+15BC  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+15BE  5071      	MOVF main_12_bars+D'6', W
+15C0  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+15C2  5070      	MOVF main_12_bars+D'5', W
+15C4  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+15C6  506F      	MOVF main_12_bars+D'4', W
+15C8  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+15CA  506E      	MOVF main_12_bars+D'3', W
+15CC  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+15CE  506D      	MOVF main_12_bars+D'2', W
+15D0  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+15D2  506C      	MOVF main_12_bars+D'1', W
+15D4  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+15D6  506B      	MOVF main_12_bars, W
+15D8  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+15DA  EC17F001  	CALL drawsprite_00000
+15DE  506A      	MOVF main_12_lines+D'16', W
+15E0  0100      	MOVLB 0x00
+15E2  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+15E4  5069      	MOVF main_12_lines+D'15', W
+15E6  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+15E8  5068      	MOVF main_12_lines+D'14', W
+15EA  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+15EC  5067      	MOVF main_12_lines+D'13', W
+15EE  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+15F0  5066      	MOVF main_12_lines+D'12', W
+15F2  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+15F4  5065      	MOVF main_12_lines+D'11', W
+15F6  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+15F8  5064      	MOVF main_12_lines+D'10', W
+15FA  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+15FC  5063      	MOVF main_12_lines+D'9', W
+15FE  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1600  5062      	MOVF main_12_lines+D'8', W
+1602  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1604  5061      	MOVF main_12_lines+D'7', W
+1606  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1608  5060      	MOVF main_12_lines+D'6', W
+160A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+160C  505F      	MOVF main_12_lines+D'5', W
+160E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1610  505E      	MOVF main_12_lines+D'4', W
+1612  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1614  505D      	MOVF main_12_lines+D'3', W
+1616  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1618  505C      	MOVF main_12_lines+D'2', W
+161A  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+161C  505B      	MOVF main_12_lines+D'1', W
+161E  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1620  505A      	MOVF main_12_lines, W
+1622  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1624  EC17F001  	CALL drawsprite_00000
+1628  0E05      	MOVLW 0x05
+162A  6E7D      	MOVWF delay_ms_00000_arg_del
+162C  EC02F000  	CALL delay_ms_00000
+1630  2A04      	INCF main_1_i, F
+1632  D743      	BRA	label268436523
+1634            label268436524
+1634  0E20      	MOVLW 0x20
+1636  6E27      	MOVWF main_12_eye_anim
+1638  0E6D      	MOVLW 0x6D
+163A  6E28      	MOVWF main_12_eye_anim+D'1'
+163C  0E02      	MOVLW 0x02
+163E  6E29      	MOVWF main_12_eye_anim+D'2'
+1640  6A2A      	CLRF main_12_eye_anim+D'3'
+1642  6A04      	CLRF main_1_i
+1644            label268436557
+1644  0E05      	MOVLW 0x05
+1646  6004      	CPFSLT main_1_i
+1648  D07D      	BRA	label268436558
+164A  5048      	MOVF main_12_eye_mask+D'16', W
+164C  0100      	MOVLB 0x00
+164E  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1650  5047      	MOVF main_12_eye_mask+D'15', W
+1652  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1654  5046      	MOVF main_12_eye_mask+D'14', W
+1656  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1658  5045      	MOVF main_12_eye_mask+D'13', W
+165A  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+165C  5044      	MOVF main_12_eye_mask+D'12', W
+165E  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1660  5043      	MOVF main_12_eye_mask+D'11', W
+1662  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1664  5042      	MOVF main_12_eye_mask+D'10', W
+1666  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1668  5041      	MOVF main_12_eye_mask+D'9', W
+166A  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+166C  5040      	MOVF main_12_eye_mask+D'8', W
+166E  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1670  503F      	MOVF main_12_eye_mask+D'7', W
+1672  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1674  503E      	MOVF main_12_eye_mask+D'6', W
+1676  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1678  503D      	MOVF main_12_eye_mask+D'5', W
+167A  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+167C  503C      	MOVF main_12_eye_mask+D'4', W
+167E  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1680  503B      	MOVF main_12_eye_mask+D'3', W
+1682  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1684  503A      	MOVF main_12_eye_mask+D'2', W
+1686  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1688  5039      	MOVF main_12_eye_mask+D'1', W
+168A  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+168C  5038      	MOVF main_12_eye_mask, W
+168E  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1690  EC17F001  	CALL drawsprite_00000
+1694  5037      	MOVF main_12_eye_anim+D'16', W
+1696  0100      	MOVLB 0x00
+1698  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+169A  5036      	MOVF main_12_eye_anim+D'15', W
+169C  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+169E  5035      	MOVF main_12_eye_anim+D'14', W
+16A0  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+16A2  5034      	MOVF main_12_eye_anim+D'13', W
+16A4  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+16A6  5033      	MOVF main_12_eye_anim+D'12', W
+16A8  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+16AA  5032      	MOVF main_12_eye_anim+D'11', W
+16AC  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+16AE  5031      	MOVF main_12_eye_anim+D'10', W
+16B0  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+16B2  5030      	MOVF main_12_eye_anim+D'9', W
+16B4  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+16B6  502F      	MOVF main_12_eye_anim+D'8', W
+16B8  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+16BA  502E      	MOVF main_12_eye_anim+D'7', W
+16BC  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+16BE  502D      	MOVF main_12_eye_anim+D'6', W
+16C0  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+16C2  502C      	MOVF main_12_eye_anim+D'5', W
+16C4  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+16C6  502B      	MOVF main_12_eye_anim+D'4', W
+16C8  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+16CA  502A      	MOVF main_12_eye_anim+D'3', W
+16CC  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+16CE  5029      	MOVF main_12_eye_anim+D'2', W
+16D0  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+16D2  5028      	MOVF main_12_eye_anim+D'1', W
+16D4  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+16D6  5027      	MOVF main_12_eye_anim, W
+16D8  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+16DA  EC17F001  	CALL drawsprite_00000
+16DE  0100      	MOVLB 0x00
+16E0  5190      	MOVF main_12_outline+D'16', W, 1
+16E2  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+16E4  518F      	MOVF main_12_outline+D'15', W, 1
+16E6  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+16E8  518E      	MOVF main_12_outline+D'14', W, 1
+16EA  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+16EC  518D      	MOVF main_12_outline+D'13', W, 1
+16EE  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+16F0  518C      	MOVF main_12_outline+D'12', W, 1
+16F2  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+16F4  518B      	MOVF main_12_outline+D'11', W, 1
+16F6  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+16F8  518A      	MOVF main_12_outline+D'10', W, 1
+16FA  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+16FC  5189      	MOVF main_12_outline+D'9', W, 1
+16FE  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1700  5188      	MOVF main_12_outline+D'8', W, 1
+1702  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1704  5187      	MOVF main_12_outline+D'7', W, 1
+1706  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1708  5186      	MOVF main_12_outline+D'6', W, 1
+170A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+170C  5185      	MOVF main_12_outline+D'5', W, 1
+170E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1710  5184      	MOVF main_12_outline+D'4', W, 1
+1712  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1714  5183      	MOVF main_12_outline+D'3', W, 1
+1716  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1718  5182      	MOVF main_12_outline+D'2', W, 1
+171A  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+171C  5181      	MOVF main_12_outline+D'1', W, 1
+171E  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1720  5180      	MOVF main_12_outline, W, 1
+1722  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1724  EC17F001  	CALL drawsprite_00000
+1728  0E20      	MOVLW 0x20
+172A  5E27      	SUBWF main_12_eye_anim, F
+172C  0E00      	MOVLW 0x00
+172E  5A28      	SUBWFB main_12_eye_anim+D'1', F
+1730  0E00      	MOVLW 0x00
+1732  5A29      	SUBWFB main_12_eye_anim+D'2', F
+1734  0E00      	MOVLW 0x00
+1736  5A2A      	SUBWFB main_12_eye_anim+D'3', F
+1738  0E32      	MOVLW 0x32
+173A  6E7D      	MOVWF delay_ms_00000_arg_del
+173C  EC02F000  	CALL delay_ms_00000
+1740  2A04      	INCF main_1_i, F
+1742  D780      	BRA	label268436557
+1744            label268436558
+1744  0EA0      	MOVLW 0xA0
+1746  6E27      	MOVWF main_12_eye_anim
+1748  0E6C      	MOVLW 0x6C
+174A  6E28      	MOVWF main_12_eye_anim+D'1'
+174C  0E02      	MOVLW 0x02
+174E  6E29      	MOVWF main_12_eye_anim+D'2'
+1750  6A2A      	CLRF main_12_eye_anim+D'3'
+1752  6A04      	CLRF main_1_i
+1754            label268436580
+1754  0E05      	MOVLW 0x05
+1756  6004      	CPFSLT main_1_i
+1758  D07D      	BRA	label268436581
+175A  5048      	MOVF main_12_eye_mask+D'16', W
+175C  0100      	MOVLB 0x00
+175E  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1760  5047      	MOVF main_12_eye_mask+D'15', W
+1762  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1764  5046      	MOVF main_12_eye_mask+D'14', W
+1766  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1768  5045      	MOVF main_12_eye_mask+D'13', W
+176A  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+176C  5044      	MOVF main_12_eye_mask+D'12', W
+176E  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1770  5043      	MOVF main_12_eye_mask+D'11', W
+1772  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1774  5042      	MOVF main_12_eye_mask+D'10', W
+1776  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1778  5041      	MOVF main_12_eye_mask+D'9', W
+177A  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+177C  5040      	MOVF main_12_eye_mask+D'8', W
+177E  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1780  503F      	MOVF main_12_eye_mask+D'7', W
+1782  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1784  503E      	MOVF main_12_eye_mask+D'6', W
+1786  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1788  503D      	MOVF main_12_eye_mask+D'5', W
+178A  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+178C  503C      	MOVF main_12_eye_mask+D'4', W
+178E  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1790  503B      	MOVF main_12_eye_mask+D'3', W
+1792  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1794  503A      	MOVF main_12_eye_mask+D'2', W
+1796  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1798  5039      	MOVF main_12_eye_mask+D'1', W
+179A  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+179C  5038      	MOVF main_12_eye_mask, W
+179E  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+17A0  EC17F001  	CALL drawsprite_00000
+17A4  5037      	MOVF main_12_eye_anim+D'16', W
+17A6  0100      	MOVLB 0x00
+17A8  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+17AA  5036      	MOVF main_12_eye_anim+D'15', W
+17AC  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+17AE  5035      	MOVF main_12_eye_anim+D'14', W
+17B0  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+17B2  5034      	MOVF main_12_eye_anim+D'13', W
+17B4  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+17B6  5033      	MOVF main_12_eye_anim+D'12', W
+17B8  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+17BA  5032      	MOVF main_12_eye_anim+D'11', W
+17BC  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+17BE  5031      	MOVF main_12_eye_anim+D'10', W
+17C0  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+17C2  5030      	MOVF main_12_eye_anim+D'9', W
+17C4  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+17C6  502F      	MOVF main_12_eye_anim+D'8', W
+17C8  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+17CA  502E      	MOVF main_12_eye_anim+D'7', W
+17CC  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+17CE  502D      	MOVF main_12_eye_anim+D'6', W
+17D0  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+17D2  502C      	MOVF main_12_eye_anim+D'5', W
+17D4  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+17D6  502B      	MOVF main_12_eye_anim+D'4', W
+17D8  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+17DA  502A      	MOVF main_12_eye_anim+D'3', W
+17DC  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+17DE  5029      	MOVF main_12_eye_anim+D'2', W
+17E0  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+17E2  5028      	MOVF main_12_eye_anim+D'1', W
+17E4  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+17E6  5027      	MOVF main_12_eye_anim, W
+17E8  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+17EA  EC17F001  	CALL drawsprite_00000
+17EE  0100      	MOVLB 0x00
+17F0  5190      	MOVF main_12_outline+D'16', W, 1
+17F2  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+17F4  518F      	MOVF main_12_outline+D'15', W, 1
+17F6  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+17F8  518E      	MOVF main_12_outline+D'14', W, 1
+17FA  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+17FC  518D      	MOVF main_12_outline+D'13', W, 1
+17FE  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1800  518C      	MOVF main_12_outline+D'12', W, 1
+1802  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1804  518B      	MOVF main_12_outline+D'11', W, 1
+1806  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1808  518A      	MOVF main_12_outline+D'10', W, 1
+180A  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+180C  5189      	MOVF main_12_outline+D'9', W, 1
+180E  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1810  5188      	MOVF main_12_outline+D'8', W, 1
+1812  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1814  5187      	MOVF main_12_outline+D'7', W, 1
+1816  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1818  5186      	MOVF main_12_outline+D'6', W, 1
+181A  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+181C  5185      	MOVF main_12_outline+D'5', W, 1
+181E  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+1820  5184      	MOVF main_12_outline+D'4', W, 1
+1822  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1824  5183      	MOVF main_12_outline+D'3', W, 1
+1826  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1828  5182      	MOVF main_12_outline+D'2', W, 1
+182A  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+182C  5181      	MOVF main_12_outline+D'1', W, 1
+182E  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1830  5180      	MOVF main_12_outline, W, 1
+1832  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1834  EC17F001  	CALL drawsprite_00000
+1838  0E20      	MOVLW 0x20
+183A  2627      	ADDWF main_12_eye_anim, F
+183C  0E00      	MOVLW 0x00
+183E  2228      	ADDWFC main_12_eye_anim+D'1', F
+1840  0E00      	MOVLW 0x00
+1842  2229      	ADDWFC main_12_eye_anim+D'2', F
+1844  0E00      	MOVLW 0x00
+1846  222A      	ADDWFC main_12_eye_anim+D'3', F
+1848  0E32      	MOVLW 0x32
+184A  6E7D      	MOVWF delay_ms_00000_arg_del
+184C  EC02F000  	CALL delay_ms_00000
+1850  2A04      	INCF main_1_i, F
+1852  D780      	BRA	label268436580
+1854            label268436581
+1854  687D      	SETF delay_ms_00000_arg_del
+1856  EC02F000  	CALL delay_ms_00000
+185A  5048      	MOVF main_12_eye_mask+D'16', W
+185C  0100      	MOVLB 0x00
+185E  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1860  5047      	MOVF main_12_eye_mask+D'15', W
+1862  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1864  5046      	MOVF main_12_eye_mask+D'14', W
+1866  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1868  5045      	MOVF main_12_eye_mask+D'13', W
+186A  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+186C  5044      	MOVF main_12_eye_mask+D'12', W
+186E  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1870  5043      	MOVF main_12_eye_mask+D'11', W
+1872  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1874  5042      	MOVF main_12_eye_mask+D'10', W
+1876  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1878  5041      	MOVF main_12_eye_mask+D'9', W
+187A  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+187C  5040      	MOVF main_12_eye_mask+D'8', W
+187E  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1880  503F      	MOVF main_12_eye_mask+D'7', W
+1882  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1884  503E      	MOVF main_12_eye_mask+D'6', W
+1886  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+1888  503D      	MOVF main_12_eye_mask+D'5', W
+188A  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+188C  503C      	MOVF main_12_eye_mask+D'4', W
+188E  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1890  503B      	MOVF main_12_eye_mask+D'3', W
+1892  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1894  503A      	MOVF main_12_eye_mask+D'2', W
+1896  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1898  5039      	MOVF main_12_eye_mask+D'1', W
+189A  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+189C  5038      	MOVF main_12_eye_mask, W
+189E  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+18A0  EC17F001  	CALL drawsprite_00000
+18A4  0E18      	MOVLW 0x18
+18A6  0100      	MOVLB 0x00
+18A8  6F88      	MOVWF main_12_outline+D'8', 1
+18AA  6B89      	CLRF main_12_outline+D'9', 1
+18AC  6B8A      	CLRF main_12_outline+D'10', 1
+18AE  6B8B      	CLRF main_12_outline+D'11', 1
+18B0  0EAB      	MOVLW 0xAB
+18B2  6F80      	MOVWF main_12_outline, 1
+18B4  0E7D      	MOVLW 0x7D
+18B6  6F81      	MOVWF main_12_outline+D'1', 1
+18B8  0E02      	MOVLW 0x02
+18BA  6F82      	MOVWF main_12_outline+D'2', 1
+18BC  6B83      	CLRF main_12_outline+D'3', 1
+18BE  0E2E      	MOVLW 0x2E
+18C0  6F84      	MOVWF main_12_outline+D'4', 1
+18C2  6B85      	CLRF main_12_outline+D'5', 1
+18C4  5190      	MOVF main_12_outline+D'16', W, 1
+18C6  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+18C8  518F      	MOVF main_12_outline+D'15', W, 1
+18CA  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+18CC  518E      	MOVF main_12_outline+D'14', W, 1
+18CE  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+18D0  518D      	MOVF main_12_outline+D'13', W, 1
+18D2  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+18D4  518C      	MOVF main_12_outline+D'12', W, 1
+18D6  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+18D8  518B      	MOVF main_12_outline+D'11', W, 1
+18DA  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+18DC  518A      	MOVF main_12_outline+D'10', W, 1
+18DE  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+18E0  5189      	MOVF main_12_outline+D'9', W, 1
+18E2  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+18E4  5188      	MOVF main_12_outline+D'8', W, 1
+18E6  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+18E8  5187      	MOVF main_12_outline+D'7', W, 1
+18EA  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+18EC  5186      	MOVF main_12_outline+D'6', W, 1
+18EE  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+18F0  5185      	MOVF main_12_outline+D'5', W, 1
+18F2  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+18F4  5184      	MOVF main_12_outline+D'4', W, 1
+18F6  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+18F8  5183      	MOVF main_12_outline+D'3', W, 1
+18FA  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+18FC  5182      	MOVF main_12_outline+D'2', W, 1
+18FE  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+1900  5181      	MOVF main_12_outline+D'1', W, 1
+1902  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+1904  5180      	MOVF main_12_outline, W, 1
+1906  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1908  EC17F001  	CALL drawsprite_00000
+190C  5059      	MOVF main_12_compass+D'16', W
+190E  0100      	MOVLB 0x00
+1910  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1912  5058      	MOVF main_12_compass+D'15', W
+1914  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+1916  5057      	MOVF main_12_compass+D'14', W
+1918  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+191A  5056      	MOVF main_12_compass+D'13', W
+191C  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+191E  5055      	MOVF main_12_compass+D'12', W
+1920  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1922  5054      	MOVF main_12_compass+D'11', W
+1924  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+1926  5053      	MOVF main_12_compass+D'10', W
+1928  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+192A  5052      	MOVF main_12_compass+D'9', W
+192C  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+192E  5051      	MOVF main_12_compass+D'8', W
+1930  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1932  5050      	MOVF main_12_compass+D'7', W
+1934  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+1936  504F      	MOVF main_12_compass+D'6', W
+1938  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+193A  504E      	MOVF main_12_compass+D'5', W
+193C  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+193E  504D      	MOVF main_12_compass+D'4', W
+1940  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+1942  504C      	MOVF main_12_compass+D'3', W
+1944  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+1946  504B      	MOVF main_12_compass+D'2', W
+1948  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+194A  504A      	MOVF main_12_compass+D'1', W
+194C  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+194E  5049      	MOVF main_12_compass, W
+1950  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1952  EC17F001  	CALL drawsprite_00000
+1956  0EC8      	MOVLW 0xC8
+1958  6E7D      	MOVWF delay_ms_00000_arg_del
+195A  EC02F000  	CALL delay_ms_00000
+195E  0ED9      	MOVLW 0xD9
+1960  0100      	MOVLB 0x00
+1962  6F80      	MOVWF main_12_outline, 1
+1964  0E7D      	MOVLW 0x7D
+1966  6F81      	MOVWF main_12_outline+D'1', 1
+1968  0E02      	MOVLW 0x02
+196A  6F82      	MOVWF main_12_outline+D'2', 1
+196C  6B83      	CLRF main_12_outline+D'3', 1
+196E  0E3C      	MOVLW 0x3C
+1970  6F84      	MOVWF main_12_outline+D'4', 1
+1972  6B85      	CLRF main_12_outline+D'5', 1
+1974  5190      	MOVF main_12_outline+D'16', W, 1
+1976  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+1978  518F      	MOVF main_12_outline+D'15', W, 1
+197A  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+197C  518E      	MOVF main_12_outline+D'14', W, 1
+197E  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+1980  518D      	MOVF main_12_outline+D'13', W, 1
+1982  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+1984  518C      	MOVF main_12_outline+D'12', W, 1
+1986  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+1988  518B      	MOVF main_12_outline+D'11', W, 1
+198A  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+198C  518A      	MOVF main_12_outline+D'10', W, 1
+198E  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+1990  5189      	MOVF main_12_outline+D'9', W, 1
+1992  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+1994  5188      	MOVF main_12_outline+D'8', W, 1
+1996  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+1998  5187      	MOVF main_12_outline+D'7', W, 1
+199A  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+199C  5186      	MOVF main_12_outline+D'6', W, 1
+199E  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+19A0  5185      	MOVF main_12_outline+D'5', W, 1
+19A2  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+19A4  5184      	MOVF main_12_outline+D'4', W, 1
+19A6  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+19A8  5183      	MOVF main_12_outline+D'3', W, 1
+19AA  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+19AC  5182      	MOVF main_12_outline+D'2', W, 1
+19AE  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+19B0  5181      	MOVF main_12_outline+D'1', W, 1
+19B2  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+19B4  5180      	MOVF main_12_outline, W, 1
+19B6  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+19B8  EC17F001  	CALL drawsprite_00000
+19BC  5059      	MOVF main_12_compass+D'16', W
+19BE  0100      	MOVLB 0x00
+19C0  6FA1      	MOVWF drawsprite_00000_arg_sprite+D'16', 1
+19C2  5058      	MOVF main_12_compass+D'15', W
+19C4  6FA0      	MOVWF drawsprite_00000_arg_sprite+D'15', 1
+19C6  5057      	MOVF main_12_compass+D'14', W
+19C8  6F9F      	MOVWF drawsprite_00000_arg_sprite+D'14', 1
+19CA  5056      	MOVF main_12_compass+D'13', W
+19CC  6F9E      	MOVWF drawsprite_00000_arg_sprite+D'13', 1
+19CE  5055      	MOVF main_12_compass+D'12', W
+19D0  6F9D      	MOVWF drawsprite_00000_arg_sprite+D'12', 1
+19D2  5054      	MOVF main_12_compass+D'11', W
+19D4  6F9C      	MOVWF drawsprite_00000_arg_sprite+D'11', 1
+19D6  5053      	MOVF main_12_compass+D'10', W
+19D8  6F9B      	MOVWF drawsprite_00000_arg_sprite+D'10', 1
+19DA  5052      	MOVF main_12_compass+D'9', W
+19DC  6F9A      	MOVWF drawsprite_00000_arg_sprite+D'9', 1
+19DE  5051      	MOVF main_12_compass+D'8', W
+19E0  6F99      	MOVWF drawsprite_00000_arg_sprite+D'8', 1
+19E2  5050      	MOVF main_12_compass+D'7', W
+19E4  6F98      	MOVWF drawsprite_00000_arg_sprite+D'7', 1
+19E6  504F      	MOVF main_12_compass+D'6', W
+19E8  6F97      	MOVWF drawsprite_00000_arg_sprite+D'6', 1
+19EA  504E      	MOVF main_12_compass+D'5', W
+19EC  6F96      	MOVWF drawsprite_00000_arg_sprite+D'5', 1
+19EE  504D      	MOVF main_12_compass+D'4', W
+19F0  6F95      	MOVWF drawsprite_00000_arg_sprite+D'4', 1
+19F2  504C      	MOVF main_12_compass+D'3', W
+19F4  6F94      	MOVWF drawsprite_00000_arg_sprite+D'3', 1
+19F6  504B      	MOVF main_12_compass+D'2', W
+19F8  6F93      	MOVWF drawsprite_00000_arg_sprite+D'2', 1
+19FA  504A      	MOVF main_12_compass+D'1', W
+19FC  6F92      	MOVWF drawsprite_00000_arg_sprite+D'1', 1
+19FE  5049      	MOVF main_12_compass, W
+1A00  6F91      	MOVWF drawsprite_00000_arg_sprite, 1
+1A02  EC17F001  	CALL drawsprite_00000
+1A06  0E0A      	MOVLW 0x0A
+1A08  6E7C      	MOVWF delay_s_00000_arg_del
+1A0A  EC3EF000  	CALL delay_s_00000
+1A0E  EF93F001  	GOTO	label268436072
+; } main function end
+
+	ORG 0x00001A12
+1A12            _startup
+1A12  EF84F001  	GOTO	main
