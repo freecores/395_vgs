@@ -84,7 +84,7 @@ void draw()
 {
 	porta = 00000010b;					//initialize draw
 	porta = 00000000b;					//draw command recieved, so turn off draw bit
-	while ( !(portc & 10000000b) )		//hang here till we recieve idle from GPU
+	while ( !(portd & 10000000b) )		//hang here till we recieve idle from GPU
 	{
 	}
 }

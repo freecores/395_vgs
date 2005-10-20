@@ -20,11 +20,17 @@ file_000=no
 file_001=no
 file_002=no
 file_003=no
+file_004=no
+file_005=no
+file_006=no
 [FILE_INFO]
 file_000=gpu_pic.c
 file_001=intro.c
-file_002=gpu_pic.h
-file_003=C:\Program Files\SourceBoost\Lib\libc.pic18.lib
+file_002=input.c
+file_003=gpu_pic.h
+file_004=PIC18F452.h
+file_005=input.h
+file_006=C:\Program Files\SourceBoost\Lib\libc.pic18.lib
 [SUITE_INFO]
 suite_guid={9FF1C807-9BDD-4A07-AB5C-9995D1D4A7D9}
 suite_state=
